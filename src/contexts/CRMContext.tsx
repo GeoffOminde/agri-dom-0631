@@ -39,7 +39,7 @@ export const useCRM = () => {
   const context = useContext(CRMContext);
   
   if (context === undefined) {
-    throw new Error('useCRM doit être utilisé à l\'intérieur d\'un CRMProvider');
+    throw new Error('useCRM must be used inside a CRMProvider');
   }
   
   return context;

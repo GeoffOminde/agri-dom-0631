@@ -12,8 +12,8 @@ const ParcelsDetailsPage = () => {
     handleTitleChange, 
     handleDescriptionChange 
   } = usePageMetadata({
-    defaultTitle: 'Gestion des Parcelles en Guadeloupe',
-    defaultDescription: 'Gérez, surveillez et optimisez vos parcelles agricoles à travers tout l\'archipel'
+    defaultTitle: 'Parcel Management in Guadeloupe',
+    defaultDescription: 'Manage, monitor and optimize your agricultural parcels across the archipelago'
   });
 
   return (
