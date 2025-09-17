@@ -87,8 +87,8 @@ const initialWeatherAlerts = [
 
 const Dashboard = () => {
   // State for editable content
-  const [title, setTitle] = useState('Bonjour, Agriculteur Guadeloupéen');
-  const [description, setDescription] = useState('Voici un aperçu de votre exploitation agricole en Guadeloupe');
+  const [title, setTitle] = useState('Hello, Guadeloupean Farmer');
+  const [description, setDescription] = useState('Here is an overview of your agricultural operation in Guadeloupe');
   const [currentMonth, setCurrentMonth] = useState('Août 2023');
   
   // Stats cards
@@ -123,38 +123,38 @@ const Dashboard = () => {
   // Handle changes
   const handleTitleChange = (value: string | number) => {
     setTitle(String(value));
-    toast.success('Titre mis à jour');
+    toast.success('Title updated');
   };
   
   const handleDescriptionChange = (value: string | number) => {
     setDescription(String(value));
-    toast.success('Description mise à jour');
+    toast.success('Description updated');
   };
   
   const handleMonthChange = (value: string | number) => {
     setCurrentMonth(String(value));
-    toast.success('Mois mis à jour');
+    toast.success('Month updated');
   };
   
   // Stat card updates
   const handleRevenueChange = (value: string | number) => {
     setMonthlyRevenue(Number(value));
-    toast.success('Revenu mensuel mis à jour');
+    toast.success('Monthly revenue updated');
   };
   
   const handleRevenueGrowthChange = (value: string | number) => {
     setRevenueGrowth(Number(value));
-    toast.success('Croissance du revenu mise à jour');
+    toast.success('Revenue growth updated');
   };
   
   const handleAreaChange = (value: string | number) => {
     setCultivatedArea(Number(value));
-    toast.success('Superficie cultivée mise à jour');
+    toast.success('Cultivated area updated');
   };
   
   const handleParcelsCountChange = (value: string | number) => {
     setParcelsCount(Number(value));
-    toast.success('Nombre de parcelles mis à jour');
+    toast.success('Number of parcels updated');
   };
   
   const handleYieldChange = (value: string | number) => {
@@ -279,7 +279,7 @@ const Dashboard = () => {
             onClick={handleAddTransaction}
           >
             <Wallet className="h-4 w-4 inline mr-2" />
-            Ajouter une transaction
+            Add Transaction
           </button>
         </div>
       </header>
@@ -287,7 +287,7 @@ const Dashboard = () => {
       {/* Quick Stats Row - Adapté à l'agriculture guadeloupéenne */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="stat-card card-hover">
-          <p className="stat-label">Revenu mensuel</p>
+          <p className="stat-label">Monthly Revenue</p>
           <div className="flex items-baseline justify-between mt-2">
             <p className="stat-value">
               <EditableField
@@ -310,7 +310,7 @@ const Dashboard = () => {
         </div>
         
         <div className="stat-card card-hover">
-          <p className="stat-label">Superficie cultivée</p>
+          <p className="stat-label">Cultivated Area</p>
           <div className="flex items-baseline justify-between mt-2">
             <p className="stat-value">
               <EditableField
@@ -326,13 +326,13 @@ const Dashboard = () => {
                 type="number"
                 onSave={handleParcelsCountChange}
                 className="inline-block"
-              /> parcelles
+              /> parcels
             </span>
           </div>
         </div>
         
         <div className="stat-card card-hover">
-          <p className="stat-label">Rendement moyen</p>
+          <p className="stat-label">Average Yield</p>
           <div className="flex items-baseline justify-between mt-2">
             <p className="stat-value">
               <EditableField
@@ -355,11 +355,11 @@ const Dashboard = () => {
         </div>
         
         <div className="stat-card card-hover">
-          <p className="stat-label">Alertes</p>
+          <p className="stat-label">Alerts</p>
           <div className="flex items-baseline justify-between mt-2">
             <p className="stat-value">{alertsCount}</p>
             <span className="text-agri-warning text-sm font-medium flex items-center">
-              <AlertTriangle className="h-4 w-4 mr-1" /> Récent
+              <AlertTriangle className="h-4 w-4 mr-1" /> Recent
             </span>
           </div>
         </div>
@@ -368,12 +368,12 @@ const Dashboard = () => {
       {/* Weather alerts section */}
       <div className="bg-white rounded-xl border p-6">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Alertes Météorologiques</h2>
+          <h2 className="text-xl font-semibold">Weather Alerts</h2>
           <Button 
             onClick={() => setShowAddAlertDialog(true)}
             className="bg-agri-primary hover:bg-agri-primary-dark"
           >
-            <Plus size={16} className="mr-2" /> Ajouter une alerte
+            <Plus size={16} className="mr-2" /> Add Alert
           </Button>
         </div>
         <p className="text-muted-foreground mb-6">

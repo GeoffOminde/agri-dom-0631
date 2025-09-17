@@ -396,8 +396,8 @@ const CropPlanning = () => {
     <div className="p-6 animate-enter">
       <header className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
         <div>
-          <h1 className="text-2xl font-bold mb-1">Planification des Cultures Guadeloupéennes</h1>
-          <p className="text-muted-foreground">Gérez les cultures locales et planifiez vos activités agricoles</p>
+          <h1 className="text-2xl font-bold mb-1">Guadeloupean Crop Planning</h1>
+          <p className="text-muted-foreground">Manage local crops and plan your agricultural activities</p>
         </div>
         <div className="flex space-x-2">
           <button 
@@ -408,7 +408,7 @@ const CropPlanning = () => {
             }`}
             onClick={() => setCurrentView('list')}
           >
-            Liste
+            List
           </button>
           <button 
             className={`px-4 py-2 rounded-lg transition-colors ${
@@ -418,14 +418,14 @@ const CropPlanning = () => {
             }`}
             onClick={() => setCurrentView('calendar')}
           >
-            Calendrier
+            Calendar
           </button>
           <button 
             className="inline-flex items-center justify-center px-4 py-2 bg-agri-primary text-white rounded-lg hover:bg-agri-primary-dark transition-colors whitespace-nowrap ml-2"
             onClick={() => setShowTaskForm(true)}
           >
             <Plus className="h-4 w-4 mr-2" />
-            Nouvelle tâche
+            New Task
           </button>
         </div>
       </header>
@@ -437,7 +437,7 @@ const CropPlanning = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input 
                 type="text" 
-                placeholder="Rechercher une culture..." 
+                placeholder="Search for a crop..." 
                 className="pl-10 pr-4 py-2 w-full border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -448,7 +448,7 @@ const CropPlanning = () => {
               onClick={handleAddCrop}
             >
               <Plus className="h-4 w-4 mr-2" />
-              Ajouter une culture
+              Add Crop
             </button>
           </div>
 
@@ -465,12 +465,12 @@ const CropPlanning = () => {
 
           <div className="mt-8 border rounded-xl p-6 bg-white">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Tâches à venir</h2>
+              <h2 className="text-xl font-semibold">Upcoming Tasks</h2>
               <button 
                 className="text-sm text-agri-primary hover:underline"
                 onClick={() => setShowTaskForm(true)}
               >
-                Ajouter une tâche
+                Add Task
               </button>
             </div>
             
@@ -611,7 +611,7 @@ const CropPlanning = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Ajouter une tâche</h2>
+              <h2 className="text-xl font-semibold">Add Task</h2>
               <button 
                 onClick={() => setShowTaskForm(false)}
                 className="p-1 hover:bg-muted rounded-full"
@@ -686,14 +686,14 @@ const CropPlanning = () => {
                   onClick={() => setShowTaskForm(false)}
                   className="px-4 py-2 text-sm text-foreground bg-muted rounded-md hover:bg-muted/80"
                 >
-                  Annuler
+                  Cancel
                 </button>
                 <button 
                   type="button"
                   onClick={handleSaveTask}
                   className="px-4 py-2 text-sm text-white bg-agri-primary rounded-md hover:bg-agri-primary-dark"
                 >
-                  Ajouter
+                  Add
                 </button>
               </div>
             </form>
@@ -706,7 +706,7 @@ const CropPlanning = () => {
           <div className="bg-white rounded-xl p-6 max-w-md w-full">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">
-                {editingCrop ? 'Modifier une culture' : 'Ajouter une culture'}
+                {editingCrop ? 'Edit Crop' : 'Add Crop'}
               </h2>
               <button 
                 onClick={() => setShowCropForm(false)}
@@ -857,7 +857,7 @@ const CropPlanning = () => {
                   onClick={handleSaveCrop}
                   className="px-4 py-2 text-sm text-white bg-agri-primary rounded-md hover:bg-agri-primary-dark"
                 >
-                  {editingCrop ? 'Modifier' : 'Ajouter'}
+                  {editingCrop ? 'Edit' : 'Add'}
                 </button>
               </div>
             </form>

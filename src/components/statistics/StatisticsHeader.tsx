@@ -24,9 +24,9 @@ const StatisticsHeader = () => {
 
   const handleExport = async () => {
     try {
-      console.log("Exportation des statistiques au format CSV...");
+      console.log("Exporting statistics to CSV format...");
       await exportModuleData('statistiques', 'csv');
-      console.log("Exportation réussie!");
+      console.log("Export successful!");
     } catch (error) {
       console.error("Error exporting statistics:", error);
     }
@@ -68,8 +68,8 @@ const StatisticsHeader = () => {
   return (
     <header className="flex flex-col mb-6 gap-4">
       <div>
-        <h1 className="text-xl md:text-2xl font-bold mb-1 text-gray-800">Statistiques et Analyses</h1>
-        <p className="text-sm md:text-base text-gray-500">Visualisez et analysez les données de votre exploitation</p>
+        <h1 className="text-xl md:text-2xl font-bold mb-1 text-gray-800">Statistics and Analytics</h1>
+        <p className="text-sm md:text-base text-gray-500">Visualize and analyze your farm data</p>
       </div>
       <div className="flex flex-wrap gap-2 md:gap-3 justify-start md:justify-end">
         <ReportGenerationButton 
@@ -102,7 +102,7 @@ const StatisticsHeader = () => {
               size={isMobile ? "sm" : "default"}
             >
               <Download className="h-3.5 w-3.5 md:h-4 md:w-4 mr-1.5 md:mr-2 text-gray-600" />
-              {isMobile ? "CSV" : "Exporter CSV"}
+              {isMobile ? "CSV" : "Export CSV"}
             </Button>
           </>
         ) : null}
@@ -113,31 +113,31 @@ const StatisticsHeader = () => {
           size={isMobile ? "sm" : "default"}
         >
           <Share2 className="h-3.5 w-3.5 md:h-4 md:w-4 mr-1.5 md:mr-2 text-gray-600" />
-          {isMobile ? "Partager" : "Partager"}
+          {isMobile ? "Share" : "Share"}
         </Button>
       </div>
       
       <Dialog open={shareDialogOpen} onOpenChange={setShareDialogOpen}>
         <DialogContent className="sm:max-w-md max-w-[90%]">
           <DialogHeader>
-            <DialogTitle>Partager les statistiques</DialogTitle>
+            <DialogTitle>Share Statistics</DialogTitle>
             <DialogDescription>
-              Choisissez comment vous souhaitez partager ces statistiques
+              Choose how you want to share these statistics
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-2 gap-4">
               <Button onClick={handleShareByEmail} variant="outline">
-                Envoyer par email
+                Send by Email
               </Button>
               <Button onClick={handleShareByPDF} className="bg-green-600 hover:bg-green-700">
-                Générer un PDF
+                Generate PDF
               </Button>
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShareDialogOpen(false)}>
-              Annuler
+              Cancel
             </Button>
           </DialogFooter>
         </DialogContent>

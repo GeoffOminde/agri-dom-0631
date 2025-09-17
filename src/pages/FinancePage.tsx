@@ -32,8 +32,8 @@ const FinancePage = () => {
     handleTitleChange, 
     handleDescriptionChange 
   } = usePageMetadata({
-    defaultTitle: 'Gestion Financière',
-    defaultDescription: 'Suivez vos revenus, dépenses et la rentabilité de votre exploitation agricole'
+    defaultTitle: 'Financial Management',
+    defaultDescription: 'Track your income, expenses and profitability of your agricultural operation'
   });
 
   const [timeFrame, setTimeFrame] = useState('year');

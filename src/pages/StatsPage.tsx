@@ -19,8 +19,8 @@ interface PerformanceData {
 }
 
 const StatsPage = () => {
-  const [pageTitle, setPageTitle] = useState('Statistiques et Analyses');
-  const [pageDescription, setPageDescription] = useState('Visualisez et analysez les données de votre exploitation en Guadeloupe');
+  const [pageTitle, setPageTitle] = useState('Statistics and Analytics');
+  const [pageDescription, setPageDescription] = useState('Visualize and analyze your farm data in Guadeloupe');
   const [activeView, setActiveView] = useState<'performance' | 'harvest' | 'detailed'>('performance');
   const [lastSyncDate, setLastSyncDate] = useState<Date>(new Date());
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
@@ -174,7 +174,7 @@ const StatsPage = () => {
                   }`}
                 >
                   <PieChart className="h-4 w-4 mr-1.5" />
-                  Indicateurs
+                  Indicators
                 </button>
                 
                 <button 
@@ -186,7 +186,7 @@ const StatsPage = () => {
                   }`}
                 >
                   <BarChart className="h-4 w-4 mr-1.5" />
-                  Récoltes
+                  Harvests
                 </button>
                 
                 <button 
@@ -198,7 +198,7 @@ const StatsPage = () => {
                   }`}
                 >
                   <TrendingUp className="h-4 w-4 mr-1.5" />
-                  Détaillé
+                  Detailed
                 </button>
                 
                 <PreviewPrintButton
@@ -220,7 +220,7 @@ const StatsPage = () => {
                   className="px-3 py-1.5 rounded-md flex items-center text-sm bg-muted hover:bg-muted/80 transition-colors"
                 >
                   <Download className="h-4 w-4 mr-1.5" />
-                  Exporter
+                  Export
                 </button>
                 
                 <button 
@@ -229,7 +229,7 @@ const StatsPage = () => {
                   disabled={isSyncing}
                 >
                   <RefreshCw className={`h-4 w-4 mr-1.5 ${isSyncing ? 'animate-spin' : ''}`} />
-                  {isSyncing ? 'Synchronisation...' : 'Synchroniser'}
+                  {isSyncing ? 'Synchronizing...' : 'Sync'}
                 </button>
                 
                 <button 
@@ -239,7 +239,7 @@ const StatsPage = () => {
                   className="px-3 py-1.5 rounded-md flex items-center text-sm bg-muted hover:bg-muted/80 transition-colors"
                 >
                   <Bell className="h-4 w-4 mr-1.5" />
-                  Alertes
+                  Alerts
                 </button>
               </div>
             </motion.header>

@@ -199,17 +199,17 @@ const CropsPage = () => {
   const tabs: TabItem[] = [
     {
       value: 'harvest',
-      label: 'Suivi des Récoltes',
+      label: 'Harvest Tracking',
       content: <GuadeloupeHarvestTracking />
     },
     {
       value: 'specific',
-      label: 'Cultures Spécifiques',
+      label: 'Specific Crops',
       content: <GuadeloupeSpecificCrops />
     },
     {
       value: 'planning',
-      label: 'Planification',
+      label: 'Planning',
       content: <CropPlanning />
     }
   ];
@@ -226,9 +226,9 @@ const CropsPage = () => {
           >
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
               <div>
-                <h1 className="text-3xl font-bold">Gestion des Cultures</h1>
+                <h1 className="text-3xl font-bold">Crop Management</h1>
                 <p className="text-muted-foreground">
-                  Gérez vos cultures tropicales et suivez leur rendement
+                  Manage your tropical crops and track their yield
                 </p>
               </div>
               {getTabActions()}

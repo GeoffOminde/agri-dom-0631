@@ -22,8 +22,8 @@ const ParcelsPage = () => {
     handleTitleChange, 
     handleDescriptionChange 
   } = usePageMetadata({
-    defaultTitle: 'Gestion des Parcelles',
-    defaultDescription: 'Gérez, organisez et optimisez toutes vos parcelles agricoles'
+    defaultTitle: 'Parcel Management',
+    defaultDescription: 'Manage, organize and optimize all your agricultural parcels'
   });
 
   const [searchTerm, setSearchTerm] = useState('');
