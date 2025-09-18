@@ -3,6 +3,15 @@ import React from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import L from 'leaflet';
+// Import Leaflet default marker assets locally to avoid external CDN dependency
+// These files are provided by the leaflet package
+// Vite will bundle them and serve from your app
+// @ts-ignore – allow importing image assets
+import iconUrl from 'leaflet/dist/images/marker-icon.png';
+// @ts-ignore
+import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+// @ts-ignore
+import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 interface Coordinates {
   lat: number;
@@ -16,11 +25,11 @@ interface ParcelMapProps {
   onCoordinatesChange?: (coordinates: Coordinates) => void;
 }
 
-// Custom marker icon (avoids asset path issues)
+// Custom marker icon using locally bundled assets
 const markerIcon = new L.Icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  iconUrl,
+  iconRetinaUrl,
+  shadowUrl,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],

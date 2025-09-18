@@ -16,6 +16,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 import { toast } from 'sonner';
 import { Plus, Save, Download, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { useAppSettings } from '@/contexts/AppSettingsContext';
 
 interface BudgetItem {
   id: number;
@@ -36,6 +37,7 @@ const INITIAL_BUDGET_DATA: BudgetItem[] = [
 ];
 
 const BudgetPlanning = () => {
+  const { settings: { locale } } = useAppSettings();
   const [budgetItems, setBudgetItems] = useState<BudgetItem[]>(INITIAL_BUDGET_DATA);
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [newCategory, setNewCategory] = useState('');
@@ -202,11 +204,11 @@ const BudgetPlanning = () => {
               <div className="pt-4 space-y-2">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Planned budget:</span>
-                  <span className="font-medium">{totalPlanned.toLocaleString('en-GB', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                  <span className="font-medium">{totalPlanned.toLocaleString(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Spent:</span>
-                  <span className="font-medium">{totalActual.toLocaleString('en-GB', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                  <span className="font-medium">{totalActual.toLocaleString(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
                 </div>
                 <div className="flex justify-between pt-2 border-t">
                   <span className="font-medium text-muted-foreground">Balance:</span>
@@ -215,7 +217,7 @@ const BudgetPlanning = () => {
                       totalPlanned - totalActual >= 0 ? 'text-green-600' : 'text-red-600'
                     }`}
                   >
-                    {(totalPlanned - totalActual).toLocaleString('en-GB', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                    {(totalPlanned - totalActual).toLocaleString(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                   </span>
                 </div>
               </div>
@@ -251,7 +253,7 @@ const BudgetPlanning = () => {
                   </Pie>
                   <Legend />
                   <Tooltip 
-                    formatter={(value) => new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(Number(value))}
+                    formatter={(value) => new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(Number(value))}
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -301,7 +303,7 @@ const BudgetPlanning = () => {
                           {item.category}
                         </div>
                       </td>
-                      <td className="text-right py-3 px-4">{item.planned.toLocaleString('en-GB', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</td>
+                      <td className="text-right py-3 px-4">{item.planned.toLocaleString(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</td>
                       <td className="text-right py-3 px-4">
                         <Input
                           className="w-28 text-right py-1 px-2 h-auto inline-block"
@@ -322,7 +324,7 @@ const BudgetPlanning = () => {
                         </div>
                       </td>
                       <td className={`text-right py-3 px-4 ${status === 'under' ? 'text-green-600' : 'text-red-600'}`}>
-                        {balance.toLocaleString('en-GB', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                        {balance.toLocaleString(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                       </td>
                       <td className="text-right py-3 px-4">
                         {status === 'under' ? (

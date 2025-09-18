@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAppSettings } from '@/contexts/AppSettingsContext';
+
 import { 
   Calendar as CalendarIcon, 
   ChevronLeft, 
@@ -214,6 +216,8 @@ const CropCard = ({
 };
 
 const CropPlanning = () => {
+  const { settings: { locale } } = useAppSettings();
+  
   const [cropsData, setCropsData] = useState<CropData[]>(initialCropsData);
   const [cropTasks, setCropTasks] = useState<CropTask[]>(initialCropTasks);
   const [currentView, setCurrentView] = useState<'list' | 'calendar'>('list');
@@ -277,7 +281,7 @@ const CropPlanning = () => {
   };
   
   const formatMonth = () => {
-    return currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    return currentMonth.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
   };
 
   const handleEditCrop = (crop: CropData) => {

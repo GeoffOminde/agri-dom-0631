@@ -16,11 +16,14 @@ const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 import { CRMProvider } from "./contexts/CRMContext";
 import { StatisticsProvider } from "./contexts/StatisticsContext";
-import { AppSettingsProvider } from "./contexts/AppSettingsContext";
+import { AppSettingsProvider, useAppSettings } from "./contexts/AppSettingsContext";
 import { trackPageView } from "./utils/analytics";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
+import LoadingScreen from "./components/common/LoadingScreen";
+import "./i18n";
+import i18n from "./i18n";
 
 // Define routes configuration with redirects (English primary, French legacy redirects)
 const routes = [
@@ -137,6 +140,16 @@ const RouterChangeHandler = () => {
   return null;
 };
 
+// Keep i18next language in sync with AppSettings
+const LocaleSync: React.FC = () => {
+  const { settings: { locale } } = useAppSettings();
+  useEffect(() => {
+    const lang = locale.startsWith('sw') ? 'sw' : 'en';
+    void i18n.changeLanguage(lang);
+  }, [locale]);
+  return null;
+};
+
 // Application main component with properly nested providers
 const App = () => {
   return (
@@ -147,7 +160,8 @@ const App = () => {
             <AuthProvider>
               <TooltipProvider>
                 <RouterChangeHandler />
-                <Suspense fallback={<div className="p-6">Loading...</div>}>
+                <LocaleSync />
+                <Suspense fallback={<LoadingScreen />}>
                   <Routes>
                     {routes.map((route) => (
                       <Route 
