@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DateRange } from 'react-day-picker';
 import { addDays, subDays } from 'date-fns';
 import PageLayout from '../components/layout/PageLayout';
@@ -15,14 +16,15 @@ import { FileSpreadsheet, FileBarChart2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const ParcelsPage = () => {
+  const { t } = useTranslation('common');
   const { 
     title, 
     description, 
     handleTitleChange, 
     handleDescriptionChange 
   } = usePageMetadata({
-    defaultTitle: 'Parcel Management',
-    defaultDescription: 'Manage, organize and optimize all your agricultural parcels'
+    defaultTitle: t('parcels_title'),
+    defaultDescription: t('parcels_description')
   });
 
   const [searchTerm, setSearchTerm] = useState('');

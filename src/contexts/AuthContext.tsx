@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 type User = {
@@ -19,17 +19,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const saved = localStorage.getItem('auth_user');
-    if (saved) setUser(JSON.parse(saved));
-  }, []);
-
   const login = async (email: string, password: string) => {
     // Simple demo auth: accept any non-empty
     if (email && password) {
       const nextUser = { email, name: email.split('@')[0] };
       setUser(nextUser);
-      localStorage.setItem('auth_user', JSON.stringify(nextUser));
+      // TODO: Replace with secure, HttpOnly cookie-based session managed by the backend.
+      // Avoid storing sensitive auth data in localStorage/sessionStorage to mitigate XSS risk.
       return true;
     }
     return false;
@@ -37,7 +33,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('auth_user');
     navigate('/login');
   };
 

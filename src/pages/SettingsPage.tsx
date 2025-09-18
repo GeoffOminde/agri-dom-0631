@@ -1,4 +1,5 @@
 import React from 'react';
+import i18n from '@/i18n';
 import PageLayout from '@/components/layout/PageLayout';
 import PageHeader from '@/components/layout/PageHeader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -44,10 +45,16 @@ const SettingsPage: React.FC = () => {
                 id="locale"
                 className="h-10 border rounded-md px-3"
                 value={settings.locale}
-                onChange={(e) => updateSetting('locale', e.target.value)}
+                onChange={(e) => {
+                  const nextLocale = e.target.value;
+                  updateSetting('locale', nextLocale);
+                  // Map full locale to i18n short code
+                  const lang = nextLocale.startsWith('sw') ? 'sw' : 'en';
+                  void i18n.changeLanguage(lang);
+                }}
               >
                 <option value="en-GB">English (United Kingdom)</option>
-                <option value="fr-FR">French (France)</option>
+                <option value="sw-KE">Kiswahili (Kenya)</option>
               </select>
             </div>
           </CardContent>

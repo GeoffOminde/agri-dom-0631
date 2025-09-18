@@ -1,0 +1,13 @@
+{
+  "settings": "Settings",
+  "settings_description": "Configure your application preferences",
+  "appearance": "Appearance",
+  "dark_mode": "Dark mode",
+  "localization": "Localization",
+  "locale": "Locale",
+  "en_gb": "English (United Kingdom)",
+  "fr_fr": "French (France)",
+
+  "parcels_title": "Parcel Management",
+  "parcels_description": "Manage, organize and optimize all your agricultural parcels"
+}
