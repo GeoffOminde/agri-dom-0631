@@ -17,11 +17,13 @@ import {
   Users,
   FileText
 } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const location = useLocation();
+  const { user, isAuthenticated, logout } = useAuth();
   
   // Close mobile menu when route changes
   useEffect(() => {
@@ -54,13 +56,13 @@ const Navbar = () => {
 
   const navItems = [
     { title: 'Dashboard', path: '/', icon: Home },
-    { title: 'Parcels', path: '/parcelles', icon: MapPin },
-    { title: 'Crops', path: '/cultures', icon: Sprout },
-    { title: 'Inventory', path: '/inventaire', icon: Package },
-    { title: 'Finance', path: '/finances', icon: Wallet },
-    { title: 'Statistics', path: '/statistiques', icon: BarChart2 },
-    { title: 'Reports', path: '/rapports', icon: FileText },
-    { title: 'Settings', path: '/parametres', icon: Settings },
+    { title: 'Parcels', path: '/parcels', icon: MapPin },
+    { title: 'Crops', path: '/crops', icon: Sprout },
+    { title: 'Inventory', path: '/inventory', icon: Package },
+    { title: 'Finance', path: '/finance', icon: Wallet },
+    { title: 'Statistics', path: '/statistics', icon: BarChart2 },
+    { title: 'Reports', path: '/reports', icon: FileText },
+    { title: 'Settings', path: '/settings', icon: Settings },
   ];
 
   const isActive = (path: string) => {
@@ -128,15 +130,31 @@ const Navbar = () => {
         </nav>
 
         <div className="p-4 border-t border-border">
-          <div className="flex items-center space-x-3 px-3 py-2">
-            <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
-              <span className="text-sm font-medium">AD</span>
+          {isAuthenticated ? (
+            <div className="flex items-center justify-between px-3 py-2">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                  <span className="text-sm font-medium">
+                    {user?.name?.charAt(0).toUpperCase() || 'U'}
+                  </span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">{user?.name || 'User'}</p>
+                  <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+                </div>
+              </div>
+              <button 
+                onClick={logout}
+                className="text-xs px-3 py-1 border rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                Logout
+              </button>
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">User</p>
-              <p className="text-xs text-muted-foreground truncate">farmer@example.com</p>
+          ) : (
+            <div className="px-3 py-2">
+              <Link to="/login" className="text-sm text-agri-primary hover:underline">Login</Link>
             </div>
-          </div>
+          )}
         </div>
       </aside>
 

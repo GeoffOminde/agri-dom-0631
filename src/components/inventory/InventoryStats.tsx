@@ -26,9 +26,9 @@ const InventoryStats: React.FC<InventoryStatsProps> = ({
     const totalItems = inventoryData.length;
     
     if (lowStockItems === 0) return { label: 'Excellent', color: 'text-green-500' };
-    if (lowStockItems / totalItems < 0.1) return { label: 'Bon', color: 'text-lime-500' };
-    if (lowStockItems / totalItems < 0.25) return { label: 'Moyen', color: 'text-amber-500' };
-    return { label: 'Attention', color: 'text-red-500' };
+    if (lowStockItems / totalItems < 0.1) return { label: 'Good', color: 'text-lime-500' };
+    if (lowStockItems / totalItems < 0.25) return { label: 'Average', color: 'text-amber-500' };
+    return { label: 'Warning', color: 'text-red-500' };
   };
 
   const healthStatus = getInventoryHealthStatus();
@@ -38,7 +38,7 @@ const InventoryStats: React.FC<InventoryStatsProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="bg-white rounded-xl border">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Valeur totale</CardTitle>
+            <CardTitle className="text-lg">Total value</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold">{getTotalInventoryValue()} €</p>
@@ -47,13 +47,13 @@ const InventoryStats: React.FC<InventoryStatsProps> = ({
         
         <Card className="bg-white rounded-xl border">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Articles</CardTitle>
+            <CardTitle className="text-lg">Items</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col">
               <p className="text-3xl font-bold">{inventoryData.length}</p>
               <p className="text-muted-foreground">
-                {getLowStockItems()} à réapprovisionner
+                {getLowStockItems()} to restock
               </p>
             </div>
           </CardContent>
@@ -61,7 +61,7 @@ const InventoryStats: React.FC<InventoryStatsProps> = ({
         
         <Card className="bg-white rounded-xl border">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg">État du stock</CardTitle>
+            <CardTitle className="text-lg">Stock status</CardTitle>
           </CardHeader>
           <CardContent>
             <p className={`text-3xl font-bold ${healthStatus.color}`}>{healthStatus.label}</p>
@@ -71,7 +71,7 @@ const InventoryStats: React.FC<InventoryStatsProps> = ({
       
       <Card className="bg-white rounded-xl border">
         <CardHeader>
-          <CardTitle>Répartition par catégorie</CardTitle>
+          <CardTitle>Breakdown by category</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
@@ -95,7 +95,7 @@ const InventoryStats: React.FC<InventoryStatsProps> = ({
                   fill="#4CAF50" 
                   radius={[4, 4, 0, 0]} 
                   fillOpacity={1} 
-                  name="Quantité"
+                  name="Quantity"
                 />
               </BarChart>
             </ResponsiveContainer>

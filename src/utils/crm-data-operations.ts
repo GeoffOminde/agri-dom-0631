@@ -20,11 +20,11 @@ export const exportToCSV = (data: any[], fileName: string): boolean => {
     link.click();
     document.body.removeChild(link);
     
-    toast.success("Données exportées avec succès au format CSV");
+    toast.success("Data exported successfully to CSV");
     return true;
   } catch (error) {
     console.error("Export error:", error);
-    toast.error("Erreur lors de l'exportation des données");
+    toast.error("Error while exporting data");
     return false;
   }
 };
@@ -39,7 +39,7 @@ export const exportToExcel = (data: any[], fileName: string): boolean => {
     return exportToCSV(data, fileName);
   } catch (error) {
     console.error("Export error:", error);
-    toast.error("Erreur lors de l'exportation des données");
+    toast.error("Error while exporting data");
     return false;
   }
 };
@@ -50,7 +50,7 @@ export const exportToExcel = (data: any[], fileName: string): boolean => {
 export const exportToPDF = async (data: any[], fileName: string, options: any = {}): Promise<boolean> => {
   try {
     // Show toast notification
-    toast.info("Génération du PDF en cours...");
+    toast.info("Generating PDF...");
     
     // Create HTML content based on template type
     let htmlContent = '';
@@ -58,7 +58,7 @@ export const exportToPDF = async (data: any[], fileName: string, options: any = 
     if (options.template === 'technical_sheet' && data.length > 0) {
       // Create technical sheet layout
       const item = data[0];
-      htmlContent = createTechnicalSheetHTML(item, options.title || 'Fiche Technique');
+      htmlContent = createTechnicalSheetHTML(item, options.title || 'Technical Sheet');
     } else if (options.template === 'report' && data.length > 0) {
       // Create report layout
       htmlContent = createReportHTML(data, options.title || fileName, options.columns || []);
@@ -71,7 +71,7 @@ export const exportToPDF = async (data: any[], fileName: string, options: any = 
     const printWindow = window.open('', '_blank');
     
     if (!printWindow) {
-      toast.error("Impossible d'ouvrir la fenêtre d'impression");
+      toast.error("Unable to open print window");
       return false;
     }
     
@@ -85,17 +85,17 @@ export const exportToPDF = async (data: any[], fileName: string, options: any = 
       try {
         printWindow.focus();
         printWindow.print();
-        toast.success("PDF généré avec succès");
+        toast.success("PDF generated successfully");
       } catch (printError) {
         console.error("Print error:", printError);
-        toast.error("Erreur lors de l'impression du PDF");
+        toast.error("Error while printing the PDF");
       }
     }, 1000);
     
     return true;
   } catch (error) {
     console.error("PDF export error:", error);
-    toast.error("Erreur lors de la génération du PDF");
+    toast.error("Error while generating the PDF");
     return false;
   }
 };
@@ -133,14 +133,14 @@ const createTechnicalSheetHTML = (item: any, title: string): string => {
           </div>
           
           <div class="section">
-            <h2>Informations générales</h2>
+            <h2>General Information</h2>
             <div class="property-grid">
               <div class="property">
-                <span class="property-label">Famille:</span>
+                <span class="property-label">Family:</span>
                 ${item.famille || ''}
               </div>
               <div class="property">
-                <span class="property-label">Origine:</span>
+                <span class="property-label">Origin:</span>
                 ${item.origine || ''}
               </div>
               <div class="property">
@@ -148,47 +148,47 @@ const createTechnicalSheetHTML = (item: any, title: string): string => {
                 ${item.type || ''}
               </div>
               <div class="property">
-                <span class="property-label">Saison de culture:</span>
+                <span class="property-label">Growing season:</span>
                 ${item.saisonCulture || ''}
               </div>
             </div>
           </div>
           
           <div class="section">
-            <h2>Conditions de culture</h2>
+            <h2>Cultivation conditions</h2>
             <div class="property-grid">
               <div class="property">
-                <span class="property-label">Type de sol:</span>
+                <span class="property-label">Soil type:</span>
                 ${item.typeSol || ''}
               </div>
               <div class="property">
-                <span class="property-label">Besoin en eau:</span>
+                <span class="property-label">Water requirement:</span>
                 ${item.besoinEau || ''}
               </div>
               <div class="property">
-                <span class="property-label">Fertilisation:</span>
+                <span class="property-label">Fertilization:</span>
                 ${item.fertilisation || ''}
               </div>
               <div class="property">
-                <span class="property-label">Période de récolte:</span>
+                <span class="property-label">Harvest period:</span>
                 ${item.periodeRecolte || ''}
               </div>
               <div class="property">
-                <span class="property-label">Rendement par hectare:</span>
+                <span class="property-label">Yield per hectare:</span>
                 ${item.rendementHectare || ''}
               </div>
             </div>
           </div>
           
           <div class="section">
-            <h2>Problèmes phytosanitaires</h2>
+            <h2>Plant health issues</h2>
             <div class="property-grid">
               <div class="property">
-                <span class="property-label">Ravageurs:</span>
+                <span class="property-label">Pests:</span>
                 ${item.ravageurs || ''}
               </div>
               <div class="property">
-                <span class="property-label">Maladies:</span>
+                <span class="property-label">Diseases:</span>
                 ${item.maladies || ''}
               </div>
             </div>
@@ -197,7 +197,7 @@ const createTechnicalSheetHTML = (item: any, title: string): string => {
           <div class="section">
             <h2>Notes</h2>
             <div class="notes">
-              ${item.notes || 'Aucune note disponible'}
+              ${item.notes || 'No notes available'}
             </div>
           </div>
         </div>
@@ -221,7 +221,7 @@ const createReportHTML = (data: any[], title: string, columns: { key: string, he
     return `<tr>${cells}</tr>`;
   }).join('');
 
-  const currentDate = new Date().toLocaleDateString('fr-FR', {
+  const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
@@ -262,7 +262,7 @@ const createReportHTML = (data: any[], title: string, columns: { key: string, he
           </div>
           
           <div class="report-summary">
-            <p>Ce rapport contient ${data.length} enregistrement${data.length > 1 ? 's' : ''} au total.</p>
+            <p>This report contains ${data.length} record${data.length !== 1 ? 's' : ''} in total.</p>
           </div>
           
           <table>
@@ -275,7 +275,7 @@ const createReportHTML = (data: any[], title: string, columns: { key: string, he
           </table>
           
           <div class="footer">
-            <p>Agri Dom - Rapport généré le ${currentDate}</p>
+            <p>Agri Dom - Report generated on ${currentDate}</p>
           </div>
         </div>
       </body>
@@ -348,17 +348,17 @@ export const importFromCSV = (file: File): Promise<any[]> => {
         const parsedData = results.data as any[];
         
         if (parsedData.length === 0) {
-          toast.error("Aucune donnée valide n'a été trouvée dans le fichier");
+          toast.error("No valid data found in the file");
           reject("No valid data found");
           return;
         }
         
-        toast.success(`${parsedData.length} enregistrements importés avec succès`);
+        toast.success(`${parsedData.length} record(s) imported successfully`);
         resolve(parsedData);
       },
       error: (error) => {
         console.error("Import error:", error);
-        toast.error("Erreur lors de l'importation des données");
+        toast.error("Error while importing data");
         reject(error);
       }
     });
@@ -394,7 +394,7 @@ export const printData = (
       const printWindow = window.open('', '_blank');
       
       if (!printWindow) {
-        toast.error("Impossible d'ouvrir la fenêtre d'impression");
+        toast.error("Unable to open print window");
         resolve(false);
         return;
       }
@@ -409,18 +409,18 @@ export const printData = (
         try {
           printWindow.focus();
           printWindow.print();
-          toast.success("Document prêt pour impression");
+          toast.success("Document ready for printing");
           resolve(true);
         } catch (printError) {
           console.error("Print error:", printError);
-          toast.error("Erreur lors de l'impression");
+          toast.error("Error while printing");
           resolve(false);
         }
       }, 1000);
       
     } catch (error) {
       console.error("Print error:", error);
-      toast.error("Erreur lors de la préparation de l'impression");
+      toast.error("Error while preparing the print");
       resolve(false);
     }
   });

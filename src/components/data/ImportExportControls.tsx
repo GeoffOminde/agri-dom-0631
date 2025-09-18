@@ -31,7 +31,7 @@ const ImportExportControls: React.FC<ImportExportControlsProps> = ({
   
   const handleImportConfirm = async () => {
     if (!selectedFile) {
-      console.error("Aucun fichier sélectionné");
+      console.error("No file selected");
       return;
     }
     
@@ -79,7 +79,7 @@ const ImportExportControls: React.FC<ImportExportControlsProps> = ({
         onClick={handleExportClick}
       >
         <Download className="h-4 w-4" />
-        Exporter
+        Export
       </Button>
       
       <Button
@@ -88,7 +88,7 @@ const ImportExportControls: React.FC<ImportExportControlsProps> = ({
         onClick={handleImportClick}
       >
         <Upload className="h-4 w-4" />
-        Importer
+        Import
       </Button>
       
       <Button
@@ -97,18 +97,18 @@ const ImportExportControls: React.FC<ImportExportControlsProps> = ({
         onClick={handlePrintClick}
       >
         <Printer className="h-4 w-4" />
-        Imprimer
+        Print
       </Button>
       
       {/* Import Dialog */}
       <Dialog open={importDialogOpen} onOpenChange={setImportDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Importer des données</DialogTitle>
+            <DialogTitle>Import data</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="file">Fichier CSV</Label>
+              <Label htmlFor="file">CSV file</Label>
               <input 
                 type="file" 
                 id="file" 
@@ -118,13 +118,13 @@ const ImportExportControls: React.FC<ImportExportControlsProps> = ({
               />
             </div>
             <p className="text-sm text-muted-foreground">
-              Les données seront importées dans le module {moduleName}. 
-              Assurez-vous que le fichier est au format CSV.
+              Data will be imported into the {moduleName} module.
+              Make sure the file is in CSV format.
             </p>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setImportDialogOpen(false)}>Annuler</Button>
-            <Button onClick={handleImportConfirm}>Importer</Button>
+            <Button variant="outline" onClick={() => setImportDialogOpen(false)}>Cancel</Button>
+            <Button onClick={handleImportConfirm}>Import</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -133,11 +133,11 @@ const ImportExportControls: React.FC<ImportExportControlsProps> = ({
       <Dialog open={exportDialogOpen} onOpenChange={setExportDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Exporter des données</DialogTitle>
+            <DialogTitle>Export data</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label>Format d'export</Label>
+              <Label>Export format</Label>
               <div className="flex gap-2">
                 <Button 
                   variant={exportFormat === 'csv' ? 'default' : 'outline'}
@@ -164,8 +164,8 @@ const ImportExportControls: React.FC<ImportExportControlsProps> = ({
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setExportDialogOpen(false)}>Annuler</Button>
-            <Button onClick={handleExportConfirm}>Exporter</Button>
+            <Button variant="outline" onClick={() => setExportDialogOpen(false)}>Cancel</Button>
+            <Button onClick={handleExportConfirm}>Export</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

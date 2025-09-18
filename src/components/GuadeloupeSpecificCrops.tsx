@@ -27,15 +27,15 @@ const GuadeloupeSpecificCrops = () => {
 
   const handleAddCulture = () => {
     setShowAddForm(true);
-    console.log("Ouverture du formulaire d'ajout de culture");
+    console.log("Opening add crop form");
   };
 
   const handleExportData = async (format: 'csv' | 'pdf' = 'csv') => {
-    console.log(`Export en cours au format ${format}...`);
+    console.log(`Export in progress in ${format} format...`);
     const success = await exportModuleData('cultures', format);
     
     if (success) {
-      console.log(`Les données des cultures ont été exportées en ${format.toUpperCase()}`);
+      console.log(`Crop data has been exported as ${format.toUpperCase()}`);
     }
   };
 
@@ -48,21 +48,21 @@ const GuadeloupeSpecificCrops = () => {
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      console.log(`Import ${file.name} en cours...`);
+      console.log(`Importing ${file.name}...`);
       const success = await importModuleData('cultures', file);
       
       if (success) {
-        console.log("Import réussi - Les données des cultures ont été mises à jour");
+        console.log("Import successful - Crop data has been updated");
       }
     }
   };
 
   const filterOptions = [
-    { value: 'all', label: 'Toutes les cultures' },
+    { value: 'all', label: 'All crops' },
     { value: 'fruits', label: 'Fruits' },
-    { value: 'vegetables', label: 'Légumes' },
-    { value: 'tubers', label: 'Tubercules' },
-    { value: 'cash', label: 'Cultures de rente' }
+    { value: 'vegetables', label: 'Vegetables' },
+    { value: 'tubers', label: 'Tubers' },
+    { value: 'cash', label: 'Cash crops' }
   ];
 
   return (
@@ -74,19 +74,19 @@ const GuadeloupeSpecificCrops = () => {
     >
       <div className="flex justify-between items-center mb-4">
         <div>
-          <h2 className="text-xl font-bold">Cultures Spécifiques de Guadeloupe</h2>
-          <p className="text-muted-foreground">Gérez les informations sur vos cultures locales</p>
+          <h2 className="text-xl font-bold">Guadeloupe Specific Crops</h2>
+          <p className="text-muted-foreground">Manage information about your local crops</p>
         </div>
         <div className="flex space-x-2">
           <PreviewPrintButton 
             data={culturesData}
             moduleName="cultures"
-            title="Cultures Spécifiques de Guadeloupe"
+            title="Guadeloupe Specific Crops"
             columns={[
-              { key: "nom", header: "Nom" },
-              { key: "variete", header: "Variété" },
-              { key: "dateDebut", header: "Date de début" },
-              { key: "dateFin", header: "Date de fin" }
+              { key: "nom", header: "Name" },
+              { key: "variete", header: "Variety" },
+              { key: "dateDebut", header: "Start date" },
+              { key: "dateFin", header: "End date" }
             ]}
           />
           
@@ -94,7 +94,7 @@ const GuadeloupeSpecificCrops = () => {
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="transition-colors hover:bg-gray-100">
                 <Download className="mr-2 h-4 w-4" />
-                Exporter
+                Export
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-white border shadow-lg">
@@ -111,13 +111,13 @@ const GuadeloupeSpecificCrops = () => {
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="transition-colors hover:bg-gray-100">
                 <Upload className="mr-2 h-4 w-4" />
-                Importer
+                Import
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-white border shadow-lg">
               <DropdownMenuItem onClick={handleImportClick} className="cursor-pointer">
                 <FileUp className="mr-2 h-4 w-4" />
-                Sélectionner un fichier
+                Select a file
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -135,7 +135,7 @@ const GuadeloupeSpecificCrops = () => {
             className="transition-colors hover:bg-green-700"
           >
             <Plus className="mr-2 h-4 w-4" />
-            Ajouter une culture
+            Add a crop
           </Button>
         </div>
       </div>
@@ -145,7 +145,7 @@ const GuadeloupeSpecificCrops = () => {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input 
             type="text" 
-            placeholder="Rechercher une culture..." 
+            placeholder="Search a crop..." 
             className="pl-10 transition-all focus:border-green-500"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}

@@ -52,18 +52,18 @@ interface RainfallData {
 }
 
 const formSchema = z.object({
-  month: z.string().min(1, { message: "Le mois est requis" }),
-  year: z.coerce.number().min(2000, { message: "Année invalide" }).max(2100),
-  amount: z.coerce.number().min(0, { message: "Valeur invalide" }),
-  location: z.string().min(1, { message: "La région est requise" }),
+  month: z.string().min(1, { message: "Month is required" }),
+  year: z.coerce.number().min(2000, { message: "Invalid year" }).max(2100),
+  amount: z.coerce.number().min(0, { message: "Invalid value" }),
+  location: z.string().min(1, { message: "Region is required" }),
   impact: z.enum(['Positive', 'Neutral', 'Negative']),
   notes: z.string().optional(),
 });
 
 const GuadeloupeRainfallTracking = () => {
   const { toast } = useToast();
-  const [title, setTitle] = useState('Suivi des Précipitations en Guadeloupe');
-  const [description, setDescription] = useState('Visualisation des données pluviométriques pour optimiser la gestion des cultures');
+  const [title, setTitle] = useState('Guadeloupe Rainfall Tracking');
+  const [description, setDescription] = useState('Visualize rainfall data to optimize crop management');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterYear, setFilterYear] = useState('all');
   const [filterLocation, setFilterLocation] = useState('all');
@@ -73,7 +73,7 @@ const GuadeloupeRainfallTracking = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      month: "Janvier",
+      month: "January",
       year: new Date().getFullYear(),
       amount: 0,
       location: "Basse-Terre",
@@ -83,44 +83,44 @@ const GuadeloupeRainfallTracking = () => {
   });
   
   const [rainfallData, setRainfallData] = useState<RainfallData[]>([
-    { id: 1, month: 'Janvier', year: 2023, amount: 210, location: 'Basse-Terre', impact: 'Positive', notes: 'Bon démarrage pour les cultures' },
-    { id: 2, month: 'Février', year: 2023, amount: 180, location: 'Basse-Terre', impact: 'Positive' },
-    { id: 3, month: 'Mars', year: 2023, amount: 150, location: 'Basse-Terre', impact: 'Neutral' },
-    { id: 4, month: 'Avril', year: 2023, amount: 120, location: 'Basse-Terre', impact: 'Neutral' },
-    { id: 5, month: 'Mai', year: 2023, amount: 90, location: 'Basse-Terre', impact: 'Negative', notes: 'Début de sécheresse' },
-    { id: 6, month: 'Juin', year: 2023, amount: 60, location: 'Basse-Terre', impact: 'Negative' },
-    { id: 7, month: 'Juillet', year: 2023, amount: 45, location: 'Basse-Terre', impact: 'Negative' },
-    { id: 8, month: 'Août', year: 2023, amount: 70, location: 'Basse-Terre', impact: 'Neutral' },
-    { id: 9, month: 'Septembre', year: 2023, amount: 90, location: 'Basse-Terre', impact: 'Neutral' },
-    { id: 10, month: 'Octobre', year: 2023, amount: 140, location: 'Basse-Terre', impact: 'Positive' },
-    { id: 11, month: 'Novembre', year: 2023, amount: 190, location: 'Basse-Terre', impact: 'Positive' },
-    { id: 12, month: 'Décembre', year: 2023, amount: 230, location: 'Basse-Terre', impact: 'Positive' },
-    { id: 13, month: 'Janvier', year: 2023, amount: 90, location: 'Grande-Terre', impact: 'Neutral' },
-    { id: 14, month: 'Février', year: 2023, amount: 85, location: 'Grande-Terre', impact: 'Neutral' },
-    { id: 15, month: 'Mars', year: 2023, amount: 75, location: 'Grande-Terre', impact: 'Neutral' },
-    { id: 16, month: 'Avril', year: 2023, amount: 65, location: 'Grande-Terre', impact: 'Negative' },
-    { id: 17, month: 'Mai', year: 2023, amount: 50, location: 'Grande-Terre', impact: 'Negative' },
-    { id: 18, month: 'Juin', year: 2023, amount: 40, location: 'Grande-Terre', impact: 'Negative' },
-    { id: 19, month: 'Juillet', year: 2023, amount: 30, location: 'Grande-Terre', impact: 'Negative', notes: 'Sécheresse sévère' },
-    { id: 20, month: 'Août', year: 2023, amount: 45, location: 'Grande-Terre', impact: 'Negative' },
-    { id: 21, month: 'Septembre', year: 2023, amount: 60, location: 'Grande-Terre', impact: 'Neutral' },
-    { id: 22, month: 'Octobre', year: 2023, amount: 80, location: 'Grande-Terre', impact: 'Neutral' },
-    { id: 23, month: 'Novembre', year: 2023, amount: 95, location: 'Grande-Terre', impact: 'Positive' },
-    { id: 24, month: 'Décembre', year: 2023, amount: 110, location: 'Grande-Terre', impact: 'Positive' },
-    { id: 25, month: 'Janvier', year: 2024, amount: 215, location: 'Basse-Terre', impact: 'Positive' },
-    { id: 26, month: 'Février', year: 2024, amount: 185, location: 'Basse-Terre', impact: 'Positive' },
-    { id: 27, month: 'Mars', year: 2024, amount: 160, location: 'Basse-Terre', impact: 'Positive' },
-    { id: 28, month: 'Janvier', year: 2024, amount: 95, location: 'Grande-Terre', impact: 'Neutral' },
-    { id: 29, month: 'Février', year: 2024, amount: 90, location: 'Grande-Terre', impact: 'Neutral' },
-    { id: 30, month: 'Mars', year: 2024, amount: 80, location: 'Grande-Terre', impact: 'Neutral' },
+    { id: 1, month: 'January', year: 2023, amount: 210, location: 'Basse-Terre', impact: 'Positive', notes: 'Good start for crops' },
+    { id: 2, month: 'February', year: 2023, amount: 180, location: 'Basse-Terre', impact: 'Positive' },
+    { id: 3, month: 'March', year: 2023, amount: 150, location: 'Basse-Terre', impact: 'Neutral' },
+    { id: 4, month: 'April', year: 2023, amount: 120, location: 'Basse-Terre', impact: 'Neutral' },
+    { id: 5, month: 'May', year: 2023, amount: 90, location: 'Basse-Terre', impact: 'Negative', notes: 'Start of drought' },
+    { id: 6, month: 'June', year: 2023, amount: 60, location: 'Basse-Terre', impact: 'Negative' },
+    { id: 7, month: 'July', year: 2023, amount: 45, location: 'Basse-Terre', impact: 'Negative' },
+    { id: 8, month: 'August', year: 2023, amount: 70, location: 'Basse-Terre', impact: 'Neutral' },
+    { id: 9, month: 'September', year: 2023, amount: 90, location: 'Basse-Terre', impact: 'Neutral' },
+    { id: 10, month: 'October', year: 2023, amount: 140, location: 'Basse-Terre', impact: 'Positive' },
+    { id: 11, month: 'November', year: 2023, amount: 190, location: 'Basse-Terre', impact: 'Positive' },
+    { id: 12, month: 'December', year: 2023, amount: 230, location: 'Basse-Terre', impact: 'Positive' },
+    { id: 13, month: 'January', year: 2023, amount: 90, location: 'Grande-Terre', impact: 'Neutral' },
+    { id: 14, month: 'February', year: 2023, amount: 85, location: 'Grande-Terre', impact: 'Neutral' },
+    { id: 15, month: 'March', year: 2023, amount: 75, location: 'Grande-Terre', impact: 'Neutral' },
+    { id: 16, month: 'April', year: 2023, amount: 65, location: 'Grande-Terre', impact: 'Negative' },
+    { id: 17, month: 'May', year: 2023, amount: 50, location: 'Grande-Terre', impact: 'Negative' },
+    { id: 18, month: 'June', year: 2023, amount: 40, location: 'Grande-Terre', impact: 'Negative' },
+    { id: 19, month: 'July', year: 2023, amount: 30, location: 'Grande-Terre', impact: 'Negative', notes: 'Severe drought' },
+    { id: 20, month: 'August', year: 2023, amount: 45, location: 'Grande-Terre', impact: 'Negative' },
+    { id: 21, month: 'September', year: 2023, amount: 60, location: 'Grande-Terre', impact: 'Neutral' },
+    { id: 22, month: 'October', year: 2023, amount: 80, location: 'Grande-Terre', impact: 'Neutral' },
+    { id: 23, month: 'November', year: 2023, amount: 95, location: 'Grande-Terre', impact: 'Positive' },
+    { id: 24, month: 'December', year: 2023, amount: 110, location: 'Grande-Terre', impact: 'Positive' },
+    { id: 25, month: 'January', year: 2024, amount: 215, location: 'Basse-Terre', impact: 'Positive' },
+    { id: 26, month: 'February', year: 2024, amount: 185, location: 'Basse-Terre', impact: 'Positive' },
+    { id: 27, month: 'March', year: 2024, amount: 160, location: 'Basse-Terre', impact: 'Positive' },
+    { id: 28, month: 'January', year: 2024, amount: 95, location: 'Grande-Terre', impact: 'Neutral' },
+    { id: 29, month: 'February', year: 2024, amount: 90, location: 'Grande-Terre', impact: 'Neutral' },
+    { id: 30, month: 'March', year: 2024, amount: 80, location: 'Grande-Terre', impact: 'Neutral' },
   ]);
   
   // Colonnes pour le tableau éditable
   const columns: Column[] = [
-    { id: 'month', header: 'Mois', accessorKey: 'month', isEditable: true },
-    { id: 'year', header: 'Année', accessorKey: 'year', type: 'number', isEditable: true },
-    { id: 'amount', header: 'Précipitations (mm)', accessorKey: 'amount', type: 'number', isEditable: true },
-    { id: 'location', header: 'Région', accessorKey: 'location', isEditable: true },
+    { id: 'month', header: 'Month', accessorKey: 'month', isEditable: true },
+    { id: 'year', header: 'Year', accessorKey: 'year', type: 'number', isEditable: true },
+    { id: 'amount', header: 'Rainfall (mm)', accessorKey: 'amount', type: 'number', isEditable: true },
+    { id: 'location', header: 'Region', accessorKey: 'location', isEditable: true },
     { id: 'impact', header: 'Impact', accessorKey: 'impact', isEditable: true, options: ['Positive', 'Neutral', 'Negative'] },
     { id: 'notes', header: 'Notes', accessorKey: 'notes', isEditable: true }
   ];
@@ -129,16 +129,16 @@ const GuadeloupeRainfallTracking = () => {
   const handleTitleChange = (value: string | number) => {
     setTitle(String(value));
     toast({
-      title: "Titre mis à jour",
-      description: "Le titre du module a été modifié avec succès"
+      title: "Title updated",
+      description: "Module title has been updated successfully"
     });
   };
   
   const handleDescriptionChange = (value: string | number) => {
     setDescription(String(value));
     toast({
-      title: "Description mise à jour",
-      description: "La description du module a été modifiée avec succès"
+      title: "Description updated",
+      description: "Module description has been updated successfully"
     });
   };
   
@@ -159,7 +159,7 @@ const GuadeloupeRainfallTracking = () => {
   const uniqueMonths = Array.from(new Set(filteredData.map(item => item.month)));
   const uniqueLocations = Array.from(new Set(filteredData.map(item => item.location)));
   
-  // Créer les données agrégées par mois pour le graphique
+  // Create aggregated monthly data for chart
   const chartData = uniqueMonths.map(month => {
     const dataPoint: any = { month };
     
@@ -190,8 +190,8 @@ const GuadeloupeRainfallTracking = () => {
       setRainfallData(newData);
       
       toast({
-        title: "Données mises à jour",
-        description: `Enregistrement des précipitations pour ${updatedItem.month} ${updatedItem.year} mis à jour`
+        title: "Data updated",
+        description: `Rainfall record for ${updatedItem.month} ${updatedItem.year} updated`
       });
     }
   };
@@ -203,12 +203,12 @@ const GuadeloupeRainfallTracking = () => {
     setRainfallData(newData);
     
     toast({
-      title: "Données supprimées",
-      description: "Enregistrement supprimé avec succès"
+      title: "Data deleted",
+      description: "Record deleted successfully"
     });
   };
   
-  // Ajouter une nouvelle ligne
+  // Add a new row
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     const newId = Math.max(0, ...rainfallData.map(item => item.id)) + 1;
     
@@ -227,8 +227,8 @@ const GuadeloupeRainfallTracking = () => {
     form.reset();
     
     toast({
-      title: "Données ajoutées",
-      description: `Nouvel enregistrement ajouté pour ${newRow.month} ${newRow.year}`
+      title: "Data added",
+      description: `New record added for ${newRow.month} ${newRow.year}`
     });
   };
   
@@ -247,14 +247,14 @@ const GuadeloupeRainfallTracking = () => {
     // Créer un lien et cliquer dessus pour télécharger
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `precipitations_guadeloupe_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', `guadeloupe_rainfall_${new Date().toISOString().split('T')[0]}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     
     toast({
-      title: "Téléchargement terminé",
-      description: "Exportation des données de précipitations au format CSV réussie"
+      title: "Download complete",
+      description: "Rainfall data exported to CSV successfully"
     });
   };
   
@@ -295,13 +295,13 @@ const GuadeloupeRainfallTracking = () => {
       if (importedData.length > 0) {
         setRainfallData([...rainfallData, ...importedData]);
         toast({
-          title: "Import réussi",
-          description: `${importedData.length} enregistrements ont été importés avec succès`
+          title: "Import successful",
+          description: `${importedData.length} record(s) imported successfully`
         });
       } else {
         toast({
-          title: "Aucune donnée importée",
-          description: "Le fichier ne contient pas de données valides"
+          title: "No data imported",
+          description: "The file does not contain valid data"
         });
       }
     };
@@ -327,10 +327,10 @@ const GuadeloupeRainfallTracking = () => {
   
   const stats = calculateStatistics();
   
-  // Années uniques pour le filtre
+  // Unique years for filter
   const uniqueYears = Array.from(new Set(rainfallData.map(item => item.year))).sort((a, b) => b - a);
   
-  // Obtenir la classe CSS pour l'impact
+  // Get CSS class for impact
   const getImpactClass = (impact: string) => {
     switch (impact) {
       case 'Positive': return 'text-agri-success';
@@ -368,12 +368,12 @@ const GuadeloupeRainfallTracking = () => {
           </p>
         </div>
         
-        {/* Statistiques */}
+        {/* Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-muted/30 rounded-lg p-4 border flex items-center space-x-3 hover:border-blue-200 transition-all">
             <Droplets className="h-8 w-8 text-blue-500" />
             <div>
-              <div className="text-sm text-muted-foreground">Moyenne</div>
+              <div className="text-sm text-muted-foreground">Average</div>
               <div className="text-2xl font-bold">{stats.avg} mm</div>
             </div>
           </div>
@@ -406,7 +406,7 @@ const GuadeloupeRainfallTracking = () => {
             <Input
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Rechercher..."
+              placeholder="Search..."
               className="pl-10"
             />
             <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -415,10 +415,10 @@ const GuadeloupeRainfallTracking = () => {
           <Select value={filterYear} onValueChange={setFilterYear}>
             <SelectTrigger className="w-[150px]">
               <Calendar className="h-4 w-4 mr-2" />
-              <SelectValue placeholder="Année" />
+              <SelectValue placeholder="Year" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Toutes les années</SelectItem>
+              <SelectItem value="all">All years</SelectItem>
               {uniqueYears.map(year => (
                 <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
               ))}
@@ -428,10 +428,10 @@ const GuadeloupeRainfallTracking = () => {
           <Select value={filterLocation} onValueChange={setFilterLocation}>
             <SelectTrigger className="w-[180px]">
               <CloudRain className="h-4 w-4 mr-2" />
-              <SelectValue placeholder="Région" />
+              <SelectValue placeholder="Region" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Toutes les régions</SelectItem>
+              <SelectItem value="all">All regions</SelectItem>
               {uniqueLocations.map(location => (
                 <SelectItem key={location} value={location}>{location}</SelectItem>
               ))}
@@ -450,26 +450,26 @@ const GuadeloupeRainfallTracking = () => {
               <Button variant="outline" size="sm" asChild>
                 <span className="cursor-pointer">
                   <PlusCircle className="h-4 w-4 mr-2" />
-                  Importer CSV
+                  Import CSV
                 </span>
               </Button>
             </label>
             
             <Button variant="outline" size="sm" onClick={handleDownloadData}>
               <Download className="h-4 w-4 mr-2" />
-              Exporter
+              Export
             </Button>
             
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
               <DialogTrigger asChild>
                 <Button>
                   <PlusCircle className="h-4 w-4 mr-2" />
-                  Ajouter
+                  Add
                 </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Ajouter un nouvel enregistrement</DialogTitle>
+                  <DialogTitle>Add a new record</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -479,16 +479,16 @@ const GuadeloupeRainfallTracking = () => {
                         name="month"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Mois</FormLabel>
+                            <FormLabel>Month</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger>
-                                  <SelectValue placeholder="Sélectionner un mois" />
+                                  <SelectValue placeholder="Select a month" />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                {['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 
-                                  'Septembre', 'Octobre', 'Novembre', 'Décembre'].map(month => (
+                                {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 
+                                  'September', 'October', 'November', 'December'].map(month => (
                                   <SelectItem key={month} value={month}>{month}</SelectItem>
                                 ))}
                               </SelectContent>
@@ -503,7 +503,7 @@ const GuadeloupeRainfallTracking = () => {
                         name="year"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Année</FormLabel>
+                            <FormLabel>Year</FormLabel>
                             <FormControl>
                               <Input type="number" {...field} />
                             </FormControl>
@@ -519,7 +519,7 @@ const GuadeloupeRainfallTracking = () => {
                         name="amount"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Précipitations (mm)</FormLabel>
+                            <FormLabel>Rainfall (mm)</FormLabel>
                             <FormControl>
                               <Input type="number" step="0.1" {...field} />
                             </FormControl>
@@ -533,11 +533,11 @@ const GuadeloupeRainfallTracking = () => {
                         name="location"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Région</FormLabel>
+                            <FormLabel>Region</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
                                 <SelectTrigger>
-                                  <SelectValue placeholder="Sélectionner une région" />
+                                  <SelectValue placeholder="Select a region" />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
@@ -563,13 +563,13 @@ const GuadeloupeRainfallTracking = () => {
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Sélectionner un impact" />
+                                <SelectValue placeholder="Select an impact" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value="Positive">Positif</SelectItem>
-                              <SelectItem value="Neutral">Neutre</SelectItem>
-                              <SelectItem value="Negative">Négatif</SelectItem>
+                              <SelectItem value="Positive">Positive</SelectItem>
+                              <SelectItem value="Neutral">Neutral</SelectItem>
+                              <SelectItem value="Negative">Negative</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -593,9 +593,9 @@ const GuadeloupeRainfallTracking = () => {
                     
                     <div className="flex justify-end space-x-2">
                       <Button variant="outline" type="button" onClick={() => setDialogOpen(false)}>
-                        Annuler
+                        Cancel
                       </Button>
-                      <Button type="submit">Enregistrer</Button>
+                      <Button type="submit">Save</Button>
                     </div>
                   </form>
                 </Form>
@@ -604,20 +604,20 @@ const GuadeloupeRainfallTracking = () => {
           </div>
         </div>
         
-        {/* Type de graphique */}
+        {/* Chart type */}
         <Tabs value={chartType} onValueChange={setChartType} className="mb-6">
           <TabsList>
             <TabsTrigger value="bar">
               <BarChart className="h-4 w-4 mr-2" />
-              Histogramme
+              Bar
             </TabsTrigger>
             <TabsTrigger value="line">
               <LineChartIcon className="h-4 w-4 mr-2" />
-              Courbes
+              Lines
             </TabsTrigger>
             <TabsTrigger value="area">
               <CloudRain className="h-4 w-4 mr-2" />
-              Aires
+              Areas
             </TabsTrigger>
           </TabsList>
         </Tabs>

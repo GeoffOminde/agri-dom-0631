@@ -1,33 +1,112 @@
 
 import { TooltipProvider } from "@/components/ui/tooltip";
+import React, { Suspense, lazy, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Index from "./pages/Index";
-import ParcelsPage from "./pages/ParcelsPage";
-import ParcelsDetailsPage from "./pages/ParcelsDetailsPage";
-import CropsPage from "./pages/CropsPage";
-import InventoryPage from "./pages/InventoryPage";
-import FinancePage from "./pages/FinancePage";
-import StatsPage from "./pages/StatsPage";
-import NotFound from "./pages/NotFound";
-import { useEffect } from "react";
+// Route-level code splitting
+const Index = lazy(() => import("./pages/Index"));
+const ParcelsPage = lazy(() => import("./pages/ParcelsPage"));
+const ParcelsDetailsPage = lazy(() => import("./pages/ParcelsDetailsPage"));
+const CropsPage = lazy(() => import("./pages/CropsPage"));
+const InventoryPage = lazy(() => import("./pages/InventoryPage"));
+const FinancePage = lazy(() => import("./pages/FinancePage"));
+const StatsPage = lazy(() => import("./pages/StatsPage"));
+const ReportsPage = lazy(() => import("./pages/ReportsPage"));
+const SettingsPage = lazy(() => import("./pages/SettingsPage"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 import { CRMProvider } from "./contexts/CRMContext";
 import { StatisticsProvider } from "./contexts/StatisticsContext";
 import { AppSettingsProvider } from "./contexts/AppSettingsContext";
 import { trackPageView } from "./utils/analytics";
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import LoginPage from "./pages/LoginPage";
 
-// Define routes configuration with redirects
+// Define routes configuration with redirects (English primary, French legacy redirects)
 const routes = [
-  { path: "/", element: <Index /> },
-  { path: "/parcelles", element: <ParcelsPage /> },
-  { path: "/parcelles/:id", element: <ParcelsDetailsPage /> },
-  { path: "/cultures", element: <CropsPage /> },
-  { path: "/inventaire", element: <InventoryPage /> },
-  { path: "/finances", element: <FinancePage /> },
-  { path: "/statistiques", element: <StatisticsProvider><StatsPage /></StatisticsProvider> },
-  { path: "/rapports", element: <Navigate to="/statistiques" replace /> },
-  { path: "/parametres", element: <Navigate to="/" replace /> },
+  // Auth
+  { path: "/login", element: <LoginPage /> },
+
+  // Dashboard
+  { path: "/", element: (
+      <ProtectedRoute>
+        <Index />
+      </ProtectedRoute>
+    )
+  },
   { path: "/dashboard", element: <Navigate to="/" replace /> },
+
+  // Parcels
+  { path: "/parcels", element: (
+      <ProtectedRoute>
+        <ParcelsPage />
+      </ProtectedRoute>
+    )
+  },
+  { path: "/parcels/:id", element: (
+      <ProtectedRoute>
+        <ParcelsDetailsPage />
+      </ProtectedRoute>
+    )
+  },
+
+  // Crops
+  { path: "/crops", element: (
+      <ProtectedRoute>
+        <CropsPage />
+      </ProtectedRoute>
+    )
+  },
+
+  // Inventory
+  { path: "/inventory", element: (
+      <ProtectedRoute>
+        <InventoryPage />
+      </ProtectedRoute>
+    )
+  },
+
+  // Finance
+  { path: "/finance", element: (
+      <ProtectedRoute>
+        <FinancePage />
+      </ProtectedRoute>
+    )
+  },
+
+  // Statistics
+  { path: "/statistics", element: (
+      <ProtectedRoute>
+        <StatisticsProvider><StatsPage /></StatisticsProvider>
+      </ProtectedRoute>
+    )
+  },
+
+  // Reports and Settings (English)
+  { path: "/reports", element: (
+      <ProtectedRoute>
+        <ReportsPage />
+      </ProtectedRoute>
+    )
+  },
+  { path: "/settings", element: (
+      <ProtectedRoute>
+        <SettingsPage />
+      </ProtectedRoute>
+    )
+  },
+
+  // Legacy French redirects
+  { path: "/parcelles", element: <Navigate to="/parcels" replace /> },
+  { path: "/parcelles/:id", element: <Navigate to="/parcels/:id" replace /> },
+  { path: "/cultures", element: <Navigate to="/crops" replace /> },
+  { path: "/inventaire", element: <Navigate to="/inventory" replace /> },
+  { path: "/finances", element: <Navigate to="/finance" replace /> },
+  { path: "/statistiques", element: <Navigate to="/statistics" replace /> },
+  { path: "/rapports", element: <Navigate to="/reports" replace /> },
+  { path: "/parametres", element: <Navigate to="/settings" replace /> },
+
+  // 404
   { path: "*", element: <NotFound /> }
 ];
 
@@ -65,18 +144,22 @@ const App = () => {
       <AppSettingsProvider>
         <CRMProvider>
           <BrowserRouter>
-            <TooltipProvider>
-              <RouterChangeHandler />
-              <Routes>
-                {routes.map((route) => (
-                  <Route 
-                    key={route.path} 
-                    path={route.path} 
-                    element={route.element} 
-                  />
-                ))}
-              </Routes>
-            </TooltipProvider>
+            <AuthProvider>
+              <TooltipProvider>
+                <RouterChangeHandler />
+                <Suspense fallback={<div className="p-6">Loading...</div>}>
+                  <Routes>
+                    {routes.map((route) => (
+                      <Route 
+                        key={route.path} 
+                        path={route.path} 
+                        element={route.element} 
+                      />
+                    ))}
+                  </Routes>
+                </Suspense>
+              </TooltipProvider>
+            </AuthProvider>
           </BrowserRouter>
         </CRMProvider>
       </AppSettingsProvider>

@@ -3,9 +3,9 @@ import PageLayout from '../components/layout/PageLayout';
 import PageHeader from '../components/layout/PageHeader';
 import TabContainer, { TabItem } from '../components/layout/TabContainer';
 import Inventory from '../components/Inventory';
-import GuadeloupeSpecificCrops from '../components/GuadeloupeSpecificCrops';
-import GuadeloupeHarvestTracking from '../components/GuadeloupeHarvestTracking';
-import GuadeloupeWeatherAlerts from '../components/GuadeloupeWeatherAlerts';
+import SpecificCrops from '../components/SpecificCrops';
+import HarvestTracking from '../components/HarvestTracking';
+import WeatherAlerts from '../components/WeatherAlerts';
 import { Button } from '../components/ui/button';
 import { Download, Plus, Upload, FileUp, FileDown, BarChart2, Calendar, Package } from 'lucide-react';
 import { DatePickerWithRange } from '../components/ui/date-range-picker';
@@ -38,16 +38,16 @@ const InventoryPage = () => {
     handleDescriptionChange 
   } = usePageMetadata({
     defaultTitle: 'Stock and Harvest Management',
-    defaultDescription: 'Manage your inventory and track stock levels of your Guadeloupean crops'
+    defaultDescription: 'Manage your inventory and track stock levels of your crops'
   });
 
   const handleExportData = () => {
     if (activeTab === 'inventory') {
-      console.log("Export des données d'inventaire lancé");
+      console.log("Inventory data export started");
     } else if (activeTab === 'crops') {
-      console.log("Export des données de cultures");
+      console.log("Crops data export");
     } else if (activeTab === 'weather') {
-      console.log("Export des données météo");
+      console.log("Weather data export");
     }
   };
 
@@ -61,7 +61,7 @@ const InventoryPage = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    console.log(`Importation du fichier ${file.name}`);
+    console.log(`Importing file ${file.name}`);
     
     // Reset file input
     if (fileInputRef.current) {
@@ -71,10 +71,10 @@ const InventoryPage = () => {
 
   const handleAddItem = () => {
     const actionText = activeTab === 'inventory' ? 'stock' : 
-                      activeTab === 'crops' ? 'culture' : 
-                      activeTab === 'weather' ? 'alerte' : 'élément';
+                      activeTab === 'crops' ? 'crop' : 
+                      activeTab === 'weather' ? 'alert' : 'item';
                       
-    console.log(`Fonctionnalité d'ajout de ${actionText} activée`);
+    console.log(`Add ${actionText} feature enabled`);
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +84,7 @@ const InventoryPage = () => {
 
   const handleDownloadTemplate = () => {
     downloadInventoryTemplate();
-    console.log("Téléchargement du modèle d'inventaire");
+    console.log("Downloading inventory template");
   };
 
   const renderTabActions = () => {
@@ -189,8 +189,8 @@ const InventoryPage = () => {
   const cropsContent = (
     <StatisticsProvider>
       <div className="space-y-8">
-        <GuadeloupeSpecificCrops />
-        <GuadeloupeHarvestTracking />
+        <SpecificCrops />
+        <HarvestTracking />
       </div>
     </StatisticsProvider>
   );
@@ -209,7 +209,7 @@ const InventoryPage = () => {
     {
       value: 'weather',
       label: 'Weather',
-      content: <GuadeloupeWeatherAlerts />
+      content: <WeatherAlerts />
     }
   ];
 
@@ -217,12 +217,12 @@ const InventoryPage = () => {
     setActiveTab(value);
     
     const tabLabels = {
-      inventory: 'l\'Inventaire',
-      crops: 'les Cultures',
-      weather: 'les Alertes Météo'
+      inventory: 'Inventory',
+      crops: 'Crops',
+      weather: 'Weather Alerts'
     };
     
-    console.log(`Vous consultez maintenant ${tabLabels[value as keyof typeof tabLabels] || value}`);
+    console.log(`You are now viewing ${tabLabels[value as keyof typeof tabLabels] || value}`);
   };
 
   return (

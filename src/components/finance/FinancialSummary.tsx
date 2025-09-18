@@ -70,14 +70,14 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({
           <CardHeader className="pb-1 md:pb-2 px-3 md:px-6 pt-3 md:pt-6">
             <CardTitle className="text-base md:text-lg flex items-center">
               <Banknote className="h-4 w-4 md:h-5 md:w-5 mr-1.5 md:mr-2 text-green-500" />
-              Revenus
+              Income
             </CardTitle>
             <CardDescription className="text-xs md:text-sm">
-              {period ? `Total pour ${period}` : 'Total des entrées'}
+              {period ? `Total for ${period}` : 'Total income'}
             </CardDescription>
           </CardHeader>
           <CardContent className="px-3 md:px-6 pb-3 md:pb-6">
-            <p className="text-xl md:text-2xl font-bold text-green-600">{totalIncome.toLocaleString('fr-FR', {
+            <p className="text-xl md:text-2xl font-bold text-green-600">{totalIncome.toLocaleString('en-GB', {
               style: 'currency',
               currency: 'EUR',
               minimumFractionDigits: 0,
@@ -94,7 +94,7 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({
                   <TrendingDown className="h-3 w-3 md:h-4 md:w-4 mr-1" />
                 ) : null}
                 {incomeChange > 0 ? '+' : ''}{incomeChange.toFixed(1)}%
-                {!isMobile && " par rapport à la période précédente"}
+                {!isMobile && " compared to the previous period"}
               </p>
             )}
           </CardContent>
@@ -109,14 +109,14 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({
           <CardHeader className="pb-1 md:pb-2 px-3 md:px-6 pt-3 md:pt-6">
             <CardTitle className="text-base md:text-lg flex items-center">
               <Receipt className="h-4 w-4 md:h-5 md:w-5 mr-1.5 md:mr-2 text-red-500" />
-              Dépenses
+              Expenses
             </CardTitle>
             <CardDescription className="text-xs md:text-sm">
-              {period ? `Total pour ${period}` : 'Total des sorties'}
+              {period ? `Total for ${period}` : 'Total expenses'}
             </CardDescription>
           </CardHeader>
           <CardContent className="px-3 md:px-6 pb-3 md:pb-6">
-            <p className="text-xl md:text-2xl font-bold text-red-600">{totalExpenses.toLocaleString('fr-FR', {
+            <p className="text-xl md:text-2xl font-bold text-red-600">{totalExpenses.toLocaleString('en-GB', {
               style: 'currency',
               currency: 'EUR',
               minimumFractionDigits: 0,
@@ -133,7 +133,7 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({
                   <TrendingDown className="h-3 w-3 md:h-4 md:w-4 mr-1" />
                 ) : null}
                 {expensesChange > 0 ? '+' : ''}{expensesChange.toFixed(1)}%
-                {!isMobile && " par rapport à la période précédente"}
+                {!isMobile && " compared to the previous period"}
               </p>
             )}
           </CardContent>
@@ -148,15 +148,15 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({
           <CardHeader className="pb-1 md:pb-2 px-3 md:px-6 pt-3 md:pt-6">
             <CardTitle className="text-base md:text-lg flex items-center">
               <DollarSign className="h-4 w-4 md:h-5 md:w-5 mr-1.5 md:mr-2 text-blue-500" />
-              Solde
+              Balance
             </CardTitle>
             <CardDescription className="text-xs md:text-sm">
-              {period ? `Bilan pour ${period}` : 'Revenus - Dépenses'}
+              {period ? `Balance for ${period}` : 'Income - Expenses'}
             </CardDescription>
           </CardHeader>
           <CardContent className="px-3 md:px-6 pb-3 md:pb-6">
             <p className={`text-xl md:text-2xl font-bold ${balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {balance.toLocaleString('fr-FR', {
+              {balance.toLocaleString('en-GB', {
                 style: 'currency',
                 currency: 'EUR',
                 minimumFractionDigits: 0,
@@ -174,7 +174,7 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({
                   <TrendingDown className="h-3 w-3 md:h-4 md:w-4 mr-1" />
                 ) : null}
                 {balanceChange > 0 ? '+' : ''}{balanceChange.toFixed(1)}%
-                {!isMobile && " par rapport à la période précédente"}
+                {!isMobile && " compared to the previous period"}
               </p>
             )}
           </CardContent>

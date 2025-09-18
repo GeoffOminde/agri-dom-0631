@@ -35,48 +35,48 @@ const ParcelLayersManager = ({ isOpen, onOpenChange }: ParcelLayersManagerProps)
   const [layers, setLayers] = useState<Layer[]>([
     { 
       id: 'satellite', 
-      name: 'Image satellite', 
-      description: 'Vue aérienne satellite de haute résolution',
+      name: 'Satellite imagery', 
+      description: 'High-resolution satellite aerial view',
       enabled: false, 
       type: 'base',
       source: 'remote'
     },
     { 
       id: 'terrain', 
-      name: 'Carte topographique', 
-      description: 'Courbes de niveau et relief du terrain',
+      name: 'Topographic map', 
+      description: 'Contour lines and terrain elevation',
       enabled: true, 
       type: 'base',
       source: 'remote'
     },
     { 
       id: 'parcels', 
-      name: 'Limites parcellaires', 
-      description: 'Contour géographique des parcelles',
+      name: 'Parcel boundaries', 
+      description: 'Geographic boundaries of parcels',
       enabled: true, 
       type: 'overlay',
       source: 'local'
     },
     { 
       id: 'crops', 
-      name: 'Cultures actuelles', 
-      description: 'Types de cultures par parcelle',
+      name: 'Current crops', 
+      description: 'Crop types per parcel',
       enabled: true, 
       type: 'overlay',
       source: 'local'
     },
     { 
       id: 'soil', 
-      name: 'Types de sol', 
-      description: 'Classification des sols par type',
+      name: 'Soil types', 
+      description: 'Soil classification by type',
       enabled: false, 
       type: 'overlay',
       source: 'local'
     },
     { 
       id: 'irrigation', 
-      name: 'Réseau d\'irrigation', 
-      description: 'Systèmes d\'irrigation installés',
+      name: 'Irrigation network', 
+      description: 'Installed irrigation systems',
       enabled: false, 
       type: 'overlay',
       source: 'local'
@@ -84,15 +84,15 @@ const ParcelLayersManager = ({ isOpen, onOpenChange }: ParcelLayersManagerProps)
     { 
       id: 'ndvi', 
       name: 'NDVI', 
-      description: 'Indice de végétation par différence normalisée',
+      description: 'Normalized Difference Vegetation Index',
       enabled: false, 
       type: 'overlay',
       source: 'remote'
     },
     { 
       id: 'rainfall', 
-      name: 'Pluviométrie', 
-      description: 'Données de précipitations sur 30 jours',
+      name: 'Rainfall', 
+      description: 'Precipitation data over 30 days',
       enabled: false, 
       type: 'overlay',
       source: 'remote'
@@ -104,7 +104,7 @@ const ParcelLayersManager = ({ isOpen, onOpenChange }: ParcelLayersManagerProps)
       layer.id === layerId ? { ...layer, enabled } : layer
     ));
     
-    // Si c'est une couche de base qui est activée, désactiver les autres couches de base
+    // If a base layer is enabled, disable other base layers
     if (enabled) {
       const layer = layers.find(l => l.id === layerId);
       if (layer?.type === 'base') {
@@ -114,14 +114,14 @@ const ParcelLayersManager = ({ isOpen, onOpenChange }: ParcelLayersManagerProps)
       }
     }
 
-    toast.success("Couche modifiée", {
-      description: `La couche "${layers.find(l => l.id === layerId)?.name}" a été ${enabled ? 'activée' : 'désactivée'}`
+    toast.success("Layer updated", {
+      description: `Layer "${layers.find(l => l.id === layerId)?.name}" has been ${enabled ? 'enabled' : 'disabled'}`
     });
   };
 
   const handleSaveLayers = () => {
-    toast.success("Configuration enregistrée", {
-      description: "La configuration des couches a été enregistrée"
+    toast.success("Configuration saved", {
+      description: "Layer configuration has been saved"
     });
     onOpenChange(false);
   };
@@ -132,8 +132,8 @@ const ParcelLayersManager = ({ isOpen, onOpenChange }: ParcelLayersManagerProps)
       enabled: layer.id === 'terrain' || layer.id === 'parcels'
     })));
     
-    toast.info("Configuration réinitialisée", {
-      description: "La configuration des couches a été remise à l'état par défaut"
+    toast.info("Configuration reset", {
+      description: "Layer configuration has been reset to default"
     });
   };
 
@@ -143,17 +143,17 @@ const ParcelLayersManager = ({ isOpen, onOpenChange }: ParcelLayersManagerProps)
         <DialogHeader>
           <DialogTitle className="flex items-center">
             <Layers className="h-5 w-5 mr-2" />
-            Gestionnaire de couches
+            Layer manager
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-6">
           <p className="text-sm text-muted-foreground">
-            Configurez les couches visibles sur la carte pour personnaliser votre vue des parcelles.
+            Configure the visible layers on the map to customize your parcel view.
           </p>
           
           <div className="space-y-4">
-            <h3 className="text-sm font-medium">Couches de base</h3>
+            <h3 className="text-sm font-medium">Base layers</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {layers.filter(l => l.type === 'base').map(layer => (
                 <div 
@@ -191,13 +191,13 @@ const ParcelLayersManager = ({ isOpen, onOpenChange }: ParcelLayersManagerProps)
                   </div>
                   
                   <p className="text-xs text-muted-foreground mt-2 pl-6">
-                    Source: {layer.source === 'local' ? 'Locale' : 'Service externe'}
+                    Source: {layer.source === 'local' ? 'Local' : 'External service'}
                   </p>
                 </div>
               ))}
             </div>
             
-            <h3 className="text-sm font-medium mt-6">Couches thématiques</h3>
+            <h3 className="text-sm font-medium mt-6">Thematic layers</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {layers.filter(l => l.type === 'overlay').map(layer => (
                 <div 
@@ -235,7 +235,7 @@ const ParcelLayersManager = ({ isOpen, onOpenChange }: ParcelLayersManagerProps)
                   </div>
                   
                   <p className="text-xs text-muted-foreground mt-2 pl-6">
-                    Source: {layer.source === 'local' ? 'Locale' : 'Service externe'}
+                    Source: {layer.source === 'local' ? 'Local' : 'External service'}
                   </p>
                 </div>
               ))}
@@ -244,14 +244,14 @@ const ParcelLayersManager = ({ isOpen, onOpenChange }: ParcelLayersManagerProps)
           
           <div className="flex justify-between">
             <Button variant="outline" onClick={handleResetLayers}>
-              Réinitialiser
+              Reset
             </Button>
             <div className="space-x-2">
               <Button variant="outline" onClick={() => onOpenChange(false)}>
-                Annuler
+                Cancel
               </Button>
               <Button onClick={handleSaveLayers}>
-                Enregistrer la configuration
+                Save configuration
               </Button>
             </div>
           </div>

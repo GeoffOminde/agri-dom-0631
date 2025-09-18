@@ -20,7 +20,7 @@ import {
 import { EditableField } from './ui/editable-field';
 import { toast } from 'sonner';
 
-// Types pour les parcelles adaptées à la Guadeloupe
+// Types for parcels adapted to Guadeloupe
 interface ParcelData {
   id: number;
   name: string;
@@ -38,32 +38,32 @@ interface ParcelData {
   notes?: string;
 }
 
-// Données de parcelles adaptées à l'agriculture en Guadeloupe
+// Parcel data adapted to agriculture in Guadeloupe
 const initialParcelData: ParcelData[] = [
   { 
     id: 1, 
-    name: 'Grande-Terre Nord', 
+    name: 'Grande-Terre North', 
     area: 12.5, 
-    crop: 'Canne à Sucre', 
+    crop: 'Sugarcane', 
     status: 'active', 
     lastActivity: '2023-08-15', 
-    soilType: 'Argilo-calcaire', 
+    soilType: 'Clay-limestone', 
     coordinates: { lat: 16.3772, lng: -61.4483 },
-    irrigation: 'Goutte à goutte',
+    irrigation: 'Drip',
     plantingDate: '2023-02-15',
     harvestDate: '2024-02-15',
     rainfall: 1200
   },
   { 
     id: 2, 
-    name: 'Basse-Terre Sud', 
+    name: 'Basse-Terre South', 
     area: 8.3, 
-    crop: 'Banane', 
+    crop: 'Banana', 
     status: 'active', 
     lastActivity: '2023-08-10', 
-    soilType: 'Volcanique', 
+    soilType: 'Volcanic', 
     coordinates: { lat: 16.0220, lng: -61.7425 },
-    irrigation: 'Aspersion',
+    irrigation: 'Sprinkler',
     plantingDate: '2023-04-10',
     harvestDate: '2023-12-10',
     rainfall: 2500
@@ -72,12 +72,12 @@ const initialParcelData: ParcelData[] = [
     id: 3, 
     name: 'Capesterre', 
     area: 15.7, 
-    crop: 'Ananas', 
+    crop: 'Pineapple', 
     status: 'active', 
     lastActivity: '2023-08-05', 
-    soilType: 'Volcanique', 
+    soilType: 'Volcanic', 
     coordinates: { lat: 16.0504, lng: -61.5643 },
-    irrigation: 'Goutte à goutte',
+    irrigation: 'Drip',
     plantingDate: '2023-05-20',
     harvestDate: '2024-01-20',
     rainfall: 2300
@@ -86,33 +86,33 @@ const initialParcelData: ParcelData[] = [
     id: 4, 
     name: 'Marie-Galante', 
     area: 10.2, 
-    crop: 'Madère', 
+    crop: 'Arrowroot', 
     status: 'inactive', 
     lastActivity: '2023-07-20', 
-    soilType: 'Sableux', 
+    soilType: 'Sandy', 
     coordinates: { lat: 15.9412, lng: -61.2983 },
-    irrigation: 'Manuel',
+    irrigation: 'Manual',
     plantingDate: '2023-03-15',
     harvestDate: '2023-11-01',
     rainfall: 1100
   },
   { 
     id: 5, 
-    name: 'Nord Grande-Terre', 
+    name: 'North Grande-Terre', 
     area: 6.8, 
-    crop: 'Igname', 
+    crop: 'Yam', 
     status: 'planned', 
     lastActivity: '2023-08-01', 
-    soilType: 'Limono-argileux', 
+    soilType: 'Silty-clay', 
     coordinates: { lat: 16.3943, lng: -61.4789 },
-    irrigation: 'Aucune',
+    irrigation: 'None',
     plantingDate: '2023-09-15',
     harvestDate: '2024-03-15',
     rainfall: 1400
   },
 ];
 
-// Composant pour la représentation visuelle d'une parcelle
+// Component for the visual representation of a parcel
 const ParcelCard = ({ 
   parcel, 
   onSelect, 
@@ -135,8 +135,8 @@ const ParcelCard = ({
     switch (status) {
       case 'active': return 'Active';
       case 'inactive': return 'Inactive';
-      case 'planned': return 'Planifiée';
-      default: return 'Inconnu';
+      case 'planned': return 'Planned';
+      default: return 'Unknown';
     }
   };
 
@@ -174,7 +174,7 @@ const ParcelCard = ({
         <div className="col-span-2 mt-1 py-1 px-2 bg-agri-primary/5 rounded-md text-center">
           <span className="text-agri-primary font-medium">{parcel.crop}</span>
           {parcel.harvestDate && (
-            <p className="text-xs mt-1">Récolte dans: {calculateDays(parcel.harvestDate)} jours</p>
+            <p className="text-xs mt-1">Harvest in: {calculateDays(parcel.harvestDate)} days</p>
           )}
         </div>
       </div>
@@ -208,7 +208,7 @@ const GuadeloupeParcelManagement = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedParcel, setEditedParcel] = useState<ParcelData | null>(null);
   
-  // Filtrer les parcelles en fonction des critères de recherche et du filtre
+  // Filter parcels based on search criteria and filter
   const filteredParcels = parcels.filter(parcel => {
     const matchesSearch = parcel.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          parcel.crop.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -290,15 +290,15 @@ const GuadeloupeParcelManagement = () => {
     <div className="p-6 animate-enter">
       <header className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
         <div>
-          <h1 className="text-2xl font-bold mb-1">Gestion des Parcelles en Guadeloupe</h1>
-          <p className="text-muted-foreground">Gérez et surveillez toutes vos parcelles agricoles sur l'archipel</p>
+          <h1 className="text-2xl font-bold mb-1">Parcel Management in Guadeloupe</h1>
+          <p className="text-muted-foreground">Manage and monitor all your agricultural parcels across the archipelago</p>
         </div>
         <button 
           className="inline-flex items-center justify-center px-4 py-2 bg-agri-primary text-white rounded-lg hover:bg-agri-primary-dark transition-colors whitespace-nowrap"
           onClick={handleAddParcel}
         >
           <Plus className="h-4 w-4 mr-2" />
-          Ajouter une parcelle
+          Add a parcel
         </button>
       </header>
 
@@ -310,7 +310,7 @@ const GuadeloupeParcelManagement = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input 
                 type="text" 
-                placeholder="Rechercher..." 
+                placeholder="Search..." 
                 className="pl-10 pr-4 py-2 w-full border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -322,10 +322,10 @@ const GuadeloupeParcelManagement = () => {
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
               >
-                <option value="all">Tous</option>
+                <option value="all">All</option>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
-                <option value="planned">Planifiée</option>
+                <option value="planned">Planned</option>
               </select>
               <Filter className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
             </div>
@@ -344,7 +344,7 @@ const GuadeloupeParcelManagement = () => {
             ) : (
               <div className="text-center py-8 px-4 border border-dashed rounded-lg">
                 <AlertCircle className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-                <p className="text-muted-foreground">Aucune parcelle trouvée avec ces critères</p>
+                <p className="text-muted-foreground">No parcels found for these criteria</p>
               </div>
             )}
           </div>
@@ -401,13 +401,13 @@ const GuadeloupeParcelManagement = () => {
                   <div className="border rounded-lg p-4">
                     <h3 className="font-medium mb-3 flex items-center">
                       <Calendar className="h-4 w-4 mr-2" />
-                      Culture actuelle
+                      Current crop
                     </h3>
                     
                     {isEditMode ? (
                       <div className="space-y-3">
                         <div>
-                          <label className="text-sm text-muted-foreground">Culture</label>
+                          <label className="text-sm text-muted-foreground">Crop</label>
                           <input 
                             type="text" 
                             value={editedParcel?.crop || ''} 
@@ -417,7 +417,7 @@ const GuadeloupeParcelManagement = () => {
                         </div>
                         <div className="grid grid-cols-2 gap-2">
                           <div>
-                            <label className="text-sm text-muted-foreground">Date de plantation</label>
+                            <label className="text-sm text-muted-foreground">Planting date</label>
                             <input 
                               type="date" 
                               value={editedParcel?.plantingDate || ''} 
@@ -426,7 +426,7 @@ const GuadeloupeParcelManagement = () => {
                             />
                           </div>
                           <div>
-                            <label className="text-sm text-muted-foreground">Date de récolte</label>
+                            <label className="text-sm text-muted-foreground">Harvest date</label>
                             <input 
                               type="date" 
                               value={editedParcel?.harvestDate || ''} 
@@ -436,7 +436,7 @@ const GuadeloupeParcelManagement = () => {
                           </div>
                         </div>
                         <div>
-                          <label className="text-sm text-muted-foreground">Statut</label>
+                          <label className="text-sm text-muted-foreground">Status</label>
                           <div className="flex space-x-2 mt-1">
                             <button 
                               className={`px-3 py-1.5 text-xs rounded-md ${editedParcel?.status === 'active' ? 'bg-agri-success text-white' : 'bg-muted'}`}
@@ -448,7 +448,7 @@ const GuadeloupeParcelManagement = () => {
                               className={`px-3 py-1.5 text-xs rounded-md ${editedParcel?.status === 'planned' ? 'bg-agri-warning text-white' : 'bg-muted'}`}
                               onClick={() => handleStatusChange('planned')}
                             >
-                              Planifiée
+                              Planned
                             </button>
                             <button 
                               className={`px-3 py-1.5 text-xs rounded-md ${editedParcel?.status === 'inactive' ? 'bg-agri-danger text-white' : 'bg-muted'}`}
@@ -463,10 +463,10 @@ const GuadeloupeParcelManagement = () => {
                       <div className="bg-agri-primary/10 rounded-lg p-3 text-center">
                         <span className="font-semibold text-agri-primary">{selectedParcel.crop}</span>
                         {selectedParcel.plantingDate && (
-                          <p className="text-sm mt-1">Planté le: {new Date(selectedParcel.plantingDate).toLocaleDateString()}</p>
+                          <p className="text-sm mt-1">Planted on: {new Date(selectedParcel.plantingDate).toLocaleDateString()}</p>
                         )}
                         {selectedParcel.harvestDate && (
-                          <p className="text-sm">Récolte prévue: {new Date(selectedParcel.harvestDate).toLocaleDateString()}</p>
+                          <p className="text-sm">Expected harvest: {new Date(selectedParcel.harvestDate).toLocaleDateString()}</p>
                         )}
                       </div>
                     )}
@@ -475,13 +475,13 @@ const GuadeloupeParcelManagement = () => {
                   <div className="border rounded-lg p-4">
                     <h3 className="font-medium mb-3 flex items-center">
                       <Layers className="h-4 w-4 mr-2" />
-                      Caractéristiques du sol
+                      Soil characteristics
                     </h3>
                     
                     {isEditMode ? (
                       <div className="space-y-3">
                         <div>
-                          <label className="text-sm text-muted-foreground">Type de sol</label>
+                          <label className="text-sm text-muted-foreground">Soil type</label>
                           <input 
                             type="text" 
                             value={editedParcel?.soilType || ''} 
@@ -499,7 +499,7 @@ const GuadeloupeParcelManagement = () => {
                           />
                         </div>
                         <div>
-                          <label className="text-sm text-muted-foreground">Pluviométrie annuelle (mm)</label>
+                          <label className="text-sm text-muted-foreground">Annual rainfall (mm)</label>
                           <input 
                             type="number" 
                             value={editedParcel?.rainfall || ''} 
@@ -519,11 +519,11 @@ const GuadeloupeParcelManagement = () => {
                           <span className="text-sm font-medium">{selectedParcel.irrigation}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm">Pluviométrie:</span>
-                          <span className="text-sm font-medium">{selectedParcel.rainfall ? `${selectedParcel.rainfall} mm/an` : 'Non spécifié'}</span>
+                          <span className="text-sm">Rainfall:</span>
+                          <span className="text-sm font-medium">{selectedParcel.rainfall ? `${selectedParcel.rainfall} mm/year` : 'Not specified'}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-sm">Superficie:</span>
+                          <span className="text-sm">Area:</span>
                           <span className="text-sm font-medium">{selectedParcel.area} ha</span>
                         </div>
                       </div>
@@ -537,12 +537,12 @@ const GuadeloupeParcelManagement = () => {
                       <textarea 
                         value={editedParcel?.notes || ''}
                         onChange={(e) => handleInputChange('notes', e.target.value)}
-                        placeholder="Ajoutez vos notes ici..."
+                        placeholder="Add your notes here..."
                         className="w-full px-3 py-2 border border-input rounded-md h-24 resize-none"
                       />
                     ) : (
                       <div className="p-3 bg-muted/30 rounded-lg min-h-[80px]">
-                        {selectedParcel.notes || <span className="text-muted-foreground italic">Aucune note pour cette parcelle</span>}
+                        {selectedParcel.notes || <span className="text-muted-foreground italic">No notes for this parcel</span>}
                       </div>
                     )}
                   </div>
@@ -552,9 +552,9 @@ const GuadeloupeParcelManagement = () => {
           ) : (
             <div className="border rounded-xl bg-muted h-full flex flex-col items-center justify-center p-6">
               <MapPin className="h-12 w-12 text-muted-foreground opacity-50 mb-4" />
-              <h3 className="text-xl font-medium text-foreground mb-2">Sélectionnez une parcelle</h3>
+              <h3 className="text-xl font-medium text-foreground mb-2">Select a parcel</h3>
               <p className="text-muted-foreground text-center max-w-md">
-                Cliquez sur une parcelle dans la liste à gauche pour afficher ses détails et accéder à la carte
+                Click a parcel in the list on the left to view its details and access the map
               </p>
             </div>
           )}

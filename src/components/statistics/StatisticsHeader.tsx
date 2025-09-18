@@ -17,15 +17,15 @@ const StatisticsHeader = () => {
   
   // Combine all statistics data for preview/print
   const statisticsData = [
-    ...(yieldData || []).map(item => ({ ...item, type: 'rendement' })),
-    ...(financialData.profitabilityByParcel || []).map(item => ({ ...item, type: 'financier' })),
-    ...(environmentalData.indicators || []).map(item => ({ ...item, type: 'environnement' }))
+    ...(yieldData || []).map(item => ({ ...item, type: 'yield' })),
+    ...(financialData.profitabilityByParcel || []).map(item => ({ ...item, type: 'financial' })),
+    ...(environmentalData.indicators || []).map(item => ({ ...item, type: 'environment' }))
   ];
 
   const handleExport = async () => {
     try {
       console.log("Exporting statistics to CSV format...");
-      await exportModuleData('statistiques', 'csv');
+      await exportModuleData('statistics', 'csv');
       console.log("Export successful!");
     } catch (error) {
       console.error("Error exporting statistics:", error);
@@ -34,9 +34,9 @@ const StatisticsHeader = () => {
 
   const handlePrint = async () => {
     try {
-      console.log("Préparation de l'impression des statistiques...");
-      await printModuleData('statistiques');
-      console.log("Document envoyé à l'impression");
+      console.log("Preparing statistics for printing...");
+      await printModuleData('statistics');
+      console.log("Document sent to printer");
     } catch (error) {
       console.error("Error printing statistics:", error);
     }
@@ -44,21 +44,21 @@ const StatisticsHeader = () => {
 
   const handleShare = () => {
     setShareDialogOpen(true);
-    console.log("Ouverture de la boîte de dialogue de partage");
+    console.log("Opening share dialog");
   };
   
   const handleShareByEmail = () => {
-    console.log("Préparation du partage par email...");
+    console.log("Preparing email share...");
     setShareDialogOpen(false);
-    console.log("Email de partage préparé");
+    console.log("Share email prepared");
   };
   
   const handleShareByPDF = async () => {
     try {
-      console.log("Génération du PDF pour partage...");
-      await exportModuleData('statistiques', 'pdf');
+      console.log("Generating PDF for share...");
+      await exportModuleData('statistics', 'pdf');
       setShareDialogOpen(false);
-      console.log("PDF généré avec succès pour partage");
+      console.log("PDF generated successfully for sharing");
     } catch (error) {
       console.error("Error generating PDF:", error);
       setShareDialogOpen(false);
@@ -73,7 +73,7 @@ const StatisticsHeader = () => {
       </div>
       <div className="flex flex-wrap gap-2 md:gap-3 justify-start md:justify-end">
         <ReportGenerationButton 
-          moduleName="statistiques" 
+          moduleName="statistics" 
           className="bg-green-600 hover:bg-green-700 text-white text-xs md:text-sm px-2 md:px-4 py-1.5 md:py-2"
           withAnimation={false}
         />
@@ -82,16 +82,16 @@ const StatisticsHeader = () => {
           <>
             <PreviewPrintButton 
               data={statisticsData}
-              moduleName="statistiques"
-              title="Statistiques et Analyses"
+              moduleName="statistics"
+              title="Statistics and Analytics"
               className="bg-white border-gray-200 hover:bg-gray-50 text-xs md:text-sm h-auto py-1.5 md:py-2"
               variant="outline"
               columns={[
                 { key: "type", header: "Type" },
-                { key: "name", header: "Nom" },
-                { key: "current", header: "Valeur actuelle" },
-                { key: "previous", header: "Valeur précédente" },
-                { key: "unit", header: "Unité" }
+                { key: "name", header: "Name" },
+                { key: "current", header: "Current value" },
+                { key: "previous", header: "Previous value" },
+                { key: "unit", header: "Unit" }
               ]}
             />
             

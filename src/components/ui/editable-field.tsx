@@ -21,7 +21,7 @@ export const EditableField = ({
   type = 'text',
   className = '',
   inputClassName = '',
-  placeholder = 'Entrer une valeur...',
+  placeholder = 'Enter a value...',
   onClick,
   options = [],
   icon,
@@ -120,14 +120,14 @@ export const EditableField = ({
           <button 
             onClick={handleSave} 
             className="p-1 text-agri-success hover:bg-agri-success/10 rounded-full"
-            aria-label="Enregistrer"
+            aria-label="Save"
           >
             <Check className="h-4 w-4" />
           </button>
           <button 
             onClick={handleCancel} 
             className="p-1 text-agri-danger hover:bg-agri-danger/10 rounded-full"
-            aria-label="Annuler"
+            aria-label="Cancel"
           >
             <X className="h-4 w-4" />
           </button>

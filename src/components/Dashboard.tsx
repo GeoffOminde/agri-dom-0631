@@ -19,7 +19,6 @@ import {
   Edit
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
-import GuadeloupeWeatherAlerts from './GuadeloupeWeatherAlerts';
 import { EditableField } from './ui/editable-field';
 import { Button } from './ui/button';
 import { toast } from 'sonner';
@@ -29,67 +28,67 @@ import { Label } from './ui/label';
 import { Select } from './ui/select';
 import PageHeader from './layout/PageHeader';
 
-// Sample data for charts - Adapté pour la Guadeloupe
+// Sample data for charts (generic placeholders)
 const revenueData = [
   { month: 'Jan', revenue: 1500 },
-  { month: 'Fév', revenue: 2200 },
+  { month: 'Feb', revenue: 2200 },
   { month: 'Mar', revenue: 2500 },
-  { month: 'Avr', revenue: 2800 },
-  { month: 'Mai', revenue: 3200 },
-  { month: 'Juin', revenue: 3500 },
-  { month: 'Juil', revenue: 4000 },
+  { month: 'Apr', revenue: 2800 },
+  { month: 'May', revenue: 3200 },
+  { month: 'Jun', revenue: 3500 },
+  { month: 'Jul', revenue: 4000 },
 ];
 
 const productionData = [
-  { name: 'Canne à Sucre', value: 40 },
-  { name: 'Banane', value: 25 },
-  { name: 'Ananas', value: 15 },
-  { name: 'Igname', value: 10 },
-  { name: 'Autre', value: 10 },
+  { name: 'Sugarcane', value: 40 },
+  { name: 'Banana', value: 25 },
+  { name: 'Pineapple', value: 15 },
+  { name: 'Yam', value: 10 },
+  { name: 'Other', value: 10 },
 ];
 
-// Task list adapté au contexte guadeloupéen
+// Task list (generic examples)
 const initialUpcomingTasks = [
-  { id: 1, title: 'Récolter la canne à sucre', due: 'Aujourd\'hui', priority: 'high' },
-  { id: 2, title: 'Commander des plants de bananier', due: 'Demain', priority: 'medium' },
-  { id: 3, title: 'Maintenance du tracteur', due: '28/08', priority: 'low' },
-  { id: 4, title: 'Irrigation des plantations d\'ananas', due: '30/08', priority: 'medium' },
+  { id: 1, title: 'Harvest sugarcane', due: 'Today', priority: 'high' },
+  { id: 2, title: 'Order banana seedlings', due: 'Tomorrow', priority: 'medium' },
+  { id: 3, title: 'Tractor maintenance', due: '08/28', priority: 'low' },
+  { id: 4, title: 'Irrigate pineapple plantations', due: '08/30', priority: 'medium' },
 ];
 
-// Alerts pour les agriculteurs en Guadeloupe
+// Alerts for farmers (generic examples)
 const initialAlerts = [
-  { id: 1, message: 'Niveau bas de plants de bananier', type: 'warning' },
-  { id: 2, message: 'Risque cyclonique pour la semaine prochaine', type: 'danger' },
-  { id: 3, message: 'Échéance de subvention régionale approche', type: 'info' },
+  { id: 1, message: 'Low banana seedling stock', type: 'warning' },
+  { id: 2, message: 'Cyclone risk for next week', type: 'danger' },
+  { id: 3, message: 'Regional subsidy deadline approaching', type: 'info' },
 ];
 
-// Weather alerts data
+// Weather alerts data (generic examples)
 const initialWeatherAlerts = [
   { 
     id: 1, 
     type: 'Cyclone', 
-    region: 'Toute la Guadeloupe', 
+    region: 'All regions', 
     startDate: '2023-09-10', 
     endDate: '2023-09-12', 
-    severity: 'critique', 
-    description: 'Cyclone tropical de catégorie 2 en approche' 
+    severity: 'critical', 
+    description: 'Category 2 tropical cyclone approaching' 
   },
   { 
     id: 2, 
-    type: 'Pluie', 
-    region: 'Basse-Terre', 
+    type: 'Rain', 
+    region: 'Local region', 
     startDate: '2023-09-20', 
     endDate: '2023-09-23', 
-    severity: 'modérée', 
-    description: 'Fortes précipitations attendues' 
+    severity: 'moderate', 
+    description: 'Heavy rainfall expected' 
   }
 ];
 
 const Dashboard = () => {
   // State for editable content
-  const [title, setTitle] = useState('Hello, Guadeloupean Farmer');
-  const [description, setDescription] = useState('Here is an overview of your agricultural operation in Guadeloupe');
-  const [currentMonth, setCurrentMonth] = useState('Août 2023');
+  const [title, setTitle] = useState('Hello, Farmer');
+  const [description, setDescription] = useState('Here is an overview of your agricultural operation');
+  const [currentMonth, setCurrentMonth] = useState('Aug 2023');
   
   // Stats cards
   const [monthlyRevenue, setMonthlyRevenue] = useState(15450);
@@ -112,7 +111,7 @@ const Dashboard = () => {
     region: '',
     startDate: '',
     endDate: '',
-    severity: 'modérée',
+    severity: 'moderate',
     description: ''
   });
   
@@ -159,12 +158,12 @@ const Dashboard = () => {
   
   const handleYieldChange = (value: string | number) => {
     setAverageYield(Number(value));
-    toast.success('Rendement moyen mis à jour');
+    toast.success('Average yield updated');
   };
   
   const handleYieldGrowthChange = (value: string | number) => {
     setYieldGrowth(Number(value));
-    toast.success('Croissance du rendement mise à jour');
+    toast.success('Yield growth updated');
   };
   
   // Task management
@@ -183,12 +182,12 @@ const Dashboard = () => {
       task.id === taskId ? { ...task, title: editedTaskTitle } : task
     ));
     setEditingTask(null);
-    toast.success('Tâche mise à jour');
+    toast.success('Task updated');
   };
   
   const handleDeleteTask = (taskId: number) => {
     setUpcomingTasks(upcomingTasks.filter(task => task.id !== taskId));
-    toast.success('Tâche supprimée');
+    toast.success('Task deleted');
   };
   
   // Alert management
@@ -196,25 +195,25 @@ const Dashboard = () => {
     setAlerts(alerts.map(alert => 
       alert.id === id ? { ...alert, message } : alert
     ));
-    toast.success('Alerte mise à jour');
+    toast.success('Alert updated');
   };
   
   const handleDeleteAlert = (id: number) => {
     setAlerts(alerts.filter(alert => alert.id !== id));
     setAlertsCount(prev => prev - 1);
-    toast.success('Alerte supprimée');
+    toast.success('Alert deleted');
   };
   
   // Weather alert management
   const handleDeleteWeatherAlert = (id: number) => {
     setWeatherAlerts(weatherAlerts.filter(alert => alert.id !== id));
-    toast.success('Alerte météorologique supprimée');
+    toast.success('Weather alert deleted');
   };
   
   const handleAddWeatherAlert = () => {
     // Validation
     if (!newAlert.region || !newAlert.startDate || !newAlert.endDate || !newAlert.description) {
-      toast.error('Veuillez remplir tous les champs obligatoires');
+      toast.error('Please fill in all required fields');
       return;
     }
     
@@ -231,16 +230,16 @@ const Dashboard = () => {
       region: '',
       startDate: '',
       endDate: '',
-      severity: 'modérée',
+      severity: 'moderate',
       description: ''
     });
     
-    toast.success('Nouvelle alerte météorologique ajoutée');
+    toast.success('New weather alert added');
   };
   
   // Add transaction handler (placeholder for future implementation)
   const handleAddTransaction = () => {
-    toast.info('Redirection vers la page de finances');
+    toast.info('Redirecting to the Finance page');
     // In a real app, this would navigate to the finance page
   };
   
@@ -284,7 +283,7 @@ const Dashboard = () => {
         </div>
       </header>
 
-      {/* Quick Stats Row - Adapté à l'agriculture guadeloupéenne */}
+      {/* Quick Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="stat-card card-hover">
           <p className="stat-label">Monthly Revenue</p>
@@ -377,7 +376,7 @@ const Dashboard = () => {
           </Button>
         </div>
         <p className="text-muted-foreground mb-6">
-          Suivez les alertes météorologiques impactant l'agriculture en Guadeloupe
+          Track weather alerts impacting your agricultural operations
         </p>
         
         <div className="overflow-x-auto">
@@ -385,9 +384,9 @@ const Dashboard = () => {
             <thead className="bg-muted text-xs uppercase">
               <tr>
                 <th className="px-4 py-3 text-left">Type</th>
-                <th className="px-4 py-3 text-left">Région</th>
-                <th className="px-4 py-3 text-left">Période</th>
-                <th className="px-4 py-3 text-left">Sévérité</th>
+                <th className="px-4 py-3 text-left">Region</th>
+                <th className="px-4 py-3 text-left">Period</th>
+                <th className="px-4 py-3 text-left">Severity</th>
                 <th className="px-4 py-3 text-left">Description</th>
                 <th className="px-4 py-3 text-left">Actions</th>
               </tr>
@@ -400,7 +399,7 @@ const Dashboard = () => {
                       <span className="flex items-center text-red-500">
                         <AlertTriangle size={16} className="mr-1" /> {alert.type}
                       </span>
-                    ) : alert.type === 'Pluie' ? (
+                    ) : alert.type === 'Rain' ? (
                       <span className="flex items-center text-blue-500">
                         <CloudRain size={16} className="mr-1" /> {alert.type}
                       </span>
@@ -417,14 +416,14 @@ const Dashboard = () => {
                         setWeatherAlerts(weatherAlerts.map(a => 
                           a.id === alert.id ? { ...a, region: String(value) } : a
                         ));
-                        toast.success('Région mise à jour');
+                        toast.success('Region updated');
                       }}
                     />
                   </td>
                   <td className="px-4 py-3">
                     <div className="space-y-1">
                       <div>
-                        <span className="text-xs text-muted-foreground">Début:</span>
+                        <span className="text-xs text-muted-foreground">Start:</span>
                         <EditableField
                           value={alert.startDate}
                           type="date"
@@ -432,12 +431,12 @@ const Dashboard = () => {
                             setWeatherAlerts(weatherAlerts.map(a => 
                               a.id === alert.id ? { ...a, startDate: String(value) } : a
                             ));
-                            toast.success('Date de début mise à jour');
+                            toast.success('Start date updated');
                           }}
                         />
                       </div>
                       <div>
-                        <span className="text-xs text-muted-foreground">Fin:</span>
+                        <span className="text-xs text-muted-foreground">End:</span>
                         <EditableField
                           value={alert.endDate}
                           type="date"
@@ -445,7 +444,7 @@ const Dashboard = () => {
                             setWeatherAlerts(weatherAlerts.map(a => 
                               a.id === alert.id ? { ...a, endDate: String(value) } : a
                             ));
-                            toast.success('Date de fin mise à jour');
+                            toast.success('End date updated');
                           }}
                         />
                       </div>
@@ -453,9 +452,9 @@ const Dashboard = () => {
                   </td>
                   <td className="px-4 py-3">
                     <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs ${
-                      alert.severity === 'critique' 
+                      alert.severity === 'critical' 
                         ? 'bg-red-100 text-red-800' 
-                        : alert.severity === 'modérée'
+                        : alert.severity === 'moderate'
                           ? 'bg-yellow-100 text-yellow-800'
                           : 'bg-green-100 text-green-800'
                     }`}>
@@ -465,7 +464,7 @@ const Dashboard = () => {
                           setWeatherAlerts(weatherAlerts.map(a => 
                             a.id === alert.id ? { ...a, severity: String(value) } : a
                           ));
-                          toast.success('Sévérité mise à jour');
+                          toast.success('Severity updated');
                         }}
                       />
                     </span>
@@ -477,7 +476,7 @@ const Dashboard = () => {
                         setWeatherAlerts(weatherAlerts.map(a => 
                           a.id === alert.id ? { ...a, description: String(value) } : a
                         ));
-                        toast.success('Description mise à jour');
+                        toast.success('Description updated');
                       }}
                     />
                   </td>
@@ -496,7 +495,7 @@ const Dashboard = () => {
               {weatherAlerts.length === 0 && (
                 <tr>
                   <td colSpan={6} className="px-4 py-4 text-center text-muted-foreground">
-                    Aucune alerte météorologique disponible
+                    No weather alerts available
                   </td>
                 </tr>
               )}
@@ -510,7 +509,7 @@ const Dashboard = () => {
         {/* Revenue Chart */}
         <div className="dashboard-card col-span-full lg:col-span-2 card-hover">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold">Revenu Mensuel</h3>
+            <h3 className="font-semibold">Monthly Revenue</h3>
             <div className="flex space-x-2">
               <button className="text-xs px-3 py-1.5 bg-muted rounded-md text-foreground">2023</button>
               <button className="text-xs px-3 py-1.5 text-muted-foreground hover:bg-muted rounded-md">2022</button>
@@ -531,7 +530,7 @@ const Dashboard = () => {
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f5f5f5" />
                 <XAxis dataKey="month" axisLine={false} tickLine={false} />
                 <YAxis axisLine={false} tickLine={false} tickFormatter={(value) => `${value} €`} />
-                <Tooltip formatter={(value) => [`${value} €`, 'Revenu']} />
+                <Tooltip formatter={(value) => [`${value} €`, 'Revenue']} />
                 <Area 
                   type="monotone" 
                   dataKey="revenue" 
@@ -545,9 +544,9 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Production Distribution - Adapté aux cultures guadeloupéennes */}
+        {/* Production Distribution */}
         <div className="dashboard-card card-hover">
-          <h3 className="font-semibold mb-4">Répartition des Cultures</h3>
+          <h3 className="font-semibold mb-4">Crop Distribution</h3>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
@@ -564,7 +563,7 @@ const Dashboard = () => {
                   tickLine={false} 
                   width={80} 
                 />
-                <Tooltip formatter={(value) => [`${value}%`, 'Pourcentage']} />
+                <Tooltip formatter={(value) => [`${value}%`, 'Percentage']} />
                 <Bar 
                   dataKey="value" 
                   fill="#8D6E63" 
@@ -582,8 +581,8 @@ const Dashboard = () => {
         {/* Upcoming Tasks - Adapté au contexte agricole guadeloupéen */}
         <div className="dashboard-card card-hover">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold">Tâches à venir</h3>
-            <button className="text-xs text-agri-primary hover:underline">Voir tout</button>
+            <h3 className="font-semibold">Upcoming Tasks</h3>
+            <button className="text-xs text-agri-primary hover:underline">View all</button>
           </div>
           
           <div className="space-y-3">
@@ -627,7 +626,7 @@ const Dashboard = () => {
                   ) : (
                     <>
                       <p className="text-sm font-medium">{task.title}</p>
-                      <p className="text-xs text-muted-foreground">Échéance: {task.due}</p>
+                      <p className="text-xs text-muted-foreground">Due: {task.due}</p>
                     </>
                   )}
                 </div>
@@ -652,16 +651,16 @@ const Dashboard = () => {
               </div>
             ))}
             {upcomingTasks.length === 0 && (
-              <p className="text-center text-muted-foreground py-4">Aucune tâche à venir</p>
+              <p className="text-center text-muted-foreground py-4">No upcoming tasks</p>
             )}
           </div>
         </div>
         
-        {/* Alerts - Adapté à l'agriculture en Guadeloupe */}
+        {/* Alerts - Adapted to agriculture in Guadeloupe */}
         <div className="dashboard-card card-hover">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold">Alertes</h3>
-            <button className="text-xs text-agri-primary hover:underline">Gérer les alertes</button>
+            <h3 className="font-semibold">Alerts</h3>
+            <button className="text-xs text-agri-primary hover:underline">Manage alerts</button>
           </div>
           
           <div className="space-y-3">
@@ -701,7 +700,7 @@ const Dashboard = () => {
               </div>
             ))}
             {alerts.length === 0 && (
-              <p className="text-center text-muted-foreground py-4">Aucune alerte active</p>
+              <p className="text-center text-muted-foreground py-4">No active alerts</p>
             )}
           </div>
         </div>
@@ -711,7 +710,7 @@ const Dashboard = () => {
       <Dialog open={showAddAlertDialog} onOpenChange={setShowAddAlertDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Ajouter une alerte météorologique</DialogTitle>
+            <DialogTitle>Add a weather alert</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
@@ -725,14 +724,14 @@ const Dashboard = () => {
                 className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               >
                 <option value="Cyclone">Cyclone</option>
-                <option value="Pluie">Pluie</option>
-                <option value="Sécheresse">Sécheresse</option>
-                <option value="Vent">Vent</option>
+                <option value="Rain">Rain</option>
+                <option value="Drought">Drought</option>
+                <option value="Wind">Wind</option>
               </select>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="region" className="text-right">
-                Région
+                Region
               </Label>
               <Input
                 id="region"
@@ -743,7 +742,7 @@ const Dashboard = () => {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="startDate" className="text-right">
-                Date de début
+                Start date
               </Label>
               <Input
                 id="startDate"
@@ -755,7 +754,7 @@ const Dashboard = () => {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="endDate" className="text-right">
-                Date de fin
+                End date
               </Label>
               <Input
                 id="endDate"
@@ -767,7 +766,7 @@ const Dashboard = () => {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="severity" className="text-right">
-                Sévérité
+                Severity
               </Label>
               <select
                 id="severity"
@@ -775,9 +774,9 @@ const Dashboard = () => {
                 onChange={(e) => setNewAlert({...newAlert, severity: e.target.value})}
                 className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               >
-                <option value="faible">Faible</option>
-                <option value="modérée">Modérée</option>
-                <option value="critique">Critique</option>
+                <option value="low">Low</option>
+                <option value="moderate">Moderate</option>
+                <option value="critical">Critical</option>
               </select>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -793,8 +792,8 @@ const Dashboard = () => {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowAddAlertDialog(false)}>Annuler</Button>
-            <Button onClick={handleAddWeatherAlert}>Ajouter</Button>
+            <Button variant="outline" onClick={() => setShowAddAlertDialog(false)}>Cancel</Button>
+            <Button onClick={handleAddWeatherAlert}>Add</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

@@ -96,45 +96,45 @@ export const useFormOperations = <T extends Record<string, any>>(
   // Validate a single field
   const validateField = (field: string, value: any, rules: FieldValidation): string | null => {
     if (rules.required && (!value && value !== false && value !== 0)) {
-      return rules.errorMessage || `Ce champ est obligatoire`;
+      return rules.errorMessage || `This field is required`;
     }
     
     if (value !== null && value !== undefined) {
       const strValue = String(value);
       
       if (rules.minLength && strValue.length < rules.minLength) {
-        return rules.errorMessage || `Minimum ${rules.minLength} caractères requis`;
+        return rules.errorMessage || `Minimum ${rules.minLength} characters required`;
       }
       
       if (rules.maxLength && strValue.length > rules.maxLength) {
-        return rules.errorMessage || `Maximum ${rules.maxLength} caractères autorisés`;
+        return rules.errorMessage || `Maximum ${rules.maxLength} characters allowed`;
       }
       
       if (rules.pattern && !rules.pattern.test(strValue)) {
-        return rules.errorMessage || `Format invalide`;
+        return rules.errorMessage || `Invalid format`;
       }
       
       if (rules.isEmail && !isValidEmail(strValue)) {
-        return rules.errorMessage || `Email invalide`;
+        return rules.errorMessage || `Invalid email`;
       }
       
       if (rules.isNumber) {
         const numValue = Number(value);
         if (isNaN(numValue)) {
-          return rules.errorMessage || `Veuillez entrer un nombre valide`;
+          return rules.errorMessage || `Please enter a valid number`;
         }
         
         if (rules.min !== undefined && numValue < rules.min) {
-          return rules.errorMessage || `La valeur minimale est ${rules.min}`;
+          return rules.errorMessage || `Minimum value is ${rules.min}`;
         }
         
         if (rules.max !== undefined && numValue > rules.max) {
-          return rules.errorMessage || `La valeur maximale est ${rules.max}`;
+          return rules.errorMessage || `Maximum value is ${rules.max}`;
         }
       }
       
       if (rules.custom && !rules.custom(value)) {
-        return rules.errorMessage || `Valeur invalide`;
+        return rules.errorMessage || `Invalid value`;
       }
     }
     
