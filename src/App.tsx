@@ -144,9 +144,23 @@ const RouterChangeHandler = () => {
 const LocaleSync: React.FC = () => {
   const { settings: { locale } } = useAppSettings();
   useEffect(() => {
-    const lang = locale.startsWith('sw') ? 'sw' : 'en';
+    const lang = (locale || 'en').split('-')[0];
     void i18n.changeLanguage(lang);
   }, [locale]);
+  return null;
+};
+
+// Keep theme (dark mode) in sync with AppSettings
+const ThemeSync: React.FC = () => {
+  const { settings: { darkMode } } = useAppSettings();
+  useEffect(() => {
+    const root = document.documentElement;
+    if (darkMode) {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [darkMode]);
   return null;
 };
 
@@ -161,6 +175,7 @@ const App = () => {
               <TooltipProvider>
                 <RouterChangeHandler />
                 <LocaleSync />
+                <ThemeSync />
                 <Suspense fallback={<LoadingScreen />}>
                   <Routes>
                     {routes.map((route) => (

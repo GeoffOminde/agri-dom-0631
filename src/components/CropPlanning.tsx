@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAppSettings } from '@/contexts/AppSettingsContext';
+import { useTranslation } from 'react-i18next';
 
 import { 
   Calendar as CalendarIcon, 
@@ -129,6 +130,8 @@ const CropCard = ({
   onEdit: (crop: CropData) => void;
   onDelete: (id: number) => void;
 }) => {
+  const { t } = useTranslation('common');
+  const { settings: { locale } } = useAppSettings();
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'growing': return 'bg-agri-success';
@@ -140,10 +143,10 @@ const CropCard = ({
 
   const getStatusLabel = (status: string) => {
     switch (status) {
-      case 'growing': return 'Growing';
-      case 'harvested': return 'Harvested';
-      case 'planned': return 'Planned';
-      default: return 'Unknown';
+      case 'growing': return t('status_growing');
+      case 'harvested': return t('status_harvested');
+      case 'planned': return t('status_planned');
+      default: return t('unknown');
     }
   };
 
@@ -156,7 +159,7 @@ const CropCard = ({
   };
 
   return (
-    <div className="border rounded-xl p-4 bg-white hover:shadow-md transition-shadow card-hover">
+    <div className="border rounded-xl p-4 bg-card hover:shadow-md transition-shadow card-hover">
       <div className="flex justify-between items-start mb-3">
         <div>
           <h3 className="font-medium">{crop.name}</h3>
@@ -170,27 +173,27 @@ const CropCard = ({
       
       <div className="bg-muted rounded-lg p-3 mb-3">
         <div className="flex justify-between text-sm mb-1">
-          <span>Parcel:</span>
+          <span>{t('parcel')}:</span>
           <span className="font-medium">{crop.parcel}</span>
         </div>
         <div className="flex justify-between text-sm mb-1">
-          <span>Area:</span>
+          <span>{t('area')}:</span>
           <span className="font-medium">{crop.area} ha</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span>Days until harvest:</span>
+          <span>{t('days_until_harvest')}:</span>
           <span className="font-medium">{daysRemaining()}</span>
         </div>
       </div>
       
       <div className="grid grid-cols-2 gap-2 text-xs">
         <div className="flex flex-col items-center p-2 bg-agri-primary/5 rounded-md">
-          <span className="text-muted-foreground">Sowing</span>
-          <span className="font-medium">{new Date(crop.plantingDate).toLocaleDateString()}</span>
+          <span className="text-muted-foreground">{t('sowing')}</span>
+          <span className="font-medium">{new Date(crop.plantingDate).toLocaleDateString(locale)}</span>
         </div>
         <div className="flex flex-col items-center p-2 bg-agri-accent/5 rounded-md">
-          <span className="text-muted-foreground">Harvest</span>
-          <span className="font-medium">{new Date(crop.harvestDate).toLocaleDateString()}</span>
+          <span className="text-muted-foreground">{t('harvest')}</span>
+          <span className="font-medium">{new Date(crop.harvestDate).toLocaleDateString(locale)}</span>
         </div>
       </div>
       
@@ -217,6 +220,7 @@ const CropCard = ({
 
 const CropPlanning = () => {
   const { settings: { locale } } = useAppSettings();
+  const { t } = useTranslation('common');
   
   const [cropsData, setCropsData] = useState<CropData[]>(initialCropsData);
   const [cropTasks, setCropTasks] = useState<CropTask[]>(initialCropTasks);
@@ -400,8 +404,8 @@ const CropPlanning = () => {
     <div className="p-6 animate-enter">
       <header className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
         <div>
-          <h1 className="text-2xl font-bold mb-1">Guadeloupean Crop Planning</h1>
-          <p className="text-muted-foreground">Manage local crops and plan your agricultural activities</p>
+          <h1 className="text-2xl font-bold mb-1">{t('crop_planning_title')}</h1>
+          <p className="text-muted-foreground">{t('crop_planning_desc')}</p>
         </div>
         <div className="flex space-x-2">
           <button 
@@ -412,7 +416,7 @@ const CropPlanning = () => {
             }`}
             onClick={() => setCurrentView('list')}
           >
-            List
+            {t('list')}
           </button>
           <button 
             className={`px-4 py-2 rounded-lg transition-colors ${
@@ -422,14 +426,14 @@ const CropPlanning = () => {
             }`}
             onClick={() => setCurrentView('calendar')}
           >
-            Calendar
+            {t('calendar')}
           </button>
           <button 
             className="inline-flex items-center justify-center px-4 py-2 bg-agri-primary text-white rounded-lg hover:bg-agri-primary-dark transition-colors whitespace-nowrap ml-2"
             onClick={() => setShowTaskForm(true)}
           >
             <Plus className="h-4 w-4 mr-2" />
-            New Task
+            {t('new_task')}
           </button>
         </div>
       </header>
@@ -441,7 +445,7 @@ const CropPlanning = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input 
                 type="text" 
-                placeholder="Search for a crop..." 
+                placeholder={t('search_crop')}
                 className="pl-10 pr-4 py-2 w-full border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -452,7 +456,7 @@ const CropPlanning = () => {
               onClick={handleAddCrop}
             >
               <Plus className="h-4 w-4 mr-2" />
-              Add Crop
+              {t('add_crop')}
             </button>
           </div>
 
@@ -467,14 +471,14 @@ const CropPlanning = () => {
             ))}
           </div>
 
-          <div className="mt-8 border rounded-xl p-6 bg-white">
+          <div className="mt-8 border rounded-xl p-6 bg-card">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Upcoming Tasks</h2>
+              <h2 className="text-xl font-semibold">{t('upcoming_tasks')}</h2>
               <button 
                 className="text-sm text-agri-primary hover:underline"
                 onClick={() => setShowTaskForm(true)}
               >
-                Add Task
+                {t('add_task')}
               </button>
             </div>
             
@@ -482,11 +486,11 @@ const CropPlanning = () => {
               <table className="w-full text-sm">
                 <thead className="text-xs uppercase bg-muted">
                   <tr>
-                    <th className="px-4 py-2 text-left">Task</th>
-                    <th className="px-4 py-2 text-left">Crop</th>
-                    <th className="px-4 py-2 text-left">Date</th>
-                    <th className="px-4 py-2 text-left">Priority</th>
-                    <th className="px-4 py-2 text-left">Actions</th>
+                    <th className="px-4 py-2 text-left">{t('task')}</th>
+                    <th className="px-4 py-2 text-left">{t('crop')}</th>
+                    <th className="px-4 py-2 text-left">{t('date')}</th>
+                    <th className="px-4 py-2 text-left">{t('priority')}</th>
+                    <th className="px-4 py-2 text-left">{t('actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -524,9 +528,9 @@ const CropPlanning = () => {
                               onChange={(e) => handleTaskUpdate(index, 'priority', e.target.value)}
                               className="bg-transparent border-none focus:outline-none p-0 m-0"
                             >
-                              <option value="high">High</option>
-                              <option value="medium">Medium</option>
-                              <option value="low">Low</option>
+                              <option value="high">{t('high')}</option>
+                              <option value="medium">{t('medium')}</option>
+                              <option value="low">{t('low')}</option>
                             </select>
                           </span>
                         </td>
@@ -536,7 +540,7 @@ const CropPlanning = () => {
                               className="p-1 hover:bg-gray-100 rounded-full"
                               onClick={() => {
                                 handleTaskUpdate(index, 'completed', !task.completed);
-                                toast.success(task.completed ? 'Task marked as not completed' : 'Task completed!');
+                                toast.success(task.completed ? t('task_marked_not_completed') : t('task_completed'));
                               }}
                             >
                               <Check className={`h-4 w-4 ${task.completed ? 'text-agri-success' : 'text-gray-400'}`} />
@@ -558,7 +562,7 @@ const CropPlanning = () => {
           </div>
         </>
       ) : (
-        <div className="border rounded-xl p-6 bg-white">
+        <div className="border rounded-xl p-6 bg-card">
           <div className="flex justify-between items-center mb-6">
             <button onClick={prevMonth} className="p-2 hover:bg-muted rounded-full">
               <ChevronLeft className="h-5 w-5" />
@@ -570,7 +574,7 @@ const CropPlanning = () => {
           </div>
           
           <div className="grid grid-cols-7 gap-1">
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+            {[t('sun'), t('mon'), t('tue'), t('wed'), t('thu'), t('fri'), t('sat')].map(day => (
               <div key={day} className="text-center font-medium text-sm py-2 text-muted-foreground">
                 {day}
               </div>
@@ -580,7 +584,7 @@ const CropPlanning = () => {
               <div 
                 key={i} 
                 className={`min-h-[100px] p-1 border ${
-                  day.day ? 'bg-white' : 'bg-muted/30'
+                  day.day ? 'bg-card' : 'bg-muted/30'
                 } rounded-md`}
               >
                 {day.day && (
@@ -613,9 +617,9 @@ const CropPlanning = () => {
 
       {showTaskForm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-md w-full">
+          <div className="bg-card rounded-xl p-6 max-w-md w-full">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Add Task</h2>
+              <h2 className="text-xl font-semibold">{t('add_task')}</h2>
               <button 
                 onClick={() => setShowTaskForm(false)}
                 className="p-1 hover:bg-muted rounded-full"
@@ -626,24 +630,24 @@ const CropPlanning = () => {
             
             <form className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Title</label>
+                <label className="block text-sm font-medium mb-1">{t('title')}</label>
                 <input 
                   type="text" 
                   className="w-full px-3 py-2 border border-input rounded-md"
-                  placeholder="Task name"
+                  placeholder={t('task_name')}
                   value={newTask.title}
                   onChange={(e) => setNewTask({...newTask, title: e.target.value})}
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-1">Crop</label>
+                <label className="block text-sm font-medium mb-1">{t('crop')}</label>
                 <select 
                   className="w-full px-3 py-2 border border-input rounded-md"
                   value={newTask.cropId || ''}
                   onChange={(e) => setNewTask({...newTask, cropId: Number(e.target.value)})}
                 >
-                  <option value="">Select a crop</option>
+                  <option value="">{t('select_crop')}</option>
                   {cropsData.map(crop => (
                     <option key={crop.id} value={crop.id}>
                       {crop.name} - {crop.parcel}
@@ -653,7 +657,7 @@ const CropPlanning = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-1">Date</label>
+                <label className="block text-sm font-medium mb-1">{t('date')}</label>
                 <input 
                   type="date" 
                   className="w-full px-3 py-2 border border-input rounded-md"
@@ -663,24 +667,24 @@ const CropPlanning = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-1">Priority</label>
+                <label className="block text-sm font-medium mb-1">{t('priority')}</label>
                 <select 
                   className="w-full px-3 py-2 border border-input rounded-md"
                   value={newTask.priority}
                   onChange={(e) => setNewTask({...newTask, priority: e.target.value as 'high' | 'medium' | 'low'})}
                 >
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
+                  <option value="low">{t('low')}</option>
+                  <option value="medium">{t('medium')}</option>
+                  <option value="high">{t('high')}</option>
                 </select>
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-1">Notes</label>
+                <label className="block text-sm font-medium mb-1">{t('notes')}</label>
                 <textarea 
                   className="w-full px-3 py-2 border border-input rounded-md"
                   rows={3}
-                  placeholder="Additional details..."
+                  placeholder={t('additional_details')}
                 />
               </div>
               
@@ -690,14 +694,14 @@ const CropPlanning = () => {
                   onClick={() => setShowTaskForm(false)}
                   className="px-4 py-2 text-sm text-foreground bg-muted rounded-md hover:bg-muted/80"
                 >
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button 
                   type="button"
                   onClick={handleSaveTask}
                   className="px-4 py-2 text-sm text-white bg-agri-primary rounded-md hover:bg-agri-primary-dark"
                 >
-                  Add
+                  {t('add')}
                 </button>
               </div>
             </form>
@@ -707,10 +711,10 @@ const CropPlanning = () => {
 
       {showCropForm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-md w-full">
+          <div className="bg-card rounded-xl p-6 max-w-md w-full">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">
-                {editingCrop ? 'Edit Crop' : 'Add Crop'}
+                {editingCrop ? t('edit_crop') : t('add_crop')}
               </h2>
               <button 
                 onClick={() => setShowCropForm(false)}
@@ -722,11 +726,11 @@ const CropPlanning = () => {
             
             <form className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Name*</label>
+                <label className="block text-sm font-medium mb-1">{t('name')}*</label>
                 <input 
                   type="text" 
                   className="w-full px-3 py-2 border border-input rounded-md"
-                  placeholder="Crop name"
+                  placeholder={t('crop_name')}
                   value={editingCrop ? editingCrop.name : newCrop.name}
                   onChange={(e) => {
                     if (editingCrop) {
@@ -740,11 +744,11 @@ const CropPlanning = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-1">Variety</label>
+                <label className="block text-sm font-medium mb-1">{t('variety')}</label>
                 <input 
                   type="text" 
                   className="w-full px-3 py-2 border border-input rounded-md"
-                  placeholder="Variety"
+                  placeholder={t('variety')}
                   value={editingCrop ? editingCrop.variety : newCrop.variety}
                   onChange={(e) => {
                     if (editingCrop) {
@@ -757,11 +761,11 @@ const CropPlanning = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-1">Parcel*</label>
+                <label className="block text-sm font-medium mb-1">{t('parcel')}*</label>
                 <input 
                   type="text" 
                   className="w-full px-3 py-2 border border-input rounded-md"
-                  placeholder="Parcel name"
+                  placeholder={t('parcel_name')}
                   value={editingCrop ? editingCrop.parcel : newCrop.parcel}
                   onChange={(e) => {
                     if (editingCrop) {
@@ -776,7 +780,7 @@ const CropPlanning = () => {
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Planting date</label>
+                  <label className="block text-sm font-medium mb-1">{t('planting_date')}</label>
                   <input 
                     type="date" 
                     className="w-full px-3 py-2 border border-input rounded-md"
@@ -792,7 +796,7 @@ const CropPlanning = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-1">Harvest date</label>
+                  <label className="block text-sm font-medium mb-1">{t('harvest_date')}</label>
                   <input 
                     type="date" 
                     className="w-full px-3 py-2 border border-input rounded-md"
@@ -809,11 +813,11 @@ const CropPlanning = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-1">Area (ha)</label>
+                <label className="block text-sm font-medium mb-1">{t('area_ha')}</label>
                 <input 
                   type="number" 
                   className="w-full px-3 py-2 border border-input rounded-md"
-                  placeholder="Area in hectares"
+                  placeholder={t('area_in_hectares')}
                   value={editingCrop ? editingCrop.area : newCrop.area}
                   onChange={(e) => {
                     const value = parseFloat(e.target.value);
@@ -829,7 +833,7 @@ const CropPlanning = () => {
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-1">Status</label>
+                <label className="block text-sm font-medium mb-1">{t('status')}</label>
                 <select 
                   className="w-full px-3 py-2 border border-input rounded-md"
                   value={editingCrop ? editingCrop.status : newCrop.status}
@@ -842,9 +846,9 @@ const CropPlanning = () => {
                     }
                   }}
                 >
-                  <option value="planned">Planned</option>
-                  <option value="growing">Growing</option>
-                  <option value="harvested">Harvested</option>
+                  <option value="growing">{t('status_growing')}</option>
+                  <option value="harvested">{t('status_harvested')}</option>
+                  <option value="planned">{t('status_planned')}</option>
                 </select>
               </div>
               
@@ -854,14 +858,14 @@ const CropPlanning = () => {
                   onClick={() => setShowCropForm(false)}
                   className="px-4 py-2 text-sm text-foreground bg-muted rounded-md hover:bg-muted/80"
                 >
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button 
                   type="button"
                   onClick={handleSaveCrop}
                   className="px-4 py-2 text-sm text-white bg-agri-primary rounded-md hover:bg-agri-primary-dark"
                 >
-                  {editingCrop ? 'Edit' : 'Add'}
+                  {t('save')}
                 </button>
               </div>
             </form>
