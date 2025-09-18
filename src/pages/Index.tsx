@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 import PageLayout from '../components/layout/PageLayout';
 import Dashboard from '../components/Dashboard';
 import TabContainer, { TabItem } from '../components/layout/TabContainer';
-import GuadeloupeHarvestTracking from '../components/GuadeloupeHarvestTracking';
-import GuadeloupeWeatherAlerts from '../components/GuadeloupeWeatherAlerts';
+import HarvestTracking from '../components/HarvestTracking';
+import WeatherAlerts from '../components/WeatherAlerts';
 import TaskList from '../components/cultures/TaskList';
+import { AIAssistant } from '../components/ai/AIAssistant';
 import { Button } from '@/components/ui/button';
 import { PlusCircle, Download, Filter, RefreshCw, Upload, Printer } from 'lucide-react';
 import { StatisticsProvider } from '../contexts/StatisticsContext';
@@ -18,6 +19,7 @@ const Index = () => {
   const [userName, setUserName] = useState('Farmer');
   const [importDialogOpen, setImportDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
   
   // Utiliser le contexte CRM
   const { 
@@ -147,7 +149,7 @@ const Index = () => {
     console.log(`Tab changed to: ${value}`);
   };
 
-  // Manipulations des données
+  // Data operations
   const handleExportData = async (tab: string) => {
     const moduleMapping: {[key: string]: string} = {
       'dashboard': 'statistiques',
@@ -224,12 +226,12 @@ const Index = () => {
     {
       value: 'harvest',
       label: 'Harvest Tracking',
-      content: <GuadeloupeHarvestTracking />
+      content: <HarvestTracking />
     },
     {
       value: 'weather',
       label: 'Weather Alerts',
-      content: <GuadeloupeWeatherAlerts />
+      content: <WeatherAlerts />
     },
     {
       value: 'tasks',
@@ -285,6 +287,12 @@ const Index = () => {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+
+          {/* AI Assistant */}
+          <AIAssistant 
+            isOpen={aiAssistantOpen} 
+            onToggle={() => setAiAssistantOpen(!aiAssistantOpen)} 
+          />
         </div>
       </PageLayout>
     </StatisticsProvider>

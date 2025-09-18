@@ -7,7 +7,7 @@ import { exportToCSV, exportToExcel, exportToPDF, importFromCSV } from './crm-da
 export const formatDate = (date: Date | string): string => {
   if (!date) return '';
   const dateObj = typeof date === 'string' ? new Date(date) : date;
-  return dateObj.toLocaleDateString('fr-FR', {
+  return dateObj.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
@@ -18,7 +18,7 @@ export const formatDate = (date: Date | string): string => {
  * Format currency with euro symbol
  */
 export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('fr-FR', {
+  return new Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: 'EUR',
     minimumFractionDigits: 2
@@ -128,12 +128,22 @@ export const getStatusColor = (status: string): string => {
     'pending': 'bg-yellow-100 text-yellow-800',
     'completed': 'bg-blue-100 text-blue-800',
     'cancelled': 'bg-red-100 text-red-800',
-    'En culture': 'bg-green-100 text-green-800',
-    'En récolte': 'bg-blue-100 text-blue-800',
-    'En préparation': 'bg-yellow-100 text-yellow-800',
-    'Atteint': 'bg-green-100 text-green-800',
-    'En progrès': 'bg-blue-100 text-blue-800',
-    'En retard': 'bg-red-100 text-red-800'
+    // French statuses (lowercased for lookup)
+    'en culture': 'bg-green-100 text-green-800',
+    'en récolte': 'bg-blue-100 text-blue-800',
+    'en preparation': 'bg-yellow-100 text-yellow-800', // fallback without accent
+    'en préparation': 'bg-yellow-100 text-yellow-800',
+    'atteint': 'bg-green-100 text-green-800',
+    'en progrès': 'bg-blue-100 text-blue-800',
+    'en progres': 'bg-blue-100 text-blue-800', // fallback without accent
+    'en retard': 'bg-red-100 text-red-800',
+    // English equivalents for convenience
+    'in growth': 'bg-green-100 text-green-800',
+    'harvesting': 'bg-blue-100 text-blue-800',
+    'preparation': 'bg-yellow-100 text-yellow-800',
+    'achieved': 'bg-green-100 text-green-800',
+    'in progress': 'bg-blue-100 text-blue-800',
+    'delayed': 'bg-red-100 text-red-800'
   };
   
   return statusColors[status.toLowerCase()] || 'bg-gray-100 text-gray-800';
@@ -172,11 +182,11 @@ export const enhancedExport = async (
   options = {}
 ): Promise<boolean> => {
   if (!data || data.length === 0) {
-    toast.error("Aucune donnée à exporter");
+    toast.error("No data to export");
     return false;
   }
   
-  toast.info(`Préparation de l'export au format ${format.toUpperCase()}...`);
+  toast.info(`Preparing export in ${format.toUpperCase()} format...`);
   
   try {
     let success = false;
@@ -194,13 +204,13 @@ export const enhancedExport = async (
     }
     
     if (success) {
-      toast.success(`Export ${format.toUpperCase()} réussi`);
+      toast.success(`${format.toUpperCase()} export successful`);
     }
     
     return success;
   } catch (error) {
     console.error(`Error exporting data:`, error);
-    toast.error(`Erreur lors de l'export au format ${format.toUpperCase()}`);
+    toast.error(`Error during ${format.toUpperCase()} export`);
     return false;
   }
 };
@@ -215,17 +225,17 @@ export const enhancedImport = async (
   validateRow?: (row: any) => boolean
 ): Promise<boolean> => {
   if (!file) {
-    toast.error("Aucun fichier sélectionné");
+    toast.error("No file selected");
     return false;
   }
   
-  toast.info("Importation en cours...");
+  toast.info("Importing...");
   
   try {
     const data = await importFromCSV(file);
     
     if (!data || data.length === 0) {
-      toast.error("Aucune donnée valide trouvée dans le fichier");
+      toast.error("No valid data found in the file");
       return false;
     }
     
@@ -236,7 +246,7 @@ export const enhancedImport = async (
       );
       
       if (invalidRows.length > 0) {
-        toast.warning(`${invalidRows.length} ligne(s) ignorée(s) car des champs obligatoires sont manquants`);
+        toast.warning(`${invalidRows.length} row(s) skipped because required fields are missing`);
       }
     }
     
@@ -245,21 +255,21 @@ export const enhancedImport = async (
     if (validateRow) {
       validData = data.filter(validateRow);
       if (validData.length < data.length) {
-        toast.warning(`${data.length - validData.length} ligne(s) ignorée(s) suite à la validation personnalisée`);
+        toast.warning(`${data.length - validData.length} row(s) skipped due to custom validation`);
       }
     }
     
     if (validData.length === 0) {
-      toast.error("Aucune donnée valide après validation");
+      toast.error("No valid data after validation");
       return false;
     }
     
     onComplete(validData);
-    toast.success(`${validData.length} enregistrement(s) importé(s) avec succès`);
+    toast.success(`${validData.length} record(s) imported successfully`);
     return true;
   } catch (error) {
     console.error("Import error:", error);
-    toast.error("Erreur lors de l'importation des données");
+    toast.error("Error while importing data");
     return false;
   }
 };

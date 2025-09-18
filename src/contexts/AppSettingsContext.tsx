@@ -14,7 +14,7 @@ interface AppSettingsContextType {
 
 const defaultSettings: AppSettings = {
   darkMode: false,
-  locale: 'fr-FR',
+  locale: 'en-GB',
   // Default values for other settings
 };
 

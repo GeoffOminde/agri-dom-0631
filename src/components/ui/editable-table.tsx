@@ -83,14 +83,13 @@ export const EditableTable = ({
 
   const getPriorityStyle = (priority: string) => {
     switch (priority) {
-      case 'Haute':
-      case 'Élevée':
-      case 'Urgente':
+      case 'High':
+      case 'Elevated':
+      case 'Urgent':
         return 'bg-red-100 text-red-800';
-      case 'Moyenne':
+      case 'Medium':
         return 'bg-orange-100 text-orange-800';
-      case 'Basse':
-      case 'Faible':
+      case 'Low':
         return 'bg-green-100 text-green-800';
       default:
         return 'bg-gray-100 text-gray-800';
@@ -180,7 +179,7 @@ export const EditableTable = ({
                         <button 
                           onClick={() => onDelete(rowIndex)}
                           className="p-1.5 hover:bg-agri-danger/10 text-agri-danger rounded"
-                          title="Supprimer"
+                          title="Delete"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
@@ -193,7 +192,7 @@ export const EditableTable = ({
             {data.length === 0 && (
               <tr>
                 <td colSpan={columns.length + ((onDelete || actions.length > 0) ? 1 : 0)} className="px-4 py-4 text-center text-muted-foreground">
-                  Aucune donnée disponible
+                  No data available
                 </td>
               </tr>
             )}
@@ -208,7 +207,7 @@ export const EditableTable = ({
             className="flex items-center px-4 py-2 text-sm bg-agri-primary text-white rounded-lg hover:bg-agri-primary-dark"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Ajouter une ligne
+            Add row
           </button>
         </div>
       )}

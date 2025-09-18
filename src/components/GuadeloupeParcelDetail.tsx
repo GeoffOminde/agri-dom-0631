@@ -43,35 +43,35 @@ interface TaskData {
   task: string;
   dueDate: string;
   assignedTo: string;
-  priority: 'Basse' | 'Moyenne' | 'Élevée' | 'Urgente';
-  status: 'À faire' | 'En cours' | 'Terminée';
+  priority: 'Low' | 'Medium' | 'High' | 'Urgent';
+  status: 'To do' | 'In progress' | 'Completed';
 }
 
 const parcelData: ParcelDetail = {
   id: '1',
-  name: 'Parcelle des Hauts Palmiers',
+  name: 'Hauts Palmiers Parcel',
   location: 'Grande-Terre - Morne-à-l\'Eau',
   surface: 8.5,
-  soilType: 'Argilo-calcaire',
+  soilType: 'Clay-limestone',
   crops: [
     { 
-      crop: 'Canne à Sucre', 
+      crop: 'Sugarcane', 
       variety: 'R579', 
       plantingDate: '2023-02-10', 
       harvestDate: '2024-02-15',
-      status: 'En croissance'
+      status: 'Growing'
     },
     { 
-      crop: 'Igname', 
+      crop: 'Yam', 
       variety: 'Pacala', 
       plantingDate: '2023-05-20', 
       harvestDate: '2023-12-10',
-      status: 'Récolté'
+      status: 'Harvested'
     }
   ],
-  irrigationSystem: 'Goutte-à-goutte avec captation d\'eau de pluie',
-  notes: 'Parcelle en conversion bio depuis 2022. Exposition Sud-Est favorable.',
-  owner: 'Coopérative Agricole de Grande-Terre',
+  irrigationSystem: 'Drip irrigation with rainwater harvesting',
+  notes: 'Parcel under organic conversion since 2022. Favorable southeast exposure.',
+  owner: 'Grande-Terre Agricultural Cooperative',
   lastInspection: '2023-11-15',
   coordinates: {
     latitude: 16.3312,
@@ -86,60 +86,60 @@ const parcelData: ParcelDetail = {
 const initialTasks: TaskData[] = [
   { 
     id: 1, 
-    task: 'Fertilisation de la canne', 
+    task: 'Sugarcane fertilization', 
     dueDate: '2023-09-25', 
-    assignedTo: 'Jean Dupont', 
-    priority: 'Élevée',
-    status: 'À faire'
+    assignedTo: 'John Doe', 
+    priority: 'High',
+    status: 'To do'
   },
   { 
     id: 2, 
-    task: 'Traitement contre la cercosporiose', 
+    task: 'Treatment against cercosporiosis', 
     dueDate: '2023-09-28', 
     assignedTo: 'Marie Lambert', 
-    priority: 'Moyenne',
-    status: 'En cours'
+    priority: 'Medium',
+    status: 'In progress'
   },
   { 
     id: 3, 
-    task: 'Inspection croissance ananas', 
+    task: 'Pineapple growth inspection', 
     dueDate: '2023-09-30', 
     assignedTo: 'Pierre Lafortune', 
-    priority: 'Basse',
-    status: 'À faire'
+    priority: 'Low',
+    status: 'To do'
   },
   {
     id: 4,
-    task: 'Désherbage parcelle madère',
+    task: 'Weeding arrowroot plot',
     dueDate: '2023-10-05',
     assignedTo: 'Sophie Martin',
-    priority: 'Moyenne',
-    status: 'À faire'
+    priority: 'Medium',
+    status: 'To do'
   },
   {
     id: 5,
-    task: 'Préparation coupe canne',
+    task: 'Prepare sugarcane cutting',
     dueDate: '2024-01-10',
-    assignedTo: 'Jean Dupont',
-    priority: 'Élevée',
-    status: 'À faire'
+    assignedTo: 'John Doe',
+    priority: 'High',
+    status: 'To do'
   }
 ];
 
 const taskColumns: Column[] = [
-  { id: 'task', header: 'Tâche', accessorKey: 'task', isEditable: true },
-  { id: 'assignedTo', header: 'Assigné à', accessorKey: 'assignedTo', isEditable: true },
+  { id: 'task', header: 'Task', accessorKey: 'task', isEditable: true },
+  { id: 'assignedTo', header: 'Assigned to', accessorKey: 'assignedTo', isEditable: true },
   { id: 'dueDate', header: 'Date', accessorKey: 'dueDate', isEditable: true, width: '120px' },
-  { id: 'priority', header: 'Priorité', accessorKey: 'priority', isEditable: true, width: '120px' },
-  { id: 'status', header: 'Statut', accessorKey: 'status', isEditable: true, width: '100px' }
+  { id: 'priority', header: 'Priority', accessorKey: 'priority', isEditable: true, width: '120px' },
+  { id: 'status', header: 'Status', accessorKey: 'status', isEditable: true, width: '100px' }
 ];
 
 const cropColumns: Column[] = [
-  { id: 'crop', header: 'Culture', accessorKey: 'crop', isEditable: true },
-  { id: 'variety', header: 'Variété', accessorKey: 'variety', isEditable: true },
-  { id: 'plantingDate', header: 'Date plantation', accessorKey: 'plantingDate', isEditable: true },
-  { id: 'harvestDate', header: 'Date récolte prévue', accessorKey: 'harvestDate', isEditable: true },
-  { id: 'status', header: 'Statut', accessorKey: 'status', isEditable: true },
+  { id: 'crop', header: 'Crop', accessorKey: 'crop', isEditable: true },
+  { id: 'variety', header: 'Variety', accessorKey: 'variety', isEditable: true },
+  { id: 'plantingDate', header: 'Planting date', accessorKey: 'plantingDate', isEditable: true },
+  { id: 'harvestDate', header: 'Expected harvest date', accessorKey: 'harvestDate', isEditable: true },
+  { id: 'status', header: 'Status', accessorKey: 'status', isEditable: true },
 ];
 
 const GuadeloupeParcelDetail = () => {
@@ -154,7 +154,7 @@ const GuadeloupeParcelDetail = () => {
       ...parcel,
       [field]: value
     });
-    toast.success(`${field} mis à jour`);
+    toast.success(`${field} updated`);
   };
 
   const handleTaskUpdate = (rowIndex: number, columnId: string, value: any) => {
@@ -165,7 +165,7 @@ const GuadeloupeParcelDetail = () => {
     updatedTasks[rowIndex] = updatedTask;
     
     setTasks(updatedTasks);
-    toast.success('Tâche mise à jour');
+    toast.success('Task updated');
   };
 
   const handleCropUpdate = (rowIndex: number, columnId: string, value: any) => {
@@ -178,7 +178,7 @@ const GuadeloupeParcelDetail = () => {
     
     updatedParcel.crops = updatedCrops;
     setParcel(updatedParcel);
-    toast.success('Culture mise à jour');
+    toast.success('Crop updated');
   };
 
   const handleAddTask = (newRow: Record<string, any>) => {
@@ -189,12 +189,12 @@ const GuadeloupeParcelDetail = () => {
       task: String(newRow.task || ''),
       dueDate: String(newRow.dueDate || new Date().toISOString().split('T')[0]),
       assignedTo: String(newRow.assignedTo || ''),
-      priority: (newRow.priority as TaskData['priority']) || 'Moyenne',
-      status: (newRow.status as TaskData['status']) || 'À faire'
+      priority: (newRow.priority as TaskData['priority']) || 'Medium',
+      status: (newRow.status as TaskData['status']) || 'To do'
     };
     
     setTasks([...tasks, newTask]);
-    toast.success('Nouvelle tâche ajoutée');
+    toast.success('New task added');
   };
 
   const handleAddCrop = (newRow: Record<string, any>) => {
@@ -205,19 +205,19 @@ const GuadeloupeParcelDetail = () => {
       variety: String(newRow.variety || ''),
       plantingDate: String(newRow.plantingDate || new Date().toISOString().split('T')[0]),
       harvestDate: String(newRow.harvestDate || ''),
-      status: String(newRow.status || 'Planifié')
+      status: String(newRow.status || 'Planned')
     };
     
     updatedParcel.crops = [...updatedParcel.crops, newCrop];
     setParcel(updatedParcel);
-    toast.success('Nouvelle culture ajoutée');
+    toast.success('New crop added');
   };
 
   const handleDeleteTask = (rowIndex: number) => {
     const updatedTasks = [...tasks];
     updatedTasks.splice(rowIndex, 1);
     setTasks(updatedTasks);
-    toast.success('Tâche supprimée');
+    toast.success('Task deleted');
   };
 
   const handleDeleteCrop = (rowIndex: number) => {
@@ -226,7 +226,7 @@ const GuadeloupeParcelDetail = () => {
     updatedCrops.splice(rowIndex, 1);
     updatedParcel.crops = updatedCrops;
     setParcel(updatedParcel);
-    toast.success('Culture supprimée');
+    toast.success('Crop deleted');
   };
 
   return (
@@ -257,19 +257,19 @@ const GuadeloupeParcelDetail = () => {
               className={`px-4 py-2 rounded-lg ${activeTab === 'info' ? 'bg-agri-primary text-white' : 'bg-muted'}`}
               onClick={() => setActiveTab('info')}
             >
-              Informations
+              Information
             </button>
             <button 
               className={`px-4 py-2 rounded-lg ${activeTab === 'crops' ? 'bg-agri-primary text-white' : 'bg-muted'}`}
               onClick={() => setActiveTab('crops')}
             >
-              Cultures
+              Crops
             </button>
             <button 
               className={`px-4 py-2 rounded-lg ${activeTab === 'tasks' ? 'bg-agri-primary text-white' : 'bg-muted'}`}
               onClick={() => setActiveTab('tasks')}
             >
-              Tâches
+              Tasks
             </button>
           </div>
         </div>
@@ -278,7 +278,7 @@ const GuadeloupeParcelDetail = () => {
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-muted/30 p-4 rounded-lg">
-                <h3 className="text-sm font-medium text-muted-foreground mb-2">Superficie</h3>
+                <h3 className="text-sm font-medium text-muted-foreground mb-2">Area</h3>
                 <div className="flex items-center">
                   <EditableField
                     value={parcel.surface}
@@ -291,7 +291,7 @@ const GuadeloupeParcelDetail = () => {
               </div>
               
               <div className="bg-muted/30 p-4 rounded-lg">
-                <h3 className="text-sm font-medium text-muted-foreground mb-2">Type de sol</h3>
+                <h3 className="text-sm font-medium text-muted-foreground mb-2">Soil type</h3>
                 <EditableField
                   value={parcel.soilType}
                   onSave={(value) => handleParcelUpdate('soilType', value)}
@@ -300,7 +300,7 @@ const GuadeloupeParcelDetail = () => {
               </div>
               
               <div className="bg-muted/30 p-4 rounded-lg">
-                <h3 className="text-sm font-medium text-muted-foreground mb-2">Dernière inspection</h3>
+                <h3 className="text-sm font-medium text-muted-foreground mb-2">Last inspection</h3>
                 <EditableField
                   value={parcel.lastInspection}
                   onSave={(value) => handleParcelUpdate('lastInspection', value)}
@@ -310,7 +310,7 @@ const GuadeloupeParcelDetail = () => {
             </div>
             
             <div className="bg-muted/30 p-4 rounded-lg">
-              <h3 className="text-sm font-medium text-muted-foreground mb-2">Système d'irrigation</h3>
+              <h3 className="text-sm font-medium text-muted-foreground mb-2">Irrigation system</h3>
               <EditableField
                 value={parcel.irrigationSystem}
                 onSave={(value) => handleParcelUpdate('irrigationSystem', value)}
@@ -328,7 +328,7 @@ const GuadeloupeParcelDetail = () => {
             </div>
             
             <div className="bg-muted/30 p-4 rounded-lg">
-              <h3 className="text-sm font-medium text-muted-foreground mb-2">Propriétaire</h3>
+              <h3 className="text-sm font-medium text-muted-foreground mb-2">Owner</h3>
               <EditableField
                 value={parcel.owner}
                 onSave={(value) => handleParcelUpdate('owner', value)}
@@ -338,13 +338,13 @@ const GuadeloupeParcelDetail = () => {
             
             <div className="bg-muted/30 p-4 rounded-lg">
               <div className="flex justify-between items-center mb-3">
-                <h3 className="text-sm font-medium text-muted-foreground">Photos de la parcelle</h3>
+                <h3 className="text-sm font-medium text-muted-foreground">Parcel photos</h3>
                 <button 
                   className="text-sm flex items-center text-agri-primary hover:text-agri-primary-dark"
                   onClick={() => setShowImageUpload(!showImageUpload)}
                 >
                   <Plus className="h-4 w-4 mr-1" />
-                  Ajouter une photo
+                  Add a photo
                 </button>
               </div>
               
@@ -352,15 +352,15 @@ const GuadeloupeParcelDetail = () => {
                 <div className="mb-4 p-3 border border-dashed rounded-lg">
                   <div className="flex flex-col items-center justify-center">
                     <Camera className="h-8 w-8 text-muted-foreground mb-2" />
-                    <p className="text-sm text-muted-foreground mb-2">Glissez une image ou cliquez pour parcourir</p>
+                    <p className="text-sm text-muted-foreground mb-2">Drag an image or click to browse</p>
                     <Input type="file" className="max-w-xs" />
                     <div className="flex space-x-2 mt-2">
-                      <button className="px-3 py-1 text-sm bg-agri-primary text-white rounded">Télécharger</button>
+                      <button className="px-3 py-1 text-sm bg-agri-primary text-white rounded">Upload</button>
                       <button 
                         className="px-3 py-1 text-sm border rounded"
                         onClick={() => setShowImageUpload(false)}
                       >
-                        Annuler
+                        Cancel
                       </button>
                     </div>
                   </div>
@@ -385,7 +385,7 @@ const GuadeloupeParcelDetail = () => {
         
         {activeTab === 'crops' && (
           <div className="space-y-6">
-            <h3 className="text-lg font-medium">Cultures sur cette parcelle</h3>
+            <h3 className="text-lg font-medium">Crops on this parcel</h3>
             <EditableTable
               data={parcel.crops}
               columns={cropColumns}
@@ -400,13 +400,13 @@ const GuadeloupeParcelDetail = () => {
         {activeTab === 'tasks' && (
           <div className="space-y-6">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium">Tâches à venir</h3>
+              <h3 className="text-lg font-medium">Upcoming tasks</h3>
               <Button 
-                onClick={() => toast.success('Redirection vers la page des tâches')}
+                onClick={() => toast.success('Redirecting to the tasks page')}
                 variant="outline"
                 className="text-sm"
               >
-                Voir toutes les tâches
+                View all tasks
               </Button>
             </div>
             
@@ -420,11 +420,11 @@ const GuadeloupeParcelDetail = () => {
               actions={[
                 {
                   icon: <Check className="h-4 w-4 text-green-600" />,
-                  label: "Marquer comme terminée",
+                  label: "Mark as completed",
                   onClick: (rowIndex) => {
-                    toast.success(`Tâche "${tasks[rowIndex].task}" marquée comme terminée`);
+                    toast.success(`Task "${tasks[rowIndex].task}" marked as completed`);
                     const updatedTasks = [...tasks];
-                    updatedTasks[rowIndex].status = 'Terminée';
+                    updatedTasks[rowIndex].status = 'Completed';
                     setTasks(updatedTasks);
                   }
                 }

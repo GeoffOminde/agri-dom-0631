@@ -15,27 +15,27 @@ const ParcelImportDialog = ({ isOpen, onOpenChange, onImportConfirm }: ParcelImp
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Importer des données</DialogTitle>
+          <DialogTitle>Import data</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
-          <p className="text-muted-foreground">Choisissez le type de données à importer:</p>
+          <p className="text-muted-foreground">Choose the type of data to import:</p>
           <div className="grid grid-cols-1 gap-2">
-            <Button variant="outline" className="justify-start" onClick={() => onImportConfirm('parcellaires')}>
+            <Button variant="outline" className="justify-start" onClick={() => onImportConfirm('parcel')}>
               <Map className="h-4 w-4 mr-2" />
-              Données parcellaires (CSV)
+              Parcel data (CSV)
             </Button>
-            <Button variant="outline" className="justify-start" onClick={() => onImportConfirm('géospatiales')}>
+            <Button variant="outline" className="justify-start" onClick={() => onImportConfirm('geospatial')}>
               <Calendar className="h-4 w-4 mr-2" />
-              Données géospatiales (GeoJSON)
+              Geospatial data (GeoJSON)
             </Button>
-            <Button variant="outline" className="justify-start" onClick={() => onImportConfirm('de cultures')}>
+            <Button variant="outline" className="justify-start" onClick={() => onImportConfirm('crop-history')}>
               <Filter className="h-4 w-4 mr-2" />
-              Historique des cultures (Excel)
+              Crop history (Excel)
             </Button>
           </div>
           <div className="flex justify-end">
             <Button variant="ghost" onClick={() => onOpenChange(false)}>
-              Annuler
+              Cancel
             </Button>
           </div>
         </div>

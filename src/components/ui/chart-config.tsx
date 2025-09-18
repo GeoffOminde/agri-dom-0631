@@ -95,7 +95,7 @@ export const ChartConfig = ({
         {showConfig && (
           <div className="absolute inset-0 bg-white/90 backdrop-blur-sm p-4 flex flex-col animate-fade-in">
             <div className="flex justify-between items-center mb-4">
-              <h4 className="font-medium">Configuration du graphique</h4>
+              <h4 className="font-medium">Chart configuration</h4>
               <button 
                 onClick={() => setShowConfig(false)}
                 className="p-1.5 hover:bg-muted rounded-full"
@@ -106,7 +106,7 @@ export const ChartConfig = ({
             
             <div className="space-y-4 flex-1 overflow-auto">
               <div>
-                <label className="block text-sm font-medium mb-1">Titre</label>
+                <label className="block text-sm font-medium mb-1">Title</label>
                 <EditableField
                   value={title}
                   onSave={(value) => onTitleChange && onTitleChange(value.toString())}
@@ -134,7 +134,7 @@ export const ChartConfig = ({
                       onChange={(e) => handleOptionChange('showLegend', e.target.checked)}
                       className="mr-2"
                     />
-                    Afficher la légende
+                    Show legend
                   </label>
                 </div>
                 
@@ -146,7 +146,7 @@ export const ChartConfig = ({
                       onChange={(e) => handleOptionChange('showGrid', e.target.checked)}
                       className="mr-2"
                     />
-                    Afficher la grille
+                    Show grid
                   </label>
                 </div>
                 
@@ -158,13 +158,13 @@ export const ChartConfig = ({
                       onChange={(e) => handleOptionChange('showTooltip', e.target.checked)}
                       className="mr-2"
                     />
-                    Afficher les infobulles
+                    Show tooltips
                   </label>
                 </div>
               </div>
               
               <div>
-                <label className="block text-sm font-medium mb-2">Couleurs du graphique</label>
+                <label className="block text-sm font-medium mb-2">Chart colors</label>
                 <div className="flex flex-wrap gap-2">
                   {currentOptions.chartColors?.map((color, index) => (
                     <div key={index} className="relative">
@@ -186,7 +186,7 @@ export const ChartConfig = ({
                 className="px-4 py-2 bg-agri-primary text-white rounded-lg flex items-center"
               >
                 <Check className="h-4 w-4 mr-2" />
-                Appliquer
+                Apply
               </button>
             </div>
           </div>

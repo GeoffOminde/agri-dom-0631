@@ -51,10 +51,10 @@ const FinancialDataFilter: React.FC<FinancialDataFilterProps> = ({
       <div className="flex flex-col xs:flex-row justify-between items-start xs:items-center gap-2 md:gap-4 mb-3 md:mb-4">
         <h3 className="text-sm md:text-base font-medium flex items-center gap-1 md:gap-2">
           <Filter className="h-3.5 w-3.5 md:h-4 md:w-4" />
-          Filtres
+          Filters
           {hasActiveFilters && (
             <Badge variant="secondary" className="ml-1 md:ml-2 text-xs">
-              {activeFilters} actif{activeFilters > 1 ? 's' : ''}
+              {activeFilters} active{activeFilters > 1 ? 's' : ''}
             </Badge>
           )}
         </h3>
@@ -68,7 +68,7 @@ const FinancialDataFilter: React.FC<FinancialDataFilterProps> = ({
               className="text-xs h-7 md:h-8"
             >
               <RefreshCw className="h-3 w-3 mr-1" />
-              {!isMobile && "Actualiser"}
+              {!isMobile && "Refresh"}
             </Button>
           )}
           
@@ -80,7 +80,7 @@ const FinancialDataFilter: React.FC<FinancialDataFilterProps> = ({
               className="text-xs text-muted-foreground hover:text-foreground h-7 md:h-8"
             >
               <X className="h-3 w-3 mr-1" />
-              {!isMobile && "Effacer"}
+              {!isMobile && "Clear"}
             </Button>
           )}
         </div>
@@ -88,32 +88,32 @@ const FinancialDataFilter: React.FC<FinancialDataFilterProps> = ({
       
       <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
         <div className="space-y-1">
-          <label className="text-xs font-medium">Période</label>
+          <label className="text-xs font-medium">Period</label>
           <Select value={timeFrame} onValueChange={setTimeFrame}>
             <SelectTrigger className="h-8 md:h-10 text-xs md:text-sm">
-              <SelectValue placeholder="Période" />
+              <SelectValue placeholder="Period" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Toutes les périodes</SelectItem>
-              <SelectItem value="month">Mois en cours</SelectItem>
-              <SelectItem value="quarter">Trimestre en cours</SelectItem>
-              <SelectItem value="year">Année en cours</SelectItem>
-              <SelectItem value="custom">Période personnalisée</SelectItem>
+              <SelectItem value="all">All periods</SelectItem>
+              <SelectItem value="month">Current month</SelectItem>
+              <SelectItem value="quarter">Current quarter</SelectItem>
+              <SelectItem value="year">Current year</SelectItem>
+              <SelectItem value="custom">Custom period</SelectItem>
             </SelectContent>
           </Select>
         </div>
         
         {categories.length > 0 && setCategoryFilter && (
           <div className="space-y-1">
-            <label className="text-xs font-medium">Catégorie</label>
+            <label className="text-xs font-medium">Category</label>
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
               <SelectTrigger className="h-8 md:h-10 text-xs md:text-sm">
-                <SelectValue placeholder="Catégorie" />
+                <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((cat) => (
                   <SelectItem key={cat} value={cat}>
-                    {cat === 'all' ? 'Toutes catégories' : cat}
+                    {cat === 'all' ? 'All categories' : cat}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -138,7 +138,7 @@ const FinancialDataFilter: React.FC<FinancialDataFilterProps> = ({
           <Calendar className="h-3 w-3 mr-1 text-muted-foreground" />
           <span className="text-muted-foreground">
             {format(dateRange.from, 'dd/MM/yyyy', { locale: fr })} 
-            {" au "} 
+            {" to "} 
             {format(dateRange.to, 'dd/MM/yyyy', { locale: fr })}
           </span>
         </div>

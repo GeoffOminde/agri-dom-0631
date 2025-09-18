@@ -1,7 +1,7 @@
 
 import * as React from "react"
 import { addDays, format } from "date-fns"
-import { fr } from "date-fns/locale"
+import { enUS } from "date-fns/locale"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { DateRange } from "react-day-picker"
 
@@ -28,11 +28,11 @@ export function DatePickerWithRange({
   setDate,
   className,
   align = "start",
-  placeholderText = "Sélectionner des dates",
+  placeholderText = "Select dates",
   presets = [
-    { label: "7 jours", days: 7 },
-    { label: "30 jours", days: 30 },
-    { label: "90 jours", days: 90 }
+    { label: "7 days", days: 7 },
+    { label: "30 days", days: 30 },
+    { label: "90 days", days: 90 }
   ]
 }: DatePickerWithRangeProps) {
   return (
@@ -51,11 +51,11 @@ export function DatePickerWithRange({
             {date?.from ? (
               date.to ? (
                 <>
-                  {format(date.from, "dd/MM/yyyy", { locale: fr })} -{" "}
-                  {format(date.to, "dd/MM/yyyy", { locale: fr })}
+                  {format(date.from, "dd/MM/yyyy", { locale: enUS })} -{" "}
+                  {format(date.to, "dd/MM/yyyy", { locale: enUS })}
                 </>
               ) : (
-                format(date.from, "dd/MM/yyyy", { locale: fr })
+                format(date.from, "dd/MM/yyyy", { locale: enUS })
               )
             ) : (
               <span>{placeholderText}</span>
@@ -70,7 +70,7 @@ export function DatePickerWithRange({
             selected={date}
             onSelect={setDate}
             numberOfMonths={2}
-            locale={fr}
+            locale={enUS}
           />
           <div className="flex justify-end gap-2 p-3 border-t">
             <Button 
@@ -79,7 +79,7 @@ export function DatePickerWithRange({
               onClick={() => setDate(undefined)}
               className="text-xs"
             >
-              Effacer
+              Clear
             </Button>
             {presets.map((preset, i) => (
               <Button 
