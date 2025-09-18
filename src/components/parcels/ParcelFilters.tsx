@@ -53,9 +53,10 @@ const ParcelFilters = ({
   const [tempAreaRange, setTempAreaRange] = useState<[number, number]>(areaRange);
   const { settings: { locale } } = useAppSettings();
   const dfLocale = useMemo(() => {
-    // Fallback to enGB to avoid missing locale bundles
+    // Fallback to enGB to avoid missing locale bundles for date-fns.
+    // TODO: Add dynamic locale loading when more are supported.
     return enGB;
-  }, [locale]);
+  }, []);
 
   const handleAreaRangeChange = (newValues: number[]) => {
     setTempAreaRange([newValues[0], newValues[1]]);

@@ -9,9 +9,7 @@
   "sw_ke": "Kiswahili (Kenya)",
 
   "parcels_title": "Usimamizi wa Mashamba",
-  "parcels_description": "Simamia, pangilia na boresha mashamba yako yote ya kilimo"
-
-  ,
+  "parcels_description": "Simamia, pangilia na boresha mashamba yako yote ya kilimo",
   "status_growing": "Inakua",
   "status_harvested": "Imevunwa",
   "status_planned": "Imepangwa",
@@ -64,5 +62,21 @@
   "wed": "Jtn",
   "thu": "Alh",
   "fri": "Iju",
-  "sat": "Jmo"
+  "sat": "Jmo",
+  "yield_tha": "Mavuno (t/ha)",
+  "start_date": "Tarehe ya kuanza",
+  "end_date": "Tarehe ya kumaliza",
+  "activity": "Shughuli",
+  "harvest_tracking": "Ufuatiliaji wa Mavuno",
+  "export": "Hamisha",
+  "export_csv": "Hamisha CSV",
+  "export_excel": "Hamisha Excel",
+  "export_pdf": "Hamisha PDF",
+  "sync": "Sanidi",
+  "filter": "Chuja",
+  "specific_crops": "Mazao Maalum",
+  "plan": "Panga",
+  "planning": "Mipango",
+  "crop_management_title": "Usimamizi wa Mazao",
+  "crop_management_desc": "Simamia mazao yako ya kitropiki na fuatilia mavuno yake"
 }

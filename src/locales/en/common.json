@@ -9,9 +9,8 @@
   "sw_ke": "Swahili (Kenya)",
 
   "parcels_title": "Parcel Management",
-  "parcels_description": "Manage, organize and optimize all your agricultural parcels"
+  "parcels_description": "Manage, organize and optimize all your agricultural parcels",
 
-  ,
   "status_growing": "Growing",
   "status_harvested": "Harvested",
   "status_planned": "Planned",
@@ -64,5 +63,21 @@
   "wed": "Wed",
   "thu": "Thu",
   "fri": "Fri",
-  "sat": "Sat"
+  "sat": "Sat",
+  "yield_tha": "Yield (t/ha)",
+  "start_date": "Start date",
+  "end_date": "End date",
+  "activity": "Activity",
+  "harvest_tracking": "Harvest Tracking",
+  "export": "Export",
+  "export_csv": "Export CSV",
+  "export_excel": "Export Excel",
+  "export_pdf": "Export PDF",
+  "sync": "Sync",
+  "filter": "Filter",
+  "specific_crops": "Specific Crops",
+  "plan": "Plan",
+  "planning": "Planning",
+  "crop_management_title": "Crop Management",
+  "crop_management_desc": "Manage your tropical crops and track their yield"
 }

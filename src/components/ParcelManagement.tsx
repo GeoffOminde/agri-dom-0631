@@ -468,11 +468,127 @@ const ParcelManagement = () => {
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Add a new parcel</h2>
             <button 
-              className="p-1.5 hover:bg-gray-100 rounded"
+              className="p-1.5 hover:bg-muted rounded"
               onClick={() => setShowAddParcelForm(false)}
             >
               <X className="h-4 w-4 text-muted-foreground" />
             </button>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="space-y-3">
+              <div>
+                <label className="text-sm text-muted-foreground">Name</label>
+                <input
+                  type="text"
+                  className="w-full px-3 py-2 border border-input rounded-md mt-1"
+                  value={newParcel.name || ''}
+                  onChange={(e) => handleNewParcelInputChange('name', e.target.value)}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm text-muted-foreground">Area (ha)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    className="w-full px-3 py-2 border border-input rounded-md mt-1"
+                    value={newParcel.area || 0}
+                    onChange={(e) => handleNewParcelInputChange('area', e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-muted-foreground">Last activity</label>
+                  <input
+                    type="date"
+                    className="w-full px-3 py-2 border border-input rounded-md mt-1"
+                    value={newParcel.lastActivity || ''}
+                    onChange={(e) => handleNewParcelInputChange('lastActivity', e.target.value)}
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground">Crop</label>
+                <input
+                  type="text"
+                  className="w-full px-3 py-2 border border-input rounded-md mt-1"
+                  value={newParcel.crop || ''}
+                  onChange={(e) => handleNewParcelInputChange('crop', e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground">Soil type</label>
+                <input
+                  type="text"
+                  className="w-full px-3 py-2 border border-input rounded-md mt-1"
+                  value={newParcel.soilType || ''}
+                  onChange={(e) => handleNewParcelInputChange('soilType', e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="text-sm text-muted-foreground">Status</label>
+                <div className="flex gap-2 mt-1">
+                  <button
+                    type="button"
+                    className={`px-3 py-1.5 text-xs rounded-md ${newParcel.status === 'active' ? 'bg-agri-success text-white' : 'bg-muted'}`}
+                    onClick={() => handleNewParcelStatusChange('active')}
+                  >
+                    Active
+                  </button>
+                  <button
+                    type="button"
+                    className={`px-3 py-1.5 text-xs rounded-md ${newParcel.status === 'planned' ? 'bg-agri-warning text-white' : 'bg-muted'}`}
+                    onClick={() => handleNewParcelStatusChange('planned')}
+                  >
+                    Planned
+                  </button>
+                  <button
+                    type="button"
+                    className={`px-3 py-1.5 text-xs rounded-md ${newParcel.status === 'inactive' ? 'bg-agri-danger text-white' : 'bg-muted'}`}
+                    onClick={() => handleNewParcelStatusChange('inactive')}
+                  >
+                    Inactive
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <label className="text-sm text-muted-foreground block">Location</label>
+              <div className="rounded-lg border">
+                <ParcelMap
+                  coordinates={newParcel.coordinates}
+                  parcelName={newParcel.name || 'New Parcel'}
+                  isEditing={true}
+                  onCoordinatesChange={handleNewParcelCoordinatesChange}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm text-muted-foreground">Latitude</label>
+                  <input
+                    type="number"
+                    className="w-full px-3 py-2 border border-input rounded-md mt-1"
+                    value={newParcel.coordinates?.lat ?? 0}
+                    onChange={(e) => handleNewParcelCoordinatesChange({ lat: Number(e.target.value), lng: newParcel.coordinates?.lng ?? 0 })}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-muted-foreground">Longitude</label>
+                  <input
+                    type="number"
+                    className="w-full px-3 py-2 border border-input rounded-md mt-1"
+                    value={newParcel.coordinates?.lng ?? 0}
+                    onChange={(e) => handleNewParcelCoordinatesChange({ lat: newParcel.coordinates?.lat ?? 0, lng: Number(e.target.value) })}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-end gap-3 mt-4">
+            <Button variant="outline" onClick={() => setShowAddParcelForm(false)}>Cancel</Button>
+            <Button onClick={handleSaveNewParcel}>
+              <Plus className="h-4 w-4 mr-2" />
+              Save parcel
+            </Button>
           </div>
         </div>
       )}
