@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useAppSettings } from '@/contexts/AppSettingsContext';
 import { useTranslation } from 'react-i18next';
 
@@ -237,6 +237,8 @@ const CropPlanning = () => {
     priority: 'medium',
     completed: false
   });
+  const lastCropId = useRef<number>(Math.max(0, ...initialCropsData.map(c => c.id)) || 0);
+  const lastTaskId = useRef<number>(Math.max(0, ...initialCropTasks.map(t => t.id)) || 0);
   const [newCrop, setNewCrop] = useState<Partial<CropData>>({
     name: '',
     variety: '',
@@ -320,7 +322,8 @@ const CropPlanning = () => {
       ));
       toast.success('Crop updated successfully');
     } else if (newCrop.name && newCrop.parcel) {
-      const newId = Math.max(0, ...cropsData.map(c => c.id)) + 1;
+      lastCropId.current += 1;
+      const newId = lastCropId.current;
       setCropsData([...cropsData, { 
         id: newId,
         name: newCrop.name || '',
@@ -345,7 +348,8 @@ const CropPlanning = () => {
       return;
     }
 
-    const newId = Math.max(0, ...cropTasks.map(t => t.id)) + 1;
+    lastTaskId.current += 1;
+    const newId = lastTaskId.current;
     const taskToAdd = {
       id: newId,
       cropId: Number(newTask.cropId),
