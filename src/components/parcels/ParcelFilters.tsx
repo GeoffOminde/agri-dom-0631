@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Search, Filter, Calendar, SlidersHorizontal } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { 
@@ -19,7 +19,8 @@ import { Slider } from '@/components/ui/slider';
 import { DateRange } from 'react-day-picker';
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { format } from 'date-fns';
-import { fr } from 'date-fns/locale';
+import { enGB } from 'date-fns/locale';
+import { useAppSettings } from '@/contexts/AppSettingsContext';
 
 interface ParcelFiltersProps {
   searchTerm: string;
@@ -50,6 +51,11 @@ const ParcelFilters = ({
 }: ParcelFiltersProps) => {
   const [isAdvancedFiltersOpen, setIsAdvancedFiltersOpen] = useState(false);
   const [tempAreaRange, setTempAreaRange] = useState<[number, number]>(areaRange);
+  const { settings: { locale } } = useAppSettings();
+  const dfLocale = useMemo(() => {
+    // Fallback to enGB to avoid missing locale bundles
+    return enGB;
+  }, [locale]);
 
   const handleAreaRangeChange = (newValues: number[]) => {
     setTempAreaRange([newValues[0], newValues[1]]);
@@ -131,7 +137,7 @@ const ParcelFilters = ({
               selected={dateRange}
               onSelect={setDateRange}
               numberOfMonths={2}
-              locale={fr}
+              locale={dfLocale}
               className="p-3 pointer-events-auto"
             />
           </PopoverContent>

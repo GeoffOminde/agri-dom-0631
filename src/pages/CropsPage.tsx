@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import PageLayout from '../components/layout/PageLayout';
 import HarvestTracking from '../components/HarvestTracking';
 import SpecificCrops from '../components/SpecificCrops';
@@ -22,6 +23,7 @@ import { useCRM } from '@/contexts/CRMContext';
 const CropsPage = () => {
   const [activeTab, setActiveTab] = useState<string>('harvest');
   const { getModuleData } = useCRM();
+  const { t } = useTranslation('common');
   
   // Get harvest data for preview/print
   const harvestData = getModuleData('cultures').items || [];
@@ -29,23 +31,23 @@ const CropsPage = () => {
   // Print columns for different tabs
   const printColumns = {
     harvest: [
-      { key: "nom", header: "Crop" },
-      { key: "rendement", header: "Yield (t/ha)" },
-      { key: "surface", header: "Area (ha)" },
-      { key: "date", header: "Harvest date" }
+      { key: "nom", header: t('crop') },
+      { key: "rendement", header: t('yield_tha') },
+      { key: "surface", header: t('area_ha') },
+      { key: "date", header: t('harvest_date') }
     ],
     specific: [
-      { key: "nom", header: "Name" },
-      { key: "variete", header: "Variety" },
-      { key: "dateDebut", header: "Start date" },
-      { key: "dateFin", header: "End date" }
+      { key: "nom", header: t('name') },
+      { key: "variete", header: t('variety') },
+      { key: "dateDebut", header: t('start_date') },
+      { key: "dateFin", header: t('end_date') }
     ],
     planning: [
-      { key: "nom", header: "Crop" },
-      { key: "activite", header: "Activity" },
-      { key: "dateDebut", header: "Start date" },
-      { key: "dateFin", header: "End date" },
-      { key: "statut", header: "Status" }
+      { key: "nom", header: t('crop') },
+      { key: "activite", header: t('activity') },
+      { key: "dateDebut", header: t('start_date') },
+      { key: "dateFin", header: t('end_date') },
+      { key: "statut", header: t('status') }
     ]
   };
 
@@ -58,7 +60,7 @@ const CropsPage = () => {
             <PreviewPrintButton 
               data={harvestData}
               moduleName="harvest"
-              title="Harvest Tracking"
+              title={t('harvest_tracking')}
               columns={printColumns.harvest}
               variant="outline"
             />
@@ -67,27 +69,27 @@ const CropsPage = () => {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="flex items-center gap-2 transition-colors">
                   <Download className="h-4 w-4" />
-                  Export
+                  {t('export')}
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-white border shadow-lg">
+              <DropdownMenuContent align="end" className="bg-card border shadow-lg">
                 <DropdownMenuItem 
                   onClick={() => console.log("Export CSV of harvest data")}
                   className="cursor-pointer"
                 >
-                  Export CSV
+                  {t('export_csv')}
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   onClick={() => console.log("Export Excel of harvest data")}
                   className="cursor-pointer"
                 >
-                  Export Excel
+                  {t('export_excel')}
                 </DropdownMenuItem>
                 <DropdownMenuItem 
                   onClick={() => console.log("Export PDF of harvest data")}
                   className="cursor-pointer"
                 >
-                  Export PDF
+                  {t('export_pdf')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -100,7 +102,7 @@ const CropsPage = () => {
               }}
             >
               <RefreshCw className="h-4 w-4" />
-              Sync
+              {t('sync')}
             </Button>
             <Button 
               variant="outline" 
@@ -110,7 +112,7 @@ const CropsPage = () => {
               }}
             >
               <Filter className="h-4 w-4" />
-              Filter
+              {t('filter')}
             </Button>
           </div>
         );
@@ -120,7 +122,7 @@ const CropsPage = () => {
             <PreviewPrintButton 
               data={getModuleData('cultures').items || []}
               moduleName="cultures"
-              title="Specific Crops"
+              title={t('specific_crops')}
               columns={printColumns.specific}
               variant="outline"
             />
@@ -132,7 +134,7 @@ const CropsPage = () => {
               }}
             >
               <Plus className="h-4 w-4" />
-              Add
+              {t('add')}
             </Button>
             <Button 
               variant="outline" 
@@ -142,7 +144,7 @@ const CropsPage = () => {
               }}
             >
               <Download className="h-4 w-4" />
-              Export
+              {t('export')}
             </Button>
           </div>
         );
@@ -152,7 +154,7 @@ const CropsPage = () => {
             <PreviewPrintButton 
               data={[]}
               moduleName="planning"
-              title="Crop Planning"
+              title={t('crop_planning_title')}
               columns={printColumns.planning}
               variant="outline"
             />
@@ -165,7 +167,7 @@ const CropsPage = () => {
               }}
             >
               <CalendarRange className="h-4 w-4" />
-              Plan
+              {t('plan')}
             </Button>
             <Button 
               className="flex items-center gap-2 transition-colors"
@@ -174,7 +176,7 @@ const CropsPage = () => {
               }}
             >
               <Plus className="h-4 w-4" />
-              New task
+              {t('new_task')}
             </Button>
           </div>
         );
@@ -199,17 +201,17 @@ const CropsPage = () => {
   const tabs: TabItem[] = [
     {
       value: 'harvest',
-      label: 'Harvest Tracking',
+      label: t('harvest_tracking'),
       content: <HarvestTracking />
     },
     {
       value: 'specific',
-      label: 'Specific Crops',
+      label: t('specific_crops'),
       content: <SpecificCrops />
     },
     {
       value: 'planning',
-      label: 'Planning',
+      label: t('planning'),
       content: <CropPlanning />
     }
   ];
@@ -226,9 +228,9 @@ const CropsPage = () => {
           >
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
               <div>
-                <h1 className="text-3xl font-bold">Crop Management</h1>
+                <h1 className="text-3xl font-bold">{t('crop_management_title')}</h1>
                 <p className="text-muted-foreground">
-                  Manage your tropical crops and track their yield
+                  {t('crop_management_desc')}
                 </p>
               </div>
               {getTabActions()}

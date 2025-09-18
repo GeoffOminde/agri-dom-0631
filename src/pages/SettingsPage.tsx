@@ -1,5 +1,6 @@
 import React from 'react';
 import i18n from '@/i18n';
+import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/layout/PageLayout';
 import PageHeader from '@/components/layout/PageHeader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,13 +9,14 @@ import { Label } from '@/components/ui/label';
 import { useAppSettings } from '@/contexts/AppSettingsContext';
 
 const SettingsPage: React.FC = () => {
+  const { t } = useTranslation('common');
   const { settings, updateSetting } = useAppSettings();
 
   return (
     <PageLayout>
       <PageHeader
-        title="Settings"
-        description="Configure your application preferences"
+        title={t('settings')}
+        description={t('settings_description')}
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -48,13 +50,13 @@ const SettingsPage: React.FC = () => {
                 onChange={(e) => {
                   const nextLocale = e.target.value;
                   updateSetting('locale', nextLocale);
-                  // Map full locale to i18n short code
-                  const lang = nextLocale.startsWith('sw') ? 'sw' : 'en';
+                  // Map full locale to base language code
+                  const lang = (nextLocale || 'en').split('-')[0];
                   void i18n.changeLanguage(lang);
                 }}
               >
-                <option value="en-GB">English (United Kingdom)</option>
-                <option value="sw-KE">Kiswahili (Kenya)</option>
+                <option value="en-GB">{t('en_gb')}</option>
+                <option value="sw-KE">{t('sw_ke')}</option>
               </select>
             </div>
           </CardContent>

@@ -1,24 +1,5 @@
-  // Set default coordinates from user geolocation for new parcels
-  useEffect(() => {
-    if (newParcel.coordinates && newParcel.coordinates.lat !== 0 && newParcel.coordinates.lng !== 0) return;
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const { latitude, longitude } = pos.coords;
-          setNewParcel((prev) => ({
-            ...prev,
-            coordinates: { lat: latitude, lng: longitude }
-          }));
-        },
-        () => {
-          // leave as 0,0 if permission denied
-        }
-      );
-    }
-  }, []);
-
-
 import React, { useState, useEffect } from 'react';
+import { useAppSettings } from '@/contexts/AppSettingsContext';
 import { 
   MapPin, 
   Layers, 
@@ -147,6 +128,7 @@ const ParcelCard = ({
   onEdit: (parcel: ParcelData) => void,
   onDelete: (id: number) => void
 }) => {
+  const { settings: { locale } } = useAppSettings();
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'active': return 'bg-agri-success';
@@ -167,7 +149,7 @@ const ParcelCard = ({
 
   return (
     <div 
-      className="border rounded-xl p-4 bg-white hover:shadow-md transition-shadow cursor-pointer card-hover"
+      className="border rounded-xl p-4 bg-card hover:shadow-md transition-shadow cursor-pointer card-hover"
       onClick={() => onSelect(parcel)}
     >
       <div className="flex justify-between items-start mb-3">
@@ -185,7 +167,7 @@ const ParcelCard = ({
         </div>
         <div className="flex items-center">
           <Calendar className="h-4 w-4 mr-1.5" />
-          <span>{new Date(parcel.lastActivity).toLocaleDateString('en-GB')}</span>
+          <span>{new Date(parcel.lastActivity).toLocaleDateString(locale)}</span>
         </div>
         <div className="col-span-2 mt-1 py-1 px-2 bg-agri-primary/5 rounded-md text-center">
           <span className="text-agri-primary font-medium">{parcel.crop}</span>
@@ -226,6 +208,7 @@ const ParcelCard = ({
 };
 
 const ParcelManagement = () => {
+  const { settings: { locale } } = useAppSettings();
   const [parcels, setParcels] = useState<ParcelData[]>(initialParcelData);
   const [selectedParcel, setSelectedParcel] = useState<ParcelData | null>(null);
   const [editingParcel, setEditingParcel] = useState<ParcelData | null>(null);
@@ -246,6 +229,25 @@ const ParcelManagement = () => {
     coordinates: { lat: 0, lng: 0 }
   });
   const [parcelNotes, setParcelNotes] = useState<string>('');
+  
+  // Set default coordinates from user geolocation for new parcels (moved inside component)
+  useEffect(() => {
+    if (newParcel.coordinates && (newParcel.coordinates.lat !== 0 || newParcel.coordinates.lng !== 0)) return;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          setNewParcel((prev) => ({
+            ...prev,
+            coordinates: { lat: latitude, lng: longitude }
+          }));
+        },
+        () => {
+          // leave as 0,0 if permission denied
+        }
+      );
+    }
+  }, []);
   
   // Filter parcels based on search term and filter
   const filteredParcels = parcels.filter(parcel => {
@@ -462,7 +464,7 @@ const ParcelManagement = () => {
   return (
     <div className="space-y-6">
       {showAddParcelForm && (
-        <div className="mb-6 border rounded-xl p-4 bg-white">
+        <div className="mb-6 border rounded-xl p-4 bg-card">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">Add a new parcel</h2>
             <button 
@@ -472,118 +474,15 @@ const ParcelManagement = () => {
               <X className="h-4 w-4 text-muted-foreground" />
             </button>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-1">Name</label>
-                  <input 
-                    type="text" 
-                    value={newParcel.name || ''} 
-                    onChange={(e) => handleNewParcelInputChange('name', e.target.value)}
-                    className="w-full px-3 py-2 border border-input rounded-md"
-                    placeholder="Parcel name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-1">Area (ha)</label>
-                  <input 
-                    type="number" 
-                    value={newParcel.area || ''} 
-                    onChange={(e) => handleNewParcelInputChange('area', e.target.value)}
-                    className="w-full px-3 py-2 border border-input rounded-md"
-                    placeholder="Area in hectares"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-1">Crop</label>
-                  <input 
-                    type="text" 
-                    value={newParcel.crop || ''} 
-                    onChange={(e) => handleNewParcelInputChange('crop', e.target.value)}
-                    className="w-full px-3 py-2 border border-input rounded-md"
-                    placeholder="Main crop"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-1">Soil type</label>
-                  <input 
-                    type="text" 
-                    value={newParcel.soilType || ''} 
-                    onChange={(e) => handleNewParcelInputChange('soilType', e.target.value)}
-                    className="w-full px-3 py-2 border border-input rounded-md"
-                    placeholder="Soil type"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-1">Last activity</label>
-                  <input 
-                    type="date" 
-                    value={newParcel.lastActivity || ''} 
-                    onChange={(e) => handleNewParcelInputChange('lastActivity', e.target.value)}
-                    className="w-full px-3 py-2 border border-input rounded-md"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-muted-foreground mb-1">Status</label>
-                  <div className="flex space-x-2 mt-1">
-                    <button 
-                      className={`px-3 py-1.5 text-xs rounded-md ${newParcel.status === 'active' ? 'bg-agri-success text-white' : 'bg-muted'}`}
-                      onClick={() => handleNewParcelStatusChange('active')}
-                    >
-                      Active
-                    </button>
-                    <button 
-                      className={`px-3 py-1.5 text-xs rounded-md ${newParcel.status === 'planned' ? 'bg-agri-warning text-white' : 'bg-muted'}`}
-                      onClick={() => handleNewParcelStatusChange('planned')}
-                    >
-                      Planned
-                    </button>
-                    <button 
-                      className={`px-3 py-1.5 text-xs rounded-md ${newParcel.status === 'inactive' ? 'bg-agri-danger text-white' : 'bg-muted'}`}
-                      onClick={() => handleNewParcelStatusChange('inactive')}
-                    >
-                      Inactive
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-muted-foreground mb-1">Map position</label>
-              <ParcelMap 
-                coordinates={newParcel.coordinates || { lat: 45.4390, lng: 4.3885 }}
-                parcelName={newParcel.name || "New parcel"}
-                isEditing={true}
-                onCoordinatesChange={handleNewParcelCoordinatesChange}
-              />
-            </div>
-          </div>
-          
-          <div className="flex justify-end">
-            <button 
-              className="mr-2 px-4 py-2 border rounded-lg hover:bg-muted"
-              onClick={() => setShowAddParcelForm(false)}
-            >
-              Cancel
-            </button>
-            <button 
-              className="px-4 py-2 bg-agri-primary text-white rounded-lg hover:bg-agri-primary-dark"
-              onClick={handleSaveNewParcel}
-            >
-              Create
-            </button>
-          </div>
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
         {/* Left Column - Parcel List */}
         <div className="lg:col-span-1 space-y-4">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-medium">Parcel list</h2>
-            
             <div className="flex space-x-2">
               <Button variant="outline" size="sm" onClick={handleBulkExport}>
                 <Download className="h-4 w-4 mr-1" />
@@ -595,7 +494,7 @@ const ParcelManagement = () => {
               </Button>
             </div>
           </div>
-          
+
           <div className="flex gap-3 mb-4">
             <div className="relative flex-grow">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -622,7 +521,7 @@ const ParcelManagement = () => {
               </Select>
             </div>
           </div>
-          
+
           {/* Sorting options */}
           <div className="flex flex-wrap gap-2 mb-4">
             <Button 
@@ -689,7 +588,7 @@ const ParcelManagement = () => {
               </div>
             )}
           </div>
-          
+
           <Button 
             className="w-full mt-4" 
             onClick={handleAddParcel}
@@ -802,7 +701,7 @@ const ParcelManagement = () => {
                     ) : (
                       <div className="bg-agri-primary/10 rounded-lg p-3 text-center">
                         <span className="font-semibold text-agri-primary">{selectedParcel.crop}</span>
-                        <p className="text-sm mt-1">Last activity: {new Date(selectedParcel.lastActivity).toLocaleDateString('en-GB')}</p>
+                        <p className="text-sm mt-1">Last activity: {new Date(selectedParcel.lastActivity).toLocaleDateString(locale)}</p>
                       </div>
                     )}
                   </div>

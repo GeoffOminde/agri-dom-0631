@@ -39,34 +39,34 @@ const Index = () => {
           <div className="flex flex-wrap gap-3">
             <Button 
               variant="outline" 
-              className="flex items-center gap-2 bg-white border-gray-200 hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-2 bg-card border border-border hover:bg-muted transition-colors"
               onClick={syncDataAcrossCRM}
             >
-              <RefreshCw className={`h-4 w-4 text-gray-600 ${isRefreshing ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`h-4 w-4 text-muted-foreground ${isRefreshing ? 'animate-spin' : ''}`} />
               Sync
             </Button>
             <Button
               variant="outline"
-              className="flex items-center gap-2 bg-white border-gray-200 hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-2 bg-card border border-border hover:bg-muted transition-colors"
               onClick={() => handleExportData('dashboard')}
             >
-              <Download className="h-4 w-4 text-gray-600" />
+              <Download className="h-4 w-4 text-muted-foreground" />
               Export
             </Button>
             <Button
               variant="outline"
-              className="flex items-center gap-2 bg-white border-gray-200 hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-2 bg-card border border-border hover:bg-muted transition-colors"
               onClick={() => handleImportData()}
             >
-              <Upload className="h-4 w-4 text-gray-600" />
+              <Upload className="h-4 w-4 text-muted-foreground" />
               Import
             </Button>
             <Button
               variant="outline"
-              className="flex items-center gap-2 bg-white border-gray-200 hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-2 bg-card border border-border hover:bg-muted transition-colors"
               onClick={() => handlePrintData('dashboard')}
             >
-              <Printer className="h-4 w-4 text-gray-600" />
+              <Printer className="h-4 w-4 text-muted-foreground" />
               Print
             </Button>
           </div>
@@ -76,18 +76,18 @@ const Index = () => {
           <div className="flex flex-wrap gap-3">
             <Button 
               variant="outline" 
-              className="flex items-center gap-2 bg-white border-gray-200 hover:bg-gray-50"
+              className="flex items-center gap-2 bg-card border border-border hover:bg-muted"
               onClick={() => handleExportData('harvest')}
             >
-              <Download className="h-4 w-4 text-gray-600" />
+              <Download className="h-4 w-4 text-muted-foreground" />
               Export
             </Button>
             <Button
               variant="outline"
-              className="flex items-center gap-2 bg-white border-gray-200 hover:bg-gray-50"
+              className="flex items-center gap-2 bg-card border border-border hover:bg-muted"
               onClick={() => handlePrintData('harvest')}
             >
-              <Printer className="h-4 w-4 text-gray-600" />
+              <Printer className="h-4 w-4 text-muted-foreground" />
               Print
             </Button>
           </div>
@@ -97,17 +97,17 @@ const Index = () => {
           <div className="flex flex-wrap gap-3">
             <Button 
               variant="outline" 
-              className="flex items-center gap-2 bg-white border-gray-200 hover:bg-gray-50"
+              className="flex items-center gap-2 bg-card border border-border hover:bg-muted"
               onClick={() => handleExportData('weather')}
             >
-              <Download className="h-4 w-4 text-gray-600" />
+              <Download className="h-4 w-4 text-muted-foreground" />
               Export
             </Button>
             <Button 
               variant="outline" 
-              className="flex items-center gap-2 bg-white border-gray-200 hover:bg-gray-50"
+              className="flex items-center gap-2 bg-card border border-border hover:bg-muted"
             >
-              <Filter className="h-4 w-4 text-gray-600" />
+              <Filter className="h-4 w-4 text-muted-foreground" />
               Configure
             </Button>
           </div>
@@ -123,18 +123,18 @@ const Index = () => {
             </Button>
             <Button
               variant="outline"
-              className="flex items-center gap-2 bg-white border-gray-200 hover:bg-gray-50"
+              className="flex items-center gap-2 bg-card border border-border hover:bg-muted"
               onClick={() => handleExportData('tasks')}
             >
-              <Download className="h-4 w-4 text-gray-600" />
+              <Download className="h-4 w-4 text-muted-foreground" />
               Export
             </Button>
             <Button
               variant="outline"
-              className="flex items-center gap-2 bg-white border-gray-200 hover:bg-gray-50"
+              className="flex items-center gap-2 bg-card border border-border hover:bg-muted"
               onClick={() => handlePrintData('tasks')}
             >
-              <Printer className="h-4 w-4 text-gray-600" />
+              <Printer className="h-4 w-4 text-muted-foreground" />
               Print
             </Button>
           </div>
@@ -246,8 +246,8 @@ const Index = () => {
         <div className="p-6 animate-enter">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-800">Agri Dom Dashboard</h1>
-              <p className="text-gray-500">
+              <h1 className="text-3xl font-bold text-foreground">Agri Dom Dashboard</h1>
+              <p className="text-muted-foreground">
                 Welcome, {userName} | Last sync: {lastSync.toLocaleTimeString()}
               </p>
             </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { EditableField } from './ui/editable-field';
 import { EditableTable, Column } from './ui/editable-table';
 import { CloudLightning, CloudRain, Wind, Thermometer, Sun, AlertTriangle, Filter, Calendar, PlusCircle, ArrowDown, ArrowUp } from 'lucide-react';
@@ -97,6 +97,8 @@ const WeatherAlerts = () => {
       status: 'Planned'
     },
   ]);
+  // Use a monotonically increasing counter to ensure unique IDs
+  const lastId = useRef<number>(Math.max(0, ...weatherAlerts.map(a => a.id)) || 0);
   
   const columns: Column[] = [
     { id: 'date', header: 'Date', accessorKey: 'date', isEditable: true },
@@ -147,8 +149,8 @@ const WeatherAlerts = () => {
   };
   
   const onSubmit = (data: z.infer<typeof alertFormSchema>) => {
-    const newId = Math.max(0, ...weatherAlerts.map(item => item.id)) + 1;
-    const newAlert: WeatherAlert = { id: newId, ...data };
+    lastId.current += 1;
+    const newAlert: WeatherAlert = { id: lastId.current, ...data };
     setWeatherAlerts([...weatherAlerts, newAlert]);
     setDialogOpen(false);
     form.reset();

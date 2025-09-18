@@ -171,7 +171,7 @@ const ParcelsPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="mb-6 p-4 bg-white rounded-xl border border-muted"
+          className="mb-6 p-4 bg-card rounded-xl border border-muted"
         >
           <div className="flex items-center mb-2">
             <FileSpreadsheet className="h-5 w-5 mr-2 text-agri-primary" />
