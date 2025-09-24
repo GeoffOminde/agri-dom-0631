@@ -771,4 +771,6 @@ const FinancePage = () => {
     </AppSettingsProvider>
   );
 
+};
+
 export default FinancePage;
