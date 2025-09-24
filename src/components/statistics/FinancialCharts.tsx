@@ -26,7 +26,7 @@ const FinancialCharts = () => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Profitability per parcel (€/ha)</CardTitle>
+          <CardTitle>Profitability per parcel (KSh/ha)</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-[400px]">
@@ -46,8 +46,8 @@ const FinancialCharts = () => {
                   type="number" 
                   dataKey="profitability" 
                   name="Profitability" 
-                  unit=" €/ha" 
-                  label={{ value: 'Profitability (€/ha)', angle: -90, position: 'insideLeft' }} 
+                  unit=" KSh/ha" 
+                  label={{ value: 'Profitability (KSh/ha)', angle: -90, position: 'insideLeft' }} 
                 />
                 <ZAxis 
                   type="category" 
@@ -58,7 +58,7 @@ const FinancialCharts = () => {
                 <Tooltip 
                   cursor={{ strokeDasharray: '3 3' }} 
                   formatter={(value, name, props) => {
-                    if (name === 'Profitability') return [`${value} €/ha`, name as string];
+                    if (name === 'Profitability') return [`${value} KSh/ha`, name as string];
                     if (name === 'Size') return [`${value} ha`, name as string];
                     return [value as any, name as string];
                   }}
@@ -69,7 +69,7 @@ const FinancialCharts = () => {
                           <p className="font-medium">{payload[2]?.payload.name}</p>
                           <p>Crop: {payload[2]?.value}</p>
                           <p>Size: {payload[0]?.value} ha</p>
-                          <p>Profitability: {payload[1]?.value} €/ha</p>
+                          <p>Profitability: {payload[1]?.value} KSh/ha</p>
                         </div>
                       );
                     }
@@ -108,7 +108,7 @@ const FinancialCharts = () => {
                     tick={{ fontSize: 12 }} 
                     width={80} 
                   />
-                  <Tooltip formatter={(value) => [new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(value as number), 'Amount']} />
+                  <Tooltip formatter={(value) => [new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(value as number), 'Amount']} />
                   <Bar 
                     dataKey="value" 
                     fill="#8D6E63" 
@@ -135,7 +135,7 @@ const FinancialCharts = () => {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="month" />
                   <YAxis />
-                  <Tooltip formatter={(value) => [new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(Number(value)), '']} />
+                  <Tooltip formatter={(value) => [new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(Number(value)), '']} />
                   <Legend />
                   <Line type="monotone" dataKey="revenue" name="Revenue" stroke="#4CAF50" activeDot={{ r: 8 }} />
                   <Line type="monotone" dataKey="expenses" name="Expenses" stroke="#F44336" />
@@ -154,8 +154,8 @@ const FinancialCharts = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="border rounded-lg p-4">
-              <p className="text-sm text-muted-foreground mb-1">EBE (EBITDA)</p>
-              <p className="text-2xl font-semibold">{new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(42500)}</p>
+              <p className="text-sm text-muted-foreground mb-1">EBITDA</p>
+              <p className="text-2xl font-semibold">{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(42500)}</p>
               <p className="text-xs text-green-600">32% of revenue</p>
             </div>
             <div className="border rounded-lg p-4">

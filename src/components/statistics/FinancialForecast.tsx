@@ -141,7 +141,7 @@ const FinancialForecast = () => {
                   <YAxis />
                   <Tooltip 
                     formatter={(value, name) => {
-                      const fmt = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' });
+                      const fmt = new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' });
                       if (name === "forecast") return [fmt.format(Number(value)), "Forecast"];
                       if (name === "previous") return [fmt.format(Number(value)), "Previous year"];
                       return [fmt.format(Number(value)), String(name)];
@@ -185,7 +185,7 @@ const FinancialForecast = () => {
                   <XAxis dataKey="month" />
                   <YAxis />
                   <Tooltip 
-                    formatter={(value) => [new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(Number(value)), '']}
+                    formatter={(value) => [new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(Number(value)), '']}
                   />
                   <Legend />
                   <ReferenceLine y={0} stroke="#000" />
@@ -280,7 +280,7 @@ const FinancialForecast = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
               <div className="p-4 border rounded-lg">
                 <p className="text-muted-foreground text-sm font-medium mb-1">Projected operating result</p>
-                <p className="text-xl font-bold">{new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(98600)}</p>
+                <p className="text-xl font-bold">{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(98600)}</p>
                 <div className="flex items-center space-x-1 text-green-600 text-xs">
                   <TrendingUp className="h-3 w-3" />
                   <span>+12% vs previous year</span>
@@ -289,7 +289,7 @@ const FinancialForecast = () => {
               
               <div className="p-4 border rounded-lg">
                 <p className="text-muted-foreground text-sm font-medium mb-1">Projected end-of-year cash</p>
-                <p className="text-xl font-bold">{new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(166900)}</p>
+                <p className="text-xl font-bold">{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(166900)}</p>
                 <div className="flex items-center space-x-1 text-green-600 text-xs">
                   <TrendingUp className="h-3 w-3" />
                   <span>+32% vs previous year</span>
