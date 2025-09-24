@@ -15,12 +15,12 @@ export const formatDate = (date: Date | string): string => {
 };
 
 /**
- * Format currency with euro symbol
+ * Format currency with Kenyan Shilling
  */
 export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('en-GB', {
+  return new Intl.NumberFormat('en-KE', {
     style: 'currency',
-    currency: 'EUR',
+    currency: 'KES',
     minimumFractionDigits: 2
   }).format(amount);
 };

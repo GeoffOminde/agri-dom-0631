@@ -196,9 +196,9 @@ const FinancialTracking = () => {
         <body>
           <h1>Financial Transactions</h1>
           <div class="summary">
-            <p>Total income: <b>${new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(totalIncome)}</b></p>
-            <p>Total expenses: <b>${new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(totalExpenses)}</b></p>
-            <p>Balance: <b class="${balance >= 0 ? 'income' : 'expense'}">${new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(balance)}</b></p>
+            <p>Total income: <b>${new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(totalIncome)}</b></p>
+            <p>Total expenses: <b>${new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(totalExpenses)}</b></p>
+            <p>Balance: <b class="${balance >= 0 ? 'income' : 'expense'}">${new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(balance)}</b></p>
           </div>
           <table>
             <thead>
@@ -258,7 +258,7 @@ const FinancialTracking = () => {
             <CardDescription>Total inflows</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-green-600">{new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(totalIncome)}</p>
+            <p className="text-2xl font-bold text-green-600">{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(totalIncome)}</p>
           </CardContent>
         </Card>
         
@@ -268,7 +268,7 @@ const FinancialTracking = () => {
             <CardDescription>Total outflows</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-red-600">{new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(totalExpenses)}</p>
+            <p className="text-2xl font-bold text-red-600">{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(totalExpenses)}</p>
           </CardContent>
         </Card>
         
@@ -279,7 +279,7 @@ const FinancialTracking = () => {
           </CardHeader>
           <CardContent>
             <p className={`text-2xl font-bold ${balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(balance)}
+              {new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(balance)}
             </p>
           </CardContent>
         </Card>
@@ -301,7 +301,7 @@ const FinancialTracking = () => {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip 
-                    formatter={(value) => [new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(Number(value)), '']} 
+                    formatter={(value) => [new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(Number(value)), '']} 
                     labelFormatter={(label) => `Month: ${label}`}
                   />
                   <Bar name="Income" dataKey="income" fill="#4ade80" radius={[4, 4, 0, 0]} />
@@ -509,7 +509,7 @@ const FinancialTracking = () => {
                   name="amount"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Amount (€)</FormLabel>
+                      <FormLabel>Amount (KSh)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 

@@ -3,7 +3,14 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 interface AppSettings {
   darkMode: boolean;
   locale: string;
-  // Add other settings here
+  farm?: {
+    lat: number;
+    lng: number;
+  };
+  market?: {
+    crop: string;
+    location: string;
+  };
 }
 
 interface AppSettingsContextType {
@@ -15,7 +22,8 @@ interface AppSettingsContextType {
 const defaultSettings: AppSettings = {
   darkMode: false,
   locale: 'en-GB',
-  // Default values for other settings
+  farm: { lat: -1.286389, lng: 36.817223 }, // Nairobi default
+  market: { crop: 'Maize', location: 'Nairobi' },
 };
 
 const AppSettingsContext = createContext<AppSettingsContextType>({
@@ -40,23 +48,17 @@ export const AppSettingsProvider: React.FC<AppSettingsProviderProps> = ({ childr
     }));
   };
 
-  // Fix the updateNestedSetting function with proper typing
   const updateNestedSetting = (section: string, key: string, value: any) => {
     setSettings((prevSettings) => {
       // Create a copy of the current settings
       const updatedSettings = { ...prevSettings };
       
-      // Safely handle the nested section
-      const sectionData = updatedSettings[section] as Record<string, any>;
-      
-      // If the section exists, update it
-      if (sectionData) {
-        // Create a new object for the section to avoid direct mutation
-        updatedSettings[section] = {
-          ...sectionData,
-          [key]: value
-        };
-      }
+      // Ensure the nested section exists then update it
+      const sectionData = (updatedSettings as any)[section] as Record<string, any> | undefined;
+      updatedSettings[section as keyof AppSettings] = {
+        ...(sectionData || {}),
+        [key]: value,
+      } as any;
       
       return updatedSettings;
     });

@@ -6,10 +6,13 @@ import { ChartConfig } from '../components/ui/chart-config';
 import { EditableTable, Column } from '../components/ui/editable-table';
 import { EditableField } from '../components/ui/editable-field';
 import { StatisticsProvider } from '../contexts/StatisticsContext';
-import { BarChart, PieChart, TrendingUp, Download, Filter, RefreshCw, Bell, Printer, Eye } from 'lucide-react';
+import { BarChart, PieChart, TrendingUp, Download, Filter, RefreshCw, Bell, Printer, Eye, Settings } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import AdvisoriesPanel from '@/components/advisories/AdvisoriesPanel';
 import PreviewPrintButton from '@/components/common/PreviewPrintButton';
+import { AppSettingsProvider } from '@/contexts/AppSettingsContext';
+import AppSettingsDialog from '@/components/settings/AppSettingsDialog';
 
 interface PerformanceData {
   name: string;
@@ -25,6 +28,7 @@ const StatsPage = () => {
   const [lastSyncDate, setLastSyncDate] = useState<Date>(new Date());
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const [connectedModules, setConnectedModules] = useState<string[]>(['parcels', 'crops', 'finances']);
+  const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
   
   const [performanceData, setPerformanceData] = useState<PerformanceData[]>([
     { name: 'Sugarcane Yield', current: 75, target: 85, unit: 't/ha' },
@@ -127,6 +131,7 @@ const StatsPage = () => {
   };
 
   return (
+    <AppSettingsProvider>
     <StatisticsProvider>
       <div className="flex h-screen overflow-hidden bg-background">
         <Navbar />
@@ -241,6 +246,14 @@ const StatsPage = () => {
                   <Bell className="h-4 w-4 mr-1.5" />
                   Alerts
                 </button>
+
+                <button
+                  onClick={() => setSettingsOpen(true)}
+                  className="px-3 py-1.5 rounded-md flex items-center text-sm bg-muted hover:bg-muted/80 transition-colors"
+                >
+                  <Settings className="h-4 w-4 mr-1.5" />
+                  Settings
+                </button>
               </div>
             </motion.header>
             
@@ -295,13 +308,18 @@ const StatsPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <Statistics />
+                <div className="space-y-6">
+                  <Statistics />
+                  <AdvisoriesPanel />
+                </div>
               </motion.div>
             )}
+            <AppSettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
           </div>
         </motion.div>
       </div>
     </StatisticsProvider>
+    </AppSettingsProvider>
   );
 };
 

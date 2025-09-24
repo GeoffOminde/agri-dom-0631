@@ -5,7 +5,7 @@ import PageHeader from '../components/layout/PageHeader';
 import usePageMetadata from '../hooks/use-page-metadata';
 import TabContainer, { TabItem } from '../components/layout/TabContainer';
 import { Button } from "@/components/ui/button";
-import { Download, Upload, PieChart, BarChart, CreditCard, DollarSign, Filter, CalendarRange, Plus, FileText } from 'lucide-react';
+import { Download, Upload, PieChart, BarChart, CreditCard, DollarSign, Filter, CalendarRange, Plus, FileText, Settings } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -21,8 +21,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import FinancialCharts from '../components/statistics/FinancialCharts';
 import FinancialForecast from '../components/statistics/FinancialForecast';
 import BudgetPlanning from '../components/BudgetPlanning';
+import MarketOutlook from '@/components/market/MarketOutlook';
 import { toast } from 'sonner';
 import { StatisticsProvider } from '../contexts/StatisticsContext';
+import { AppSettingsProvider } from '@/contexts/AppSettingsContext';
+import AppSettingsDialog from '@/components/settings/AppSettingsDialog';
 
 const FinancePage = () => {
   const { toast: shadowToast } = useToast();
@@ -50,6 +53,7 @@ const FinancePage = () => {
   const [budgetTitle, setBudgetTitle] = useState('Budget Management');
   const [budgetDescription, setBudgetDescription] = useState('Plan and track your budget to optimize spending');
   const [importDialogOpen, setImportDialogOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [showAddIncomeForm, setShowAddIncomeForm] = useState(false);
   const [showAddExpenseForm, setShowAddExpenseForm] = useState(false);
   const [reportGenerating, setReportGenerating] = useState(false);
@@ -137,6 +141,11 @@ const FinancePage = () => {
         <Button variant="outline" onClick={handleImportData}>
           <Upload className="mr-2 h-4 w-4" />
           Import
+        </Button>
+        
+        <Button variant="outline" onClick={() => setSettingsOpen(true)}>
+          <Settings className="mr-2 h-4 w-4" />
+          Settings
         </Button>
         
         <Button 
@@ -234,6 +243,7 @@ const FinancePage = () => {
         <StatisticsProvider>
           <div className="space-y-6">
             <FinancialTracking />
+            <MarketOutlook />
             <FinancialCharts />
           </div>
         </StatisticsProvider>
@@ -278,7 +288,7 @@ const FinancePage = () => {
                 <CardDescription>Sales of agricultural products</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(45860)}</div>
+                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(45860)}</div>
                 <p className="text-sm text-green-600 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-1">
                     <path fillRule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586l3.293-3.293A1 1 0 0114 7h-2z" clipRule="evenodd" />
@@ -300,13 +310,13 @@ const FinancePage = () => {
             <Card className="hover:shadow-md transition-shadow cursor-pointer" onClick={() => handleCardDetailClick('PAC')}>
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg flex items-center">
-                  <Badge className="mr-2 bg-blue-100 text-blue-800 hover:bg-blue-200">Subventions</Badge> 
-                  PAC
+                  <Badge className="mr-2 bg-blue-100 text-blue-800 hover:bg-blue-200">Subsidies</Badge> 
+                  Subsidies
                 </CardTitle>
                 <CardDescription>Agricultural aid and subsidies</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(18500)}</div>
+                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(18500)}</div>
                 <p className="text-sm text-blue-600 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-1">
                     <path fillRule="evenodd" d="M1 10a5 5 0 015-5h8a5 5 0 015 5v8a1 1 0 01-2 0v-8z" clipRule="evenodd" />
@@ -334,7 +344,7 @@ const FinancePage = () => {
                 <CardDescription>Rentals, visits, services</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(7250)}</div>
+                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(7250)}</div>
                 <p className="text-sm text-purple-600 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-1">
                     <path fillRule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586l3.293-3.293A1 1 0 0114 7h-2z" clipRule="evenodd" />
@@ -424,7 +434,7 @@ const FinancePage = () => {
                 <CardDescription>Production purchases</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(12750)}</div>
+                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(12750)}</div>
                 <p className="text-sm text-red-600 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-1">
                     <path fillRule="evenodd" d="M12 13a1 1 0 100-2H7.414l1.293-1.293a1 1 0 10-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L7.414 13H12z" clipRule="evenodd" />
@@ -452,7 +462,7 @@ const FinancePage = () => {
                 <CardDescription>Machines and tools</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(23600)}</div>
+                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(23600)}</div>
                 <p className="text-sm text-green-600 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-1">
                     <path fillRule="evenodd" d="M8 7a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H4a1 1 0 110-2h3V8a1 1 0 011-1z" clipRule="evenodd" />
@@ -480,7 +490,7 @@ const FinancePage = () => {
                 <CardDescription>Salaries, contractors</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'EUR' }).format(15320)}</div>
+                <div className="text-2xl font-bold">{new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(15320)}</div>
                 <p className="text-sm text-red-600 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-1">
                     <path fillRule="evenodd" d="M12 13a1 1 0 100-2H7.414l1.293-1.293a1 1 0 10-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L7.414 13H12z" clipRule="evenodd" />
@@ -509,8 +519,8 @@ const FinancePage = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All categories</SelectItem>
-                <SelectItem value="intrants">Inputs</SelectItem>
-                <SelectItem value="equipement">Equipment</SelectItem>
+                <SelectItem value="inputs">Inputs</SelectItem>
+                <SelectItem value="equipment">Equipment</SelectItem>
                 <SelectItem value="services">Services</SelectItem>
                 <SelectItem value="administrative">Administrative</SelectItem>
               </SelectContent>
@@ -737,25 +747,28 @@ const FinancePage = () => {
   ];
 
   return (
-    <PageLayout>
-      <PageHeader 
-        title={title}
-        description={description}
-        onTitleChange={handleTitleChange}
-        onDescriptionChange={handleDescriptionChange}
-      />
-      
-      <div className="mb-6">
-        {renderHeaderActions()}
-      </div>
-      
-      <TabContainer 
-        tabs={tabs} 
-        defaultValue={activeTab}
-        onValueChange={handleTabChange}
-      />
-    </PageLayout>
+    <AppSettingsProvider>
+      <PageLayout>
+        <PageHeader 
+          title={title}
+          description={description}
+          onTitleChange={handleTitleChange}
+          onDescriptionChange={handleDescriptionChange}
+        />
+
+        <div className="mb-6">
+          {renderHeaderActions()}
+        </div>
+
+        <TabContainer 
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
+        />
+
+        <AppSettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
+      </PageLayout>
+    </AppSettingsProvider>
   );
-};
 
 export default FinancePage;

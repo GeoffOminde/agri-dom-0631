@@ -47,7 +47,7 @@ const StatCards: React.FC<StatCardsProps> = ({
                   type="number"
                   onSave={handleRevenueChange}
                   className="inline-block"
-                /> €
+                /> KSh
               </p>
               <span className="text-green-600 text-sm font-medium flex items-center ml-3">
                 <TrendingUp className="h-4 w-4 mr-1" /> +

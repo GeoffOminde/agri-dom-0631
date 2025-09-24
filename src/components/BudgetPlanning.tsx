@@ -204,11 +204,11 @@ const BudgetPlanning = () => {
               <div className="pt-4 space-y-2">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Planned budget:</span>
-                  <span className="font-medium">{totalPlanned.toLocaleString(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                  <span className="font-medium">{totalPlanned.toLocaleString('en-KE', { style: 'currency', currency: 'KES', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Spent:</span>
-                  <span className="font-medium">{totalActual.toLocaleString(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                  <span className="font-medium">{totalActual.toLocaleString('en-KE', { style: 'currency', currency: 'KES', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
                 </div>
                 <div className="flex justify-between pt-2 border-t">
                   <span className="font-medium text-muted-foreground">Balance:</span>
@@ -217,7 +217,7 @@ const BudgetPlanning = () => {
                       totalPlanned - totalActual >= 0 ? 'text-green-600' : 'text-red-600'
                     }`}
                   >
-                    {(totalPlanned - totalActual).toLocaleString(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                    {(totalPlanned - totalActual).toLocaleString('en-KE', { style: 'currency', currency: 'KES', minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                   </span>
                 </div>
               </div>
@@ -253,7 +253,7 @@ const BudgetPlanning = () => {
                   </Pie>
                   <Legend />
                   <Tooltip 
-                    formatter={(value) => new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(Number(value))}
+                    formatter={(value) => new Intl.NumberFormat('en-KE', { style: 'currency', currency: 'KES' }).format(Number(value))}
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -281,8 +281,8 @@ const BudgetPlanning = () => {
               <thead>
                 <tr className="border-b">
                   <th className="text-left py-3 px-4 font-medium">Category</th>
-                  <th className="text-right py-3 px-4 font-medium">Planned budget</th>
-                  <th className="text-right py-3 px-4 font-medium">Spent</th>
+                  <th className="text-right py-3 px-4 font-medium">Planned budget (KSh)</th>
+                  <th className="text-right py-3 px-4 font-medium">Spent (KSh)</th>
                   <th className="text-right py-3 px-4 font-medium">Progress</th>
                   <th className="text-right py-3 px-4 font-medium">Balance</th>
                   <th className="text-right py-3 px-4 font-medium">Status</th>
@@ -303,14 +303,14 @@ const BudgetPlanning = () => {
                           {item.category}
                         </div>
                       </td>
-                      <td className="text-right py-3 px-4">{item.planned.toLocaleString(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</td>
+                      <td className="text-right py-3 px-4">{item.planned.toLocaleString('en-KE', { style: 'currency', currency: 'KES', minimumFractionDigits: 0, maximumFractionDigits: 0 })}</td>
                       <td className="text-right py-3 px-4">
                         <Input
                           className="w-28 text-right py-1 px-2 h-auto inline-block"
                           value={item.actual}
                           onChange={(e) => handleUpdateActual(item.id, e.target.value)}
                         />
-                        €
+                        KSh
                       </td>
                       <td className="text-right py-3 px-4">
                         <div className="flex items-center justify-end">
@@ -324,7 +324,7 @@ const BudgetPlanning = () => {
                         </div>
                       </td>
                       <td className={`text-right py-3 px-4 ${status === 'under' ? 'text-green-600' : 'text-red-600'}`}>
-                        {balance.toLocaleString(locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                        {balance.toLocaleString('en-KE', { style: 'currency', currency: 'KES', minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                       </td>
                       <td className="text-right py-3 px-4">
                         {status === 'under' ? (

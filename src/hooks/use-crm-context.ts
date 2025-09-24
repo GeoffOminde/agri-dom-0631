@@ -59,7 +59,7 @@ export const useCRMContext = (): CRMContextState => {
         { key: "date", header: "Date" },
         { key: "type", header: "Type" },
         { key: "description", header: "Description" },
-        { key: "montant", header: "Amount (€)" }
+        { key: "montant", header: "Amount (KSh)" }
       ]
     },
     statistiques: {
@@ -72,8 +72,8 @@ export const useCRMContext = (): CRMContextState => {
         { key: "periode", header: "Period" },
         { key: "cultureId", header: "Culture ID" },
         { key: "rendement", header: "Yield (t/ha)" },
-        { key: "revenus", header: "Revenue (€)" },
-        { key: "couts", header: "Costs (€)" }
+        { key: "revenus", header: "Revenue (KSh)" },
+        { key: "couts", header: "Costs (KSh)" }
       ]
     },
     inventaire: {
@@ -88,7 +88,7 @@ export const useCRMContext = (): CRMContextState => {
         { key: "categorie", header: "Category" },
         { key: "quantite", header: "Quantity" },
         { key: "unite", header: "Unit" },
-        { key: "prix", header: "Unit price (€)" }
+        { key: "prix", header: "Unit price (KSh)" }
       ]
     }
   });

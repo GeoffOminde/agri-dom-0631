@@ -77,9 +77,9 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({
             </CardDescription>
           </CardHeader>
           <CardContent className="px-3 md:px-6 pb-3 md:pb-6">
-            <p className="text-xl md:text-2xl font-bold text-green-600">{totalIncome.toLocaleString('en-GB', {
+            <p className="text-xl md:text-2xl font-bold text-green-600">{totalIncome.toLocaleString('en-KE', {
               style: 'currency',
-              currency: 'EUR',
+              currency: 'KES',
               minimumFractionDigits: 0,
               maximumFractionDigits: 0
             })}</p>
@@ -116,9 +116,9 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({
             </CardDescription>
           </CardHeader>
           <CardContent className="px-3 md:px-6 pb-3 md:pb-6">
-            <p className="text-xl md:text-2xl font-bold text-red-600">{totalExpenses.toLocaleString('en-GB', {
+            <p className="text-xl md:text-2xl font-bold text-red-600">{totalExpenses.toLocaleString('en-KE', {
               style: 'currency',
-              currency: 'EUR',
+              currency: 'KES',
               minimumFractionDigits: 0,
               maximumFractionDigits: 0
             })}</p>
@@ -156,9 +156,9 @@ const FinancialSummary: React.FC<FinancialSummaryProps> = ({
           </CardHeader>
           <CardContent className="px-3 md:px-6 pb-3 md:pb-6">
             <p className={`text-xl md:text-2xl font-bold ${balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {balance.toLocaleString('en-GB', {
+              {balance.toLocaleString('en-KE', {
                 style: 'currency',
-                currency: 'EUR',
+                currency: 'KES',
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0
               })}

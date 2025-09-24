@@ -504,7 +504,7 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
 
   const tableData = filteredItems.map(item => ({
     ...item,
-    value: `${(item.quantity * item.price).toFixed(2)} €`,
+    value: `${(item.quantity * item.price).toFixed(2)} KSh`,
     status: item.quantity <= item.minQuantity 
       ? item.quantity < item.minQuantity * 0.5 ? 'critical' : 'warning'
       : 'normal'
@@ -680,12 +680,12 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
                           type="number"
                           onSave={(value) => handleUpdateItem(selectedItem.id, 'price', Number(value))}
                         />
-                        <span className="ml-1">€/{selectedItem.unit}</span>
+                        <span className="ml-1">KSh/{selectedItem.unit}</span>
                       </div>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Total value:</span>
-                      <span className="font-medium">{(selectedItem.quantity * selectedItem.price).toFixed(2)} €</span>
+                      <span className="font-medium">{(selectedItem.quantity * selectedItem.price).toFixed(2)} KSh</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Location:</span>

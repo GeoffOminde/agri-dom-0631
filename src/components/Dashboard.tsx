@@ -294,7 +294,7 @@ const Dashboard = () => {
                 type="number"
                 onSave={handleRevenueChange}
                 className="inline-block font-bold"
-              /> €
+              /> KSh
             </p>
             <span className="text-agri-success text-sm font-medium flex items-center">
               <TrendingUp className="h-4 w-4 mr-1" /> +
@@ -529,8 +529,8 @@ const Dashboard = () => {
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f5f5f5" />
                 <XAxis dataKey="month" axisLine={false} tickLine={false} />
-                <YAxis axisLine={false} tickLine={false} tickFormatter={(value) => `${value} €`} />
-                <Tooltip formatter={(value) => [`${value} €`, 'Revenue']} />
+                <YAxis axisLine={false} tickLine={false} tickFormatter={(value) => `${value} KSh`} />
+                <Tooltip formatter={(value) => [`${value} KSh`, 'Revenue']} />
                 <Area 
                   type="monotone" 
                   dataKey="revenue" 
